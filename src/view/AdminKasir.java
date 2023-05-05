@@ -83,7 +83,17 @@ public class AdminKasir extends JFrame {
   
   private JLabel poinDum;
   
-  private Double kembali;
+  public Double poin_total_jual;
+  
+  public Double getPoin_total_jual() {
+	return poin_total_jual;
+}
+
+public void setPoin_total_jual(Double poin_total_jual) {
+	this.poin_total_jual = poin_total_jual;
+}
+
+private Double kembali;
   
   private ControllerJual controllerJ;
   
@@ -950,9 +960,18 @@ public class AdminKasir extends JFrame {
     int k = Integer.valueOf(Integer.parseInt(getJuml())).intValue();
     simpan_dataArr(k * getPoin_barang());
     int stok = getPersedian();
-    double haarga = getHarga_juals().doubleValue();
+    double haarga = 0.0;
+    if(k < 3) {
+        haarga = getHarga_juals().doubleValue();
+    }
+    else if ( k >=3 && k < 10 ) {
+    	haarga = getHarga_diskon().doubleValue();
+    }
     int balanc = Integer.valueOf(Integer.parseInt(getBalance())).intValue();
     System.out.println("tes balance" + balanc);
+    System.out.println(haarga);
+    System.out.println("harga diskon"+  getHarga_diskon().doubleValue());
+
     String s = "";
     boolean exists = false;
     double harg = 0.0D;
@@ -998,7 +1017,18 @@ public class AdminKasir extends JFrame {
     int k = Integer.valueOf(Integer.parseInt(getJuml())).intValue();
     int stok = getPersedian();
     System.out.println("total stok" + stok);
-    double haarga = getHarga_juals().doubleValue();
+    //double haarga = getHarga_juals().doubleValue();
+    double haarga = 2.0;
+    if(k < 3) {
+        haarga = getHarga_juals().doubleValue();
+    }
+    else if ( k >=3 && k < 10 ) {
+    	haarga = getHarga_diskon().doubleValue();
+    }
+    
+    System.out.println("cek"+ haarga);
+    System.out.println("harga diskon"+  getHarga_diskon().doubleValue());
+
     int balanc = Integer.valueOf(Integer.parseInt(getBalance())).intValue();
     String s = "";
     boolean exists = false;
@@ -1061,6 +1091,7 @@ public class AdminKasir extends JFrame {
     int k = Integer.valueOf(Integer.parseInt(getJuml())).intValue();
     if (getPoin_barang() != 0 ) {
         double total = haarga * k / getPoin_barang() + Double.parseDouble(this.poinDum.getText());
+        setPoin_total_jual(total);
         // int total = k * getPoin_barang() + Integer.parseInt(this.poinDum.getText());
          //System.out.println("jumlah poin  =   " + getPoin_barang());
          System.out.println(total);
@@ -1069,6 +1100,7 @@ public class AdminKasir extends JFrame {
     else {
 
         double total = 0 + Double.parseDouble(this.poinDum.getText());
+        setPoin_total_jual(total);
         // int total = k * getPoin_barang() + Integer.parseInt(this.poinDum.getText());
          //System.out.println("jumlah poin  =   " + getPoin_barang());
          System.out.println(total);
@@ -1325,6 +1357,7 @@ public class AdminKasir extends JFrame {
       AdminKasir.this.setJumlahpoindiprint(0);
       AdminKasir.this.setPoinCetak(0);
       AdminKasir.this.setPoint(0.0);
+      AdminKasir.this.setPoin_total_jual(0.0);
       AdminKasir.this.setPoin_barang(0);
       //clearPelanggan();
     }

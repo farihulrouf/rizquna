@@ -83,7 +83,7 @@ public class ControllerJual {
         this.model.setTunai(view.getTunai());
         this.model.setJam(jam_skr);
         this.model.setTotal(Double.valueOf(Math.round(view.getTotal_bayar().doubleValue())));
-        this.model.setPoin(view.getSeluruh_poin());
+        this.model.setPoin(view.getPoin_total_jual());
         this.model.setNama(view.getNama_pelanggan());
       } 
       try {
