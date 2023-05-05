@@ -11,7 +11,7 @@ public class ModelPelanggan {
   
   private String no_hp;
   
-  private int poin;
+  private Double poin;
   
   private String id_pelanggan;
   
@@ -31,11 +31,11 @@ public class ModelPelanggan {
     this.no_hp = no_hp;
   }
   
-  public int getPoin() {
+  public Double getPoin() {
     return this.poin;
   }
   
-  public void setPoin(int poin) {
+  public void setPoin(Double poin) {
     this.poin = poin;
   }
   

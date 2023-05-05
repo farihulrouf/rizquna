@@ -47,7 +47,7 @@ public class TableModelJual extends AbstractTableModel {
       case 2:
         return ((Jual)this.list.get(rowIndex)).getJam();
       case 3:
-        return Integer.valueOf(((Jual)this.list.get(rowIndex)).getPoin());
+        return Double.valueOf(((Jual)this.list.get(rowIndex)).getPoin());
       case 4:
         return ((Jual)this.list.get(rowIndex)).getNama();
     } 

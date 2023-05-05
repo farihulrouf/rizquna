@@ -73,7 +73,7 @@ public class viewCetakUlang extends JDialog {
   
   private String nama_pelanggan;
   
-  private int poin;
+  private Double poin;
   
   private Double penghasilan;
   
@@ -85,11 +85,11 @@ public class viewCetakUlang extends JDialog {
     this.nama_pelanggan = nama_pelanggan;
   }
   
-  public int getPoin() {
+  public Double getPoin() {
     return this.poin;
   }
   
-  public void setPoin(int poin) {
+  public void setPoin(Double poin) {
     this.poin = poin;
   }
   

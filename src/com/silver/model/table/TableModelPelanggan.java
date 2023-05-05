@@ -45,7 +45,7 @@ public class TableModelPelanggan extends AbstractTableModel {
       case 2:
         return ((Pelanggan)this.list.get(rowIndex)).getNo_hp();
       case 3:
-        return Integer.valueOf(((Pelanggan)this.list.get(rowIndex)).getPoin());
+        return Double.valueOf(((Pelanggan)this.list.get(rowIndex)).getPoin());
     } 
     return null;
   }

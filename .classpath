@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
 	<classpathentry kind="src" path="src"/>
-	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.launching.macosx.MacOSXType/JRE [17.0.1]"/>
-	<classpathentry kind="lib" path="/Users/farihulrouf/Downloads/mysql-connector-java-5.1.23-bin.jar"/>
-	<classpathentry kind="lib" path="/Users/farihulrouf/Downloads/simple-escp-0.5/simple-escp-0.5.jar"/>
-	<classpathentry kind="lib" path="/Users/farihulrouf/Downloads/simple-escp-0.5/lib/javax.json-1.0.4.jar"/>
-	<classpathentry kind="lib" path="/Users/farihulrouf/Downloads/simple-escp-0.5/lib/javax.json-api-1.0.jar"/>
-	<classpathentry kind="lib" path="/Users/farihulrouf/Downloads/jcalendar-1.4.jar"/>
-	<classpathentry kind="lib" path="/Users/farihulrouf/Downloads/JTattoo-1.6.13.jar"/>
-	<classpathentry kind="lib" path="/Users/farihulrouf/Downloads/groovy-all-2.1.3.jar"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="lib" path="/Users/mac/eclipse-workspace/library/javax.json-1.0.4.jar"/>
+	<classpathentry kind="lib" path="/Users/mac/eclipse-workspace/library/javax.json-api-1.0.jar"/>
+	<classpathentry kind="lib" path="/Users/mac/eclipse-workspace/library/jcalendar-1.4.jar"/>
+	<classpathentry kind="lib" path="/Users/mac/eclipse-workspace/library/JTattoo-1.6.13.jar"/>
+	<classpathentry kind="lib" path="/Users/mac/eclipse-workspace/library/mysql-connector-java-5.1.23-bin.jar"/>
+	<classpathentry kind="lib" path="/Users/mac/eclipse-workspace/library/simple-escp-0.5.2.jar"/>
+	<classpathentry kind="lib" path="/Users/mac/eclipse-workspace/library/groovy-all-2.1.3.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

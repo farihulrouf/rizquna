@@ -36,7 +36,7 @@ public class ControllerPlanggan {
     } else if (view.getTextPoin().getText().trim().equals("")) {
       JOptionPane.showMessageDialog((Component)view, "Poin belum di isi");
     } else {
-      int poin = Integer.parseInt(view.getTextPoin().getText());
+      Double poin = Double.parseDouble(view.getTextPoin().getText());
       this.model.setId_pelanggan(view.getTextFieldUser().getText());
       this.model.setNama_pelanggan(view.getTextField_1().getText());
       this.model.setNo_hp(view.getPasswordField().getText());
@@ -61,7 +61,7 @@ public class ControllerPlanggan {
     } else if (view.getTextPoin().getText().trim().equals("")) {
       JOptionPane.showMessageDialog((Component)view, "Poin belum di isi");
     } else {
-      int poin = Integer.parseInt(view.getTextPoin().getText());
+      Double poin = Double.parseDouble(view.getTextPoin().getText());
       this.model.setId_pelanggan(view.getTextFieldUser().getText());
       this.model.setNama_pelanggan(view.getTextField_1().getText());
       this.model.setNo_hp(view.getPasswordField().getText());

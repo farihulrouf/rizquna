@@ -109,11 +109,11 @@ public class AdminKasir extends JFrame {
   
   private Double total_reni;
   
-  private int point;
+  private Double point;
   
   private JLabel totalPoinPelanggan;
   
-  private int seluruh_poin;
+  private double seluruh_poin;
   
   private int total_poin;
   
@@ -133,11 +133,11 @@ public class AdminKasir extends JFrame {
     this.poinCetak = poinCetak;
   }
   
-  public int getSeluruh_poin() {
+  public Double getSeluruh_poin() {
     return this.seluruh_poin;
   }
   
-  public void setSeluruh_poin(int seluruh_poin) {
+  public void setSeluruh_poin(double seluruh_poin) {
     this.seluruh_poin = seluruh_poin;
   }
   
@@ -161,7 +161,7 @@ public class AdminKasir extends JFrame {
   
   private String nama_pelanggan;
   
-  public int getPoint() {
+  public Double getPoint() {
     return this.point;
   }
   
@@ -173,7 +173,7 @@ public class AdminKasir extends JFrame {
     this.id_pelanggan = id_pelanggan;
   }
   
-  public void setPoint(int point) {
+  public void setPoint(Double point) {
     this.point = point;
   }
   
@@ -223,7 +223,7 @@ public class AdminKasir extends JFrame {
   
   private int no_jual;
   
-  int jumlahpoindiprint;
+  double jumlahpoindiprint;
   
   public String getUser_name() {
     return this.user_name;
@@ -245,11 +245,11 @@ public class AdminKasir extends JFrame {
     return this.tanggal_tutup;
   }
   
-  public int getJumlahpoindiprint() {
+  public Double getJumlahpoindiprint() {
     return this.jumlahpoindiprint;
   }
   
-  public void setJumlahpoindiprint(int jumlahpoindiprint) {
+  public void setJumlahpoindiprint(double jumlahpoindiprint) {
     this.jumlahpoindiprint = jumlahpoindiprint;
   }
   
@@ -1055,10 +1055,26 @@ public class AdminKasir extends JFrame {
   }
   
   private void hitung_poin() {
+	 // getHarga_juals().doubleValue();
+
+	double haarga = getHarga_juals().doubleValue();
     int k = Integer.valueOf(Integer.parseInt(getJuml())).intValue();
-    int total = k * getPoin_barang() + Integer.parseInt(this.poinDum.getText());
-    System.out.println("jumlah poin  =   " + getPoin_barang());
-    this.poinDum.setText((new StringBuilder(String.valueOf(total))).toString());
+    if (getPoin_barang() != 0 ) {
+        double total = haarga * k / getPoin_barang() + Double.parseDouble(this.poinDum.getText());
+        // int total = k * getPoin_barang() + Integer.parseInt(this.poinDum.getText());
+         //System.out.println("jumlah poin  =   " + getPoin_barang());
+         System.out.println(total);
+         this.poinDum.setText((new StringBuilder(String.valueOf(total))).toString());
+    }
+    else {
+
+        double total = 0 + Double.parseDouble(this.poinDum.getText());
+        // int total = k * getPoin_barang() + Integer.parseInt(this.poinDum.getText());
+         //System.out.println("jumlah poin  =   " + getPoin_barang());
+         System.out.println(total);
+         this.poinDum.setText((new StringBuilder(String.valueOf(total))).toString());
+    	
+    }
   }
   
   private void cari() throws SQLException {
@@ -1088,7 +1104,7 @@ public class AdminKasir extends JFrame {
   private void cariPelanggan() throws SQLException {
     Connection konek = Koneksi.getKoneksi();
     Statement state = konek.createStatement();
-    String sql = "select id, nama, hp, poins from pelangaan WHERE id = '" + 
+    String sql = "select id, nama, hp, poins from pelanggan WHERE id = '" + 
       
       this.textPelanggan.getText() + "'";
     ResultSet rs = state.executeQuery(sql);
@@ -1096,7 +1112,7 @@ public class AdminKasir extends JFrame {
       setId_pelanggan(rs.getString(1));
       setNama_pelanggan(rs.getString(2));
       setNo_hp(rs.getString(3));
-      setPoint(rs.getInt(4));
+      setPoint(rs.getDouble(4));
     } 
     rs.close();
     state.close();
@@ -1207,9 +1223,9 @@ public class AdminKasir extends JFrame {
     String idPelanggan = this.textPelanggan.getText();
     if (idPelanggan != "") {
       Connection konek = Koneksi.getKoneksi();
-      Integer i = Integer.valueOf(this.poinDum.getText());
-      Integer j = Integer.valueOf(this.totalPoinPelanggan.getText());
-      int poin = i.intValue() + j.intValue();
+      double i = Double.valueOf(this.poinDum.getText());
+      double j = Double.valueOf(this.totalPoinPelanggan.getText());
+      double poin = i + j;
       setJumlahpoindiprint(poin);
       String sql = "UPDATE pelanggan SET poin='" + poin + "'WHERE id = '" + idPelanggan + "'";
       try {
@@ -1272,7 +1288,7 @@ public class AdminKasir extends JFrame {
       SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("dd-MM-yyyy");
       String tanggal = DATE_FORMAT.format(tgl);
       int x = 0;
-      int jumlahPoin = AdminKasir.this.getJumlahpoindiprint();
+      double jumlahPoin = AdminKasir.this.getJumlahpoindiprint();
       System.out.println("Test Total Poin" + jumlahPoin);
       x = AdminKasir.this.getNo_jual() - 1;
       if (AdminKasir.this.getNama_pelanggan() == null || AdminKasir.this.getNama_pelanggan() == "") {
@@ -1305,10 +1321,10 @@ public class AdminKasir extends JFrame {
       } catch (Exception ex) {
         ex.printStackTrace();
       } 
-      simpleEscp.print((Template)jsonTemplate1, dataSource);
+      //simpleEscp.print((Template)jsonTemplate1, dataSource);
       AdminKasir.this.setJumlahpoindiprint(0);
       AdminKasir.this.setPoinCetak(0);
-      AdminKasir.this.setPoint(0);
+      AdminKasir.this.setPoint(0.0);
       AdminKasir.this.setPoin_barang(0);
       //clearPelanggan();
     }
@@ -1342,7 +1358,7 @@ public class AdminKasir extends JFrame {
         setKembali(y);
         convertArray();
         if (this.textPelanggan.getText() == "")
-          setPoint(0); 
+          setPoint(0.0); 
         UpdatePoinPelanggan();
         this.controllerJ.insertJuals(this);
         this.conttrollerD.setNo_transaksi(this.controllerJ.getNo_trans());
@@ -1463,7 +1479,7 @@ public class AdminKasir extends JFrame {
       if (view.getBarcode() != "") {
         this.textPelanggan.setText(view.getBarcode());
         this.lblNamaPelanggan.setText(view.getNama_barang());
-        this.totalPoinPelanggan.setText(Integer.toString(view.getPoin()));
+        this.totalPoinPelanggan.setText(Double.toString(view.getPoin()));
         setId_pelanggan(view.getBarcode());
         setNama_pelanggan(view.getNama_barang());
         setPoint(view.getPoin());
@@ -1477,7 +1493,7 @@ public class AdminKasir extends JFrame {
     this.lblNamaPelanggan.setText("");
     setSeluruh_poin(0);
     setNama_pelanggan("");
-    setPoint(0);
+    setPoint(0.0);
     this.totalPoinPelanggan.setText("0");
   }
   

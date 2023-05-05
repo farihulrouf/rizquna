@@ -31,7 +31,7 @@ public class implemenJual implements DaoJual {
       statement.setDouble(5, jual.getTunai().doubleValue());
       statement.setDouble(6, jual.getTotal().doubleValue());
       statement.setString(7, jual.getJam());
-      statement.setInt(8, jual.getPoin());
+      statement.setDouble(8, jual.getPoin());
       statement.setString(9, jual.getNama());
       statement.executeUpdate();
       this.con.commit();

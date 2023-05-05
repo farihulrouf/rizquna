@@ -17,15 +17,15 @@ public class Jual {
   
   private String jam;
   
-  private int poin;
+  private Double poin;
   
   private String nama;
   
-  public int getPoin() {
+  public Double getPoin() {
     return this.poin;
   }
   
-  public void setPoin(int poin) {
+  public void setPoin(double poin) {
     this.poin = poin;
   }
   
@@ -93,14 +93,7 @@ public class Jual {
     this.tanggal = tanggal;
   }
   
-  public int hashCode() {
-    int prime = 31;
-    int result = 1;
-    result = 31 * result + ((this.nama == null) ? 0 : this.nama.hashCode());
-    result = 31 * result + this.poin;
-    return result;
-  }
-  
+
   public boolean equals(Object obj) {
     if (this == obj)
       return true; 

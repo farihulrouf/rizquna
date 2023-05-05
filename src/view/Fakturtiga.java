@@ -18,7 +18,7 @@ public class Fakturtiga {
   
   private String nomorFaktur;
   
-  private int poin;
+  private double poin;
   
   public String getNama() {
     return this.nama;
@@ -44,7 +44,7 @@ public class Fakturtiga {
     return this.kembali;
   }
   
-  public int getPoin() {
+  public Double getPoin() {
     return this.poin;
   }
   
@@ -54,7 +54,7 @@ public class Fakturtiga {
   
   private List<ItemFakturtiga> listItemFaktur = new ArrayList<>();
   
-  public Fakturtiga(String nomorFaktur, String tanggal, String jam, String total, String tunai, String kembali, int poin, String nama) {
+  public Fakturtiga(String nomorFaktur, String tanggal, String jam, String total, String tunai, String kembali, double poin, String nama) {
     this.nomorFaktur = nomorFaktur;
     this.tanggal = tanggal;
     this.total = total;

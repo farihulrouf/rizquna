@@ -57,7 +57,7 @@ public class viewPelanggan extends JDialog {
   
   private String barcode;
   
-  private int poin;
+  private Double poin;
   
   private JTextField textField_1;
   
@@ -117,11 +117,11 @@ public class viewPelanggan extends JDialog {
     this.persediaan = persediaan;
   }
   
-  public int getPoin() {
+  public Double getPoin() {
     return this.poin;
   }
   
-  public void setPoin(int poin) {
+  public void setPoin(Double poin) {
     this.poin = poin;
   }
   

@@ -7,7 +7,7 @@ public class Pelanggan {
   
   private String no_hp;
   
-  private int poin;
+  private Double poin;
   
   public String getId_pelanggan() {
     return this.id_pelanggan;
@@ -33,23 +33,14 @@ public class Pelanggan {
     this.no_hp = no_hp;
   }
   
-  public int getPoin() {
+  public Double getPoin() {
     return this.poin;
   }
   
-  public void setPoin(int poin) {
+  public void setPoin(Double poin) {
     this.poin = poin;
   }
   
-  public int hashCode() {
-    int prime = 31;
-    int result = 1;
-    result = 31 * result + ((this.id_pelanggan == null) ? 0 : this.id_pelanggan.hashCode());
-    result = 31 * result + ((this.nama_pelanggan == null) ? 0 : this.nama_pelanggan.hashCode());
-    result = 31 * result + ((this.no_hp == null) ? 0 : this.no_hp.hashCode());
-    result = 31 * result + this.poin;
-    return result;
-  }
   
   public boolean equals(Object obj) {
     if (this == obj)

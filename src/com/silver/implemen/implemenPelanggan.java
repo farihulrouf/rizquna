@@ -36,7 +36,7 @@ public class implemenPelanggan implements DaoPelanggan {
       statement.setString(1, paramPelanggan.getId_pelanggan());
       statement.setString(2, paramPelanggan.getNama_pelanggan());
       statement.setString(3, paramPelanggan.getNo_hp());
-      statement.setInt(4, paramPelanggan.getPoin());
+      statement.setDouble(4, paramPelanggan.getPoin());
       statement.executeUpdate();
       this.con.commit();
     } catch (SQLException exception) {
@@ -62,7 +62,7 @@ public class implemenPelanggan implements DaoPelanggan {
       statement = this.con.prepareStatement("UPDATE pelanggan SET nama=?,hp=?,poin=? WHERE id=?");
       statement.setString(1, paramPelanggan.getNama_pelanggan());
       statement.setString(2, paramPelanggan.getNo_hp());
-      statement.setInt(3, paramPelanggan.getPoin());
+      statement.setDouble(3, paramPelanggan.getPoin());
       statement.setString(4, paramPelanggan.getId_pelanggan());
       statement.executeUpdate();
       this.con.commit();
@@ -95,7 +95,7 @@ public class implemenPelanggan implements DaoPelanggan {
         pelanggan.setId_pelanggan(result.getNString("id"));
         pelanggan.setNama_pelanggan(result.getString("nama"));
         pelanggan.setNo_hp(result.getString("hp"));
-        pelanggan.setPoin(result.getInt("poin"));
+        pelanggan.setPoin(result.getDouble("poin"));
         list.add(pelanggan);
       } 
       this.con.commit();
@@ -130,7 +130,7 @@ public class implemenPelanggan implements DaoPelanggan {
         pelanggan.setId_pelanggan(result.getNString("id"));
         pelanggan.setNama_pelanggan(result.getString("nama"));
         pelanggan.setNo_hp(result.getString("hp"));
-        pelanggan.setPoin(result.getInt("poin"));
+        pelanggan.setPoin(result.getDouble("poin"));
         list.add(pelanggan);
       } 
       this.con.commit();

@@ -22,15 +22,15 @@ public class ModelJual {
   
   private String jam;
   
-  private int poin;
+  private double poin;
   
   private String nama;
   
-  public int getPoin() {
+  public Double getPoin() {
     return this.poin;
   }
   
-  public void setPoin(int poin) {
+  public void setPoin(double poin) {
     this.poin = poin;
   }
   
