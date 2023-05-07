@@ -74,6 +74,9 @@ public class viewBarang extends JDialog {
   
   private JTextField textField_9;
   
+  private JTextField textField_15;
+  private JTextField textField_16;
+  
   private JLabel lblPpn;
   
   private JLabel lblJumlah;
@@ -185,7 +188,7 @@ public class viewBarang extends JDialog {
   
   public viewBarang() {
     setBackground(new Color(34, 139, 34));
-    setBounds(100, 100, 800, 600);
+    setBounds(100, 100, 900, 700);
     this.controller = new ControllerBarang();
     this.model = new ModelBarang();
     this.controller.setModel(this.model);
@@ -271,7 +274,7 @@ public class viewBarang extends JDialog {
         });
     this.textField_1.setFont(new Font("Dialog", 1, 18));
     this.textField_1.setColumns(10);
-    this.textField_1.setBounds(100, 94, 312, 29);
+    this.textField_1.setBounds(100, 60, 450, 29);
     this.contentPanel.add(this.textField_1);
     /*
     this.textField_2 = new JTextField();
@@ -378,7 +381,7 @@ public class viewBarang extends JDialog {
         });
     this.textField_5.setFont(new Font("Dialog", 1, 18));
     this.textField_5.setColumns(10);
-    this.textField_5.setBounds(100, 129, 318, 29);
+    this.textField_5.setBounds(100, 100, 318, 29);
     this.contentPanel.add(this.textField_5);
     this.textField_6 = new JTextField();
     this.textField_6.addKeyListener(new KeyAdapter() {
@@ -405,7 +408,7 @@ public class viewBarang extends JDialog {
         });
     this.textField_6.setFont(new Font("Dialog", 1, 18));
     this.textField_6.setColumns(10);
-    this.textField_6.setBounds(100, 170, 114, 29);
+    this.textField_6.setBounds(100, 140, 114, 29);
     this.contentPanel.add(this.textField_6);
     this.textField_7 = new JTextField();
     this.textField_7.addKeyListener(new KeyAdapter() {
@@ -432,8 +435,68 @@ public class viewBarang extends JDialog {
         });
     this.textField_7.setFont(new Font("Dialog", 1, 18));
     this.textField_7.setColumns(10);
-    this.textField_7.setBounds(332, 170, 114, 29);
+    this.textField_7.setBounds(332, 140, 114, 29);
     this.contentPanel.add(this.textField_7);
+    
+    this.textField_15 = new JTextField();
+    this.textField_15.addKeyListener(new KeyAdapter() {
+        public void keyPressed(KeyEvent e) {
+          int keyCode = e.getKeyCode();
+          switch (keyCode) {
+            case 38:
+             // viewBarang.this.textField_2.requestFocus();
+              //viewBarang.this.textField.selectAll();
+              break;
+            case 40:
+              //viewBarang.this.textField_5.requestFocus();
+              break;
+            case 37:
+              //viewBarang.this.textField_6.selectAll();
+              //viewBarang.this.textField_6.requestFocus();
+              break;
+            case 39:
+             // viewBarang.this.textField_8.requestFocus();
+             // viewBarang.this.textField_8.selectAll();
+              break;
+          } 
+        }
+      });
+  this.textField_15.setFont(new Font("Dialog", 1, 18));
+  this.textField_15.setColumns(10);
+  this.textField_15.setBounds(332, 180, 114, 29);
+  this.contentPanel.add(this.textField_15);
+  
+  
+  
+  this.textField_16 = new JTextField();
+  this.textField_16.addKeyListener(new KeyAdapter() {
+        public void keyPressed(KeyEvent e) {
+          int keyCode = e.getKeyCode();
+          switch (keyCode) {
+            case 38:
+              //viewBarang.this.textField_7.requestFocus();
+              break;
+            case 40:
+              //viewBarang.this.textField_9.requestFocus();
+              break;
+            case 37:
+             // viewBarang.this.textField_7.selectAll();
+              //viewBarang.this.textField_7.requestFocus();
+              break;
+            case 39:
+              //viewBarang.this.textField_9.requestFocus();
+              break;
+          } 
+        }
+      });
+  this.textField_16.setFont(new Font("Dialog", 1, 18));
+  this.textField_16.setColumns(10);
+  this.textField_16.setBounds(612, 180, 114, 29);
+  this.contentPanel.add(this.textField_16);
+  
+  
+    
+    
     this.textField_8 = new JTextField();
     this.textField_8.addKeyListener(new KeyAdapter() {
           public void keyPressed(KeyEvent e) {
@@ -457,7 +520,7 @@ public class viewBarang extends JDialog {
         });
     this.textField_8.setFont(new Font("Dialog", 1, 18));
     this.textField_8.setColumns(10);
-    this.textField_8.setBounds(612, 170, 114, 29);
+    this.textField_8.setBounds(612, 140, 114, 29);
     this.contentPanel.add(this.textField_8);
     this.textField_9 = new JTextField();
     this.textField_9.setText("0");
@@ -490,7 +553,7 @@ public class viewBarang extends JDialog {
         });
     this.textField_9.setFont(new Font("Dialog", 1, 18));
     this.textField_9.setColumns(10);
-    this.textField_9.setBounds(100, 211, 114, 29);
+    this.textField_9.setBounds(100, 235, 114, 29);
     this.contentPanel.add(this.textField_9);
     //this.lblPpn = new JLabel("ppn");
     //this.lblPpn.setBounds(12, 60, 70, 15);
@@ -502,25 +565,28 @@ public class viewBarang extends JDialog {
     //this.lblTotal.setBounds(502, 60, 70, 15);
     //this.contentPanel.add(this.lblTotal);
     this.lblBarang = new JLabel("Barang");
-    this.lblBarang.setBounds(12, 101, 70, 15);
+    this.lblBarang.setBounds(12, 60, 70, 15);
     this.contentPanel.add(this.lblBarang);
     this.lblHargaBeli = new JLabel("harga beli");
-    this.lblHargaBeli.setBounds(12, 135, 94, 16);
+    this.lblHargaBeli.setBounds(12, 100, 94, 16);
     this.contentPanel.add(this.lblHargaBeli);
     this.lblHargaEcer = new JLabel("harga ecer");
-    this.lblHargaEcer.setBounds(12, 177, 94, 15);
+    
+    
+    
+    this.lblHargaEcer.setBounds(12, 140, 94, 15);
     this.contentPanel.add(this.lblHargaEcer);
     this.lblHargaKulak = new JLabel("Harga Kulak");
-    this.lblHargaKulak.setBounds(232, 177, 94, 15);
+    this.lblHargaKulak.setBounds(232, 140, 94, 15);
     this.contentPanel.add(this.lblHargaKulak);
     this.lblHargaKarton = new JLabel("Harga Karton");
-    this.lblHargaKarton.setBounds(489, 177, 120, 15);
+    this.lblHargaKarton.setBounds(489, 140, 120, 15);
     this.contentPanel.add(this.lblHargaKarton);
     this.lblPersediaan = new JLabel("Persediaan");
-    this.lblPersediaan.setBounds(12, 218, 94, 15);
+    this.lblPersediaan.setBounds(12, 240, 94, 15);
     this.contentPanel.add(this.lblPersediaan);
     this.scrollPane = new JScrollPane();
-    this.scrollPane.setBounds(12, 312, 766, 213);
+    this.scrollPane.setBounds(12, 370, 850, 300);
     this.contentPanel.add(this.scrollPane);
     this.table = new JTable() {
         public Component prepareRenderer(TableCellRenderer renderer, int row, int column) {
@@ -546,7 +612,7 @@ public class viewBarang extends JDialog {
           }
         });
     this.btnTambah.setIcon(new ImageIcon(viewBarang.class.getResource("/com/silver/peratan/image/add-icon.png")));
-    this.btnTambah.setBounds(399, 286, 129, 25);
+    this.btnTambah.setBounds(399, 330, 129, 25);
     this.contentPanel.add(this.btnTambah);
     this.btnUbah = new JButton("Ubah");
     this.btnUbah.addActionListener(new ActionListener() {
@@ -555,7 +621,7 @@ public class viewBarang extends JDialog {
           }
         });
     this.btnUbah.setIcon(new ImageIcon(viewBarang.class.getResource("/com/silver/peratan/image/edit-validated-icon.png")));
-    this.btnUbah.setBounds(270, 287, 117, 25);
+    this.btnUbah.setBounds(270, 330, 117, 25);
     this.contentPanel.add(this.btnUbah);
     this.btnHapus = new JButton("Hapus");
     this.btnHapus.addActionListener(new ActionListener() {
@@ -564,7 +630,7 @@ public class viewBarang extends JDialog {
           }
         });
     this.btnHapus.setIcon(new ImageIcon(viewBarang.class.getResource("/com/silver/peratan/image/Actions-edit-clear-icon.png")));
-    this.btnHapus.setBounds(141, 287, 117, 25);
+    this.btnHapus.setBounds(141, 330, 117, 25);
     this.contentPanel.add(this.btnHapus);
     this.btnReset = new JButton("Reset");
     this.btnReset.addActionListener(new ActionListener() {
@@ -573,7 +639,7 @@ public class viewBarang extends JDialog {
           }
         });
     this.btnReset.setIcon(new ImageIcon(viewBarang.class.getResource("/com/silver/peratan/image/clear.png")));
-    this.btnReset.setBounds(12, 286, 117, 25);
+    this.btnReset.setBounds(12, 330, 117, 25);
     this.contentPanel.add(this.btnReset);
     this.textField_10 = new JTextField();
     this.textField_10.setFont(new Font("Dialog", 0, 25));
@@ -589,18 +655,18 @@ public class viewBarang extends JDialog {
             } 
           }
         });
-    this.textField_10.setBounds(378, 237, 396, 37);
+    this.textField_10.setBounds(60, 280, 600, 37);
     this.contentPanel.add(this.textField_10);
     this.textField_10.setColumns(10);
     this.lblCari = new JLabel("CARI");
-    this.lblCari.setBounds(292, 248, 70, 15);
+    this.lblCari.setBounds(12, 280, 70, 15);
     this.contentPanel.add(this.lblCari);
     this.textField_11 = new JTextField();
     this.textField_11.setBounds(700, 16, 50, 19);
     this.contentPanel.add(this.textField_11);
     this.textField_11.setColumns(10);
     JLabel lblNewLabel = new JLabel("Status Barang");
-    lblNewLabel.setBounds(439, 102, 120, 15);
+    lblNewLabel.setBounds(600, 70, 120, 15);
     this.contentPanel.add(lblNewLabel);
     this.textField_12 = new JTextField();
     this.textField_12.addKeyListener(new KeyAdapter() {
@@ -627,7 +693,7 @@ public class viewBarang extends JDialog {
         });
     this.textField_12.setFont(new Font("Dialog", 1, 18));
     this.textField_12.setColumns(10);
-    this.textField_12.setBounds(612, 100, 62, 29);
+    this.textField_12.setBounds(700, 60, 62, 29);
     this.textField_12.setText("0");
     this.contentPanel.add(this.textField_12);
     this.textField_11.setVisible(false);
