@@ -153,8 +153,8 @@ public class ModelBarang {
     barang.setSatuan("PCS");
     barang.setPersediaan(this.persediaan);
     barang.setBalance(this.balance);
-    barang.setMindiskon(0);
-    barang.setMindiskon2(0);
+    barang.setMindiskon(this.mindiskon);
+    barang.setMindiskon2(this.mindiskon2);
     barang.setPoin(this.poin);
     dao.insertBarang(barang);
     fireOnInsert(barang);
@@ -181,8 +181,8 @@ public class ModelBarang {
     barang.setSatuan("PCS");
     barang.setPersediaan(this.persediaan);
     barang.setBalance(this.balance);
-    barang.setMindiskon(0);
-    barang.setMindiskon2(0);
+    barang.setMindiskon(this.mindiskon);
+    barang.setMindiskon2(this.mindiskon2);
     barang.setPoin(this.poin);
     dao.updateBarang(barang);
     fireOnUpdate(barang);

@@ -169,6 +169,10 @@ public class viewBarang extends JDialog {
     this.textField_7.setText(this.df.format(barang.getHarga_diskon()));
     this.textField_8.setText(this.df.format(barang.getHarga_lain()));
     this.textField_9.setText(this.df.format(barang.getPersediaan()));
+
+    this.textField_15.setText(this.df.format(barang.getMindiskon()));
+
+    this.textField_16.setText(this.df.format(barang.getMindiskon2()));
     this.textPointField.setText(String.valueOf(barang.getPoin()));
     this.textField_12.setText(String.valueOf(barang.getBalance()));
     this.textField_11.setText("1");
@@ -722,6 +726,10 @@ public class viewBarang extends JDialog {
     this.textField_8.setText("");
     this.textField_9.setText("");
     this.textField_10.setText("");
+
+    this.textField_15.setText("");
+
+    this.textField_16.setText("");
     this.textField_12.setText("0");
     this.textPointField.setText("");
     setBarcode(" ");
@@ -827,7 +835,7 @@ public class viewBarang extends JDialog {
     try {
       Connection konek = Koneksi.getKoneksi();
       Statement state = konek.createStatement();
-      String sql = "select nama_barang, harga_jual,harga_diskon,harga_lain,persediaan,balance,mindiskon,mindiskon2,harga_beli,id_kategori,satuan, poins from Barang WHERE kd_barang = '" + 
+      String sql = "select nama_barang, harga_jual,harga_diskon,harga_lain,persediaan,balance,mindiskon,mindiskon2,harga_beli,id_kategori,satuan, poins, mindiskon, mindiskon2 from Barang WHERE kd_barang = '" + 
         
         this.textField.getText() + "'";
       ResultSet rs = state.executeQuery(sql);
@@ -839,6 +847,7 @@ public class viewBarang extends JDialog {
         this.textField_9.setText(String.valueOf(rs.getInt(5)));
         this.textField_5.setText(this.df.format(rs.getDouble(9)));
         this.textField_11.setText("1");
+        this.textField_15.setText(String.valueOf(rs.getInt(5)));
         this.textPointField.setText(String.valueOf(rs.getInt(12)));
         this.textField_12.setText((new StringBuilder(String.valueOf(rs.getInt(6)))).toString());
         benar = false;
@@ -856,7 +865,23 @@ public class viewBarang extends JDialog {
     } catch (Exception exception) {}
   }
   
-  public JTextField getTextPointField() {
+  public JTextField getTextField_15() {
+	return textField_15;
+}
+
+public void setTextField_15(JTextField textField_15) {
+	this.textField_15 = textField_15;
+}
+
+public JTextField getTextField_16() {
+	return textField_16;
+}
+
+public void setTextField_16(JTextField textField_16) {
+	this.textField_16 = textField_16;
+}
+
+public JTextField getTextPointField() {
     return this.textPointField;
   }
   
