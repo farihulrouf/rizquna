@@ -93,6 +93,22 @@ public void setPoin_total_jual(Double poin_total_jual) {
 	this.poin_total_jual = poin_total_jual;
 }
 
+public int getMindiskon1() {
+	return mindiskon1;
+}
+
+public void setMindiskon1(int mindiskon1) {
+	this.mindiskon1 = mindiskon1;
+}
+
+public int getMindiskon2() {
+	return mindiskon2;
+}
+
+public void setMindiskon2(int mindiskon2) {
+	this.mindiskon2 = mindiskon2;
+}
+
 private Double kembali;
   
   private ControllerJual controllerJ;
@@ -100,6 +116,8 @@ private Double kembali;
   private controllerDetailJual conttrollerD;
   
   private ModelJual model;
+  private int mindiskon1;
+  private int mindiskon2;
   
   private ModelDetailJual model2;
   
@@ -961,16 +979,20 @@ private Double kembali;
     simpan_dataArr(k * getPoin_barang());
     int stok = getPersedian();
     double haarga = 0.0;
-    if(k < 3) {
+    if(k < getMindiskon1()) {
         haarga = getHarga_juals().doubleValue();
     }
-    else if ( k >=3 && k < 10 ) {
+    else if ( k >= getMindiskon1() && k < getMindiskon2() ) {
     	haarga = getHarga_diskon().doubleValue();
+    }
+    else if ( k >= getMindiskon2()) {
+    	haarga = getHarga_lain().doubleValue();
     }
     int balanc = Integer.valueOf(Integer.parseInt(getBalance())).intValue();
     System.out.println("tes balance" + balanc);
     System.out.println(haarga);
     System.out.println("harga diskon"+  getHarga_diskon().doubleValue());
+    System.out.println("nilai min diskon"+ getMindiskon2());
 
     String s = "";
     boolean exists = false;
@@ -1019,13 +1041,16 @@ private Double kembali;
     System.out.println("total stok" + stok);
     //double haarga = getHarga_juals().doubleValue();
     double haarga = 2.0;
-    if(k < 3) {
+    if(k < getMindiskon1()) {
         haarga = getHarga_juals().doubleValue();
     }
-    else if ( k >=3 && k < 10 ) {
+    else if ( k >=getMindiskon1() && k < getMindiskon2() ) {
     	haarga = getHarga_diskon().doubleValue();
     }
-    
+    else if ( k >= getMindiskon2()) {
+    	haarga = getHarga_lain().doubleValue();
+    }
+    System.out.println("nilai min diskon"+ getMindiskon2());
     System.out.println("cek"+ haarga);
     System.out.println("harga diskon"+  getHarga_diskon().doubleValue());
 
@@ -1112,7 +1137,7 @@ private Double kembali;
   private void cari() throws SQLException {
     Connection konek = Koneksi.getKoneksi();
     Statement state = konek.createStatement();
-    String sql = "select nama_barang, harga_jual,harga_diskon,harga_lain,poins,balance,harga_beli,kd_barang,persediaan, id_kategori from Barang WHERE kd_barang = '" + 
+    String sql = "select nama_barang, harga_jual,harga_diskon,harga_lain,poins,balance,harga_beli,kd_barang,persediaan, id_kategori,mindiskon, mindiskon2 from Barang WHERE kd_barang = '" + 
       
       this.barCode.getText() + "'";
     ResultSet rs = state.executeQuery(sql);
@@ -1127,6 +1152,9 @@ private Double kembali;
       setUjibarcode(rs.getString(8));
       setPersedian(rs.getInt(9));
       setId_kategori(rs.getInt(10));
+      setMindiskon1(rs.getInt(11));
+      setMindiskon2(rs.getInt(12));
+      
     } 
     rs.close();
     state.close();
