@@ -835,7 +835,7 @@ public class viewBarang extends JDialog {
     try {
       Connection konek = Koneksi.getKoneksi();
       Statement state = konek.createStatement();
-      String sql = "select nama_barang, harga_jual,harga_diskon,harga_lain,persediaan,balance,mindiskon,mindiskon2,harga_beli,id_kategori,satuan, poins, mindiskon, mindiskon2 from Barang WHERE kd_barang = '" + 
+      String sql = "select nama_barang, harga_jual,harga_diskon,harga_lain,persediaan,balance,mindiskon,mindiskon2,harga_beli,id_kategori,satuan, poins from Barang WHERE kd_barang = '" + 
         
         this.textField.getText() + "'";
       ResultSet rs = state.executeQuery(sql);
@@ -847,7 +847,8 @@ public class viewBarang extends JDialog {
         this.textField_9.setText(String.valueOf(rs.getInt(5)));
         this.textField_5.setText(this.df.format(rs.getDouble(9)));
         this.textField_11.setText("1");
-        this.textField_15.setText(String.valueOf(rs.getInt(5)));
+        this.textField_15.setText(String.valueOf(rs.getInt(7)));
+        this.textField_16.setText(String.valueOf(rs.getInt(8)));
         this.textPointField.setText(String.valueOf(rs.getInt(12)));
         this.textField_12.setText((new StringBuilder(String.valueOf(rs.getInt(6)))).toString());
         benar = false;
@@ -915,6 +916,8 @@ public JTextField getTextPointField() {
       Double harga_karton = Double.valueOf(Double.parseDouble(this.textField_8.getText().replace(",", "")));
       int persediaan = Integer.parseInt(this.textField_9.getText());
       int balance = Integer.parseInt(this.textField_12.getText());
+      int min = Integer.parseInt(this.textField_15.getText());
+      int min2 = Integer.parseInt(this.textField_16.getText());
       Connection konek = Koneksi.getKoneksi();
       String sql1 = "UPDATE `barang` SET `nama_barang` = '" + 
         nama_barang + "', " + 
@@ -924,6 +927,8 @@ public JTextField getTextPointField() {
         "`harga_lain` = '" + harga_karton + "', " + 
         "`persediaan` = '" + persediaan + "', " + 
         "`balance` = '" + balance + "', " + 
+        "`mindiskon` = '" + min + "', " + 
+        "`mindiskon2` = '" + min + "', " + 
         "`poins` = '" + point + "' " + 
         "WHERE `barang`.`kd_barang` = '" + idBarang + "';";
       try {
@@ -947,5 +952,8 @@ public JTextField getTextPointField() {
     this.textField_5.setText("0");
     this.textField_11.setText("1");
     this.textField_12.setText("0");
+
+    this.textField_15.setText("0");
+    this.textField_16.setText("0");
   }
 }

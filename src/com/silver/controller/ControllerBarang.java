@@ -36,6 +36,8 @@ public class ControllerBarang {
     String persediaan = view.getTextField_9().getText();
     String poin = view.getTextPointField().getText();
     String balance = view.getINputKategori().getText();
+    String mdiskon1 = view.getTextField_15().getText();
+    String mdiskon2 = view.getTextField_16().getText();
     if (nama_barang.trim().equals("")) {
       JOptionPane.showMessageDialog((Component)view, "Nama tidak boleh kosong");
     } else if (harga_beli.trim().equals("")) {
@@ -50,7 +52,11 @@ public class ControllerBarang {
       JOptionPane.showMessageDialog((Component)view, "Harga Karton masih kosong");
     } else if (view.getINputKategori().getText().equals("")) {
       JOptionPane.showMessageDialog((Component)view, "Status Belum di masukan");
-    } else {
+    }  else if (mdiskon2.trim().equals("")) {
+        JOptionPane.showMessageDialog((Component)view, "M diskon masih kosong");
+    }
+    
+    else {
       this.model.setId_barang(id_barang);
       this.model.setNama_barang(nama_barang);
       this.model.setId_kategori(Integer.parseInt(view.getINputKategori().getText()));
@@ -61,6 +67,9 @@ public class ControllerBarang {
       this.model.setPersediaan(Integer.parseInt(persediaan));
       this.model.setPoin(Integer.parseInt(poin));
       this.model.setBalance(Integer.parseInt(balance));
+      this.model.setMindiskon(Integer.parseInt(mdiskon1));
+      this.model.setMindiskon2(Integer.parseInt(mdiskon2));
+
       try {
         this.model.insertBrang();
         JOptionPane.showMessageDialog((Component)view, "Sukses Di tambah");
@@ -79,6 +88,9 @@ public class ControllerBarang {
     String persediaan = view.getTextField_9().getText();
     String point = view.getTextPointField().getText();
     String balance = view.getINputKategori().getText();
+
+    String mdiskon1 = view.getTextField_15().getText();
+    String mdiskon2 = view.getTextField_16().getText();
     if (nama_barang.trim().equals("")) {
       JOptionPane.showMessageDialog((Component)view, "Nama tidak boleh kosong");
     } else if (harga_beli.trim().equals("")) {
@@ -93,7 +105,14 @@ public class ControllerBarang {
       JOptionPane.showMessageDialog((Component)view, "Persediaan Masih Kosong");
     } else if (point.trim().equals("")) {
       JOptionPane.showMessageDialog((Component)view, "Point masih kosong");
-    } else {
+    }
+    else if (mdiskon2.trim().equals("")) {
+        JOptionPane.showMessageDialog((Component)view, "M diskon masih kosong");
+    }
+    else if (mdiskon1.trim().equals("")) {
+        JOptionPane.showMessageDialog((Component)view, "M diskon masih kosong");
+    }
+    else {
       this.model.setId_barang(id_barang);
       this.model.setNama_barang(nama_barang);
       this.model.setId_kategori(1);
@@ -104,6 +123,9 @@ public class ControllerBarang {
       this.model.setPersediaan(Integer.parseInt(persediaan));
       this.model.setPoin(Integer.parseInt(point));
       this.model.setBalance(Integer.parseInt(balance));
+
+      this.model.setMindiskon(Integer.parseInt(mdiskon1));
+      this.model.setMindiskon2(Integer.parseInt(mdiskon2));
       try {
         this.model.updateBrang();
       } catch (SQLException|com.silver.dao.ErrorInfo e) {
