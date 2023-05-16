@@ -708,7 +708,7 @@ private Double kembali;
                         AdminKasir.this.getPersedian(), AdminKasir.this.getPoin_barang(), AdminKasir.this.getNama_barang(), 
                         AdminKasir.this.getHarga_jual(), 
                         AdminKasir.this.getHarga_diskon(), AdminKasir.this.getHarga_lain(), 
-                        AdminKasir.this.getHarga_beli(), getBalance(), true);
+                        AdminKasir.this.getHarga_beli(), getBalance(), true, getMindiskon1(), getMindiskon2());
                     AdminKasir.this.setHarga_juals(viewharga.getHarga_barang());
                     AdminKasir.this.setJuml(viewharga.getJumlah());
                     AdminKasir.this.setPoin_barang(viewharga.getPoin());
@@ -932,7 +932,8 @@ private Double kembali;
         getPersedian(), getPoin_barang(), getNama_barang(), 
         getHarga_jual(), 
         getHarga_diskon(), getHarga_lain(), 
-        getHarga_beli(), getBalance(), true);
+        getHarga_beli(), getBalance(), true, getMindiskon1(), getMindiskon2() );
+    
     setHarga_juals(viewharga.getHarga_barang());
     setJuml(viewharga.getJumlah());
     setPoin_barang(viewharga.getPoin());

@@ -928,9 +928,10 @@ public JTextField getTextPointField() {
         "`persediaan` = '" + persediaan + "', " + 
         "`balance` = '" + balance + "', " + 
         "`mindiskon` = '" + min + "', " + 
-        "`mindiskon2` = '" + min + "', " + 
+        "`mindiskon2` = '" + min2 + "', " + 
         "`poins` = '" + point + "' " + 
         "WHERE `barang`.`kd_barang` = '" + idBarang + "';";
+      
       try {
         Statement state = konek.createStatement();
         state.executeUpdate(sql1);

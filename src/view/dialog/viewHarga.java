@@ -30,7 +30,8 @@ public class viewHarga extends JDialog {
   private final JPanel contentPanel = new JPanel();
   
   private TableModelHarga tableModel;
-  
+  private JLabel Jlablediskon1;
+  private JLabel Jlablediskon2;
   private Harga harga;
   private JLabel Jlabelstatus; 
   Locale locale = new Locale("en", "UK");
@@ -119,14 +120,14 @@ public int getPoin() {
   
   private JTextField textField_4;
   
-  public viewHarga(AdminKasir parent, int persediaan, int poin, String nama, final Double harga1, final Double haraga2, final Double harga3, Double harga_beli, String status, boolean modal) {
+  public viewHarga(AdminKasir parent, int persediaan, int poin, String nama, final Double harga1, final Double haraga2, final Double harga3, Double harga_beli, String status, boolean modal, int mindiskon, int mindiskon2) {
     setModal(true);
     setBackground(new Color(211, 211, 211));
     this.tableModel = new TableModelHarga();
     this.harga = new Harga();
     setBounds(100, 100, 500, 400);
     getContentPane().setLayout(new BorderLayout());
-    this.contentPanel.setBackground(Color.GREEN);
+    this.contentPanel.setBackground(new Color(30, 144, 255));
     this.contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
     getContentPane().add(this.contentPanel, "Center");
     this.data = new Object[][] { { "harga ecerl", harga1 }, { "harga kulak", haraga2 }, { "harga carton", harga3 } };
@@ -148,10 +149,10 @@ public int getPoin() {
               case 10:
                 viewHarga.this.ambil_satu(harga1);
                 if(getStatus() == 1) {
-                	cekStatus();
+                  cekStatus();
                 }
                 else {
-                	viewHarga.this.dispose();
+                  viewHarga.this.dispose();
                 }
                 //viewHarga.this.dispose();
                 break;
@@ -161,10 +162,11 @@ public int getPoin() {
     this.textField.setText("1");
     this.textField.selectAll();
     this.textField.setFont(new Font("Dialog", 1, 24));
-    this.textField.setBounds(246, 126, 114, 48);
+    this.textField.setBounds(200, 126, 70, 48);
     this.contentPanel.add(this.textField);
     this.textField.setColumns(10);
     JLabel lblJumlah = new JLabel("Jumlah");
+    lblJumlah.setForeground(new Color(255, 255, 255));
     lblJumlah.setFont(new Font("Dialog", 1, 20));
     lblJumlah.setBounds(32, 135, 112, 33);
     this.contentPanel.add(lblJumlah);
@@ -188,22 +190,24 @@ public int getPoin() {
   JLabel Jlabelstatus = new JLabel(status);
     lblNewLabel_1.setForeground(Color.ORANGE);
     lblNewLabel_1.setFont(new Font("Dialog", 1, 25));
-    lblNewLabel_1.setBounds(186, 12, 220, 29);
+    lblNewLabel_1.setBounds(186, 12, 100, 29);
     
     Jlabelstatus.setForeground(Color.ORANGE);
     Jlabelstatus.setFont(new Font("Dialog", 1, 25));
-    Jlabelstatus.setBounds(450, 12, 220, 29);
+    Jlabelstatus.setBounds(450, 12, 100, 29);
     
-    
-    
+
+
     this.contentPanel.add(lblNewLabel_1);
     this.contentPanel.add(Jlabelstatus);
     JLabel lblKodeBarcode = new JLabel("Persediaan");
+    lblKodeBarcode.setForeground(new Color(255, 255, 255));
     lblKodeBarcode.setFont(new Font("Dialog", 1, 15));
     lblKodeBarcode.setBounds(27, 18, 117, 23);
     
 
     JLabel jLjLabelStatuttext = new JLabel("status");
+    jLjLabelStatuttext.setForeground(new Color(255, 255, 255));
     jLjLabelStatuttext.setFont(new Font("Dialog", 1, 15));
     jLjLabelStatuttext.setBounds(300, 18, 117, 23);
     this.contentPanel.add(jLjLabelStatuttext);
@@ -228,20 +232,40 @@ public int getPoin() {
               case 10:
                 viewHarga.this.ambil_satu(harga1);
                 if(getStatus() == 1) {
-                	cekStatus();
+                  cekStatus();
                 }
                 else {
-                	viewHarga.this.dispose();
+                  viewHarga.this.dispose();
                 }
                 //viewHarga.this.dispose();
                 break;
             } 
           }
         });
-    this.textField_1.setBounds(246, 202, 202, 33);
+    this.textField_1.setBounds(180, 202, 150, 33);
     this.textField_1.setText(this.df.format(harga1));
     this.contentPanel.add(this.textField_1);
     this.textField_1.setColumns(10);
+    
+
+    JLabel Jlablediskon1 = new JLabel(String.valueOf(mindiskon));
+  //JLabel Jlablediskon1 = new JLabel(status);
+    Jlablediskon1.setForeground(Color.ORANGE);
+    Jlablediskon1.setFont(new Font("Dialog", 1, 25));
+    Jlablediskon1.setBounds(400, 252, 40, 29);
+    
+    this.contentPanel.add(Jlablediskon1);
+    
+    
+    JLabel Jlablediskon2 = new JLabel(String.valueOf(mindiskon2));
+    //JLabel Jlablediskon1 = new JLabel(status);
+      Jlablediskon2.setForeground(Color.ORANGE);
+      Jlablediskon2.setFont(new Font("Dialog", 1, 25));
+      Jlablediskon2.setBounds(400, 290, 40, 29);
+      
+      this.contentPanel.add(Jlablediskon2);
+      
+    
     this.textField_2 = new JTextField();
     this.textField_2.setFont(new Font("Dialog", 1, 25));
     this.textField_2.addKeyListener(new KeyAdapter() {
@@ -261,10 +285,10 @@ public int getPoin() {
               case 10:
                 viewHarga.this.ambil_satu(haraga2);
                 if(getStatus() == 1) {
-                	cekStatus();
+                  cekStatus();
                 }
                 else {
-                	viewHarga.this.dispose();
+                  viewHarga.this.dispose();
                 }
                 //viewHarga.this.dispose();
                 break;
@@ -272,7 +296,7 @@ public int getPoin() {
           }
         });
     this.textField_2.setColumns(10);
-    this.textField_2.setBounds(246, 247, 202, 33);
+    this.textField_2.setBounds(180, 247, 150, 33);
     this.textField_2.setText(this.df.format(haraga2));
     this.contentPanel.add(this.textField_2);
     this.textField_3 = new JTextField();
@@ -294,10 +318,10 @@ public int getPoin() {
               case 10:
                 viewHarga.this.ambil_satu(harga3);
                 if(getStatus() == 1) {
-                	cekStatus();
+                  cekStatus();
                 }
                 else {
-                	viewHarga.this.dispose();
+                  viewHarga.this.dispose();
                 }
                 //viewHarga.this.dispose();
                 break;
@@ -305,18 +329,21 @@ public int getPoin() {
           }
         });
     this.textField_3.setColumns(10);
-    this.textField_3.setBounds(246, 292, 202, 33);
+    this.textField_3.setBounds(180, 292, 150, 33);
     this.textField_3.setText(this.df.format(harga3));
     this.contentPanel.add(this.textField_3);
     JLabel lblHargaEcer = new JLabel("Harga Ecer");
+    lblHargaEcer.setForeground(new Color(255, 255, 255));
     lblHargaEcer.setFont(new Font("Dialog", 1, 18));
     lblHargaEcer.setBounds(32, 210, 118, 33);
     this.contentPanel.add(lblHargaEcer);
     JLabel lblHargaKulak = new JLabel("Harga Kulak");
+    lblHargaKulak.setForeground(new Color(255, 255, 255));
     lblHargaKulak.setFont(new Font("Dialog", 1, 18));
     lblHargaKulak.setBounds(32, 255, 174, 33);
     this.contentPanel.add(lblHargaKulak);
     JLabel lblHargaKarton = new JLabel("Harga Karton");
+    lblHargaKarton.setForeground(new Color(255, 255, 255));
     lblHargaKarton.setFont(new Font("Dialog", 1, 18));
     lblHargaKarton.setBounds(32, 296, 174, 33);
     this.contentPanel.add(lblHargaKarton);
@@ -329,10 +356,10 @@ public int getPoin() {
           public void actionPerformed(ActionEvent arg0) {
             viewHarga.this.klik();
             if(getStatus() == 1) {
-            	cekStatus();
+              cekStatus();
             }
             else {
-            	viewHarga.this.dispose();
+              viewHarga.this.dispose();
             };
             //viewHarga.this.dispose();
           }
@@ -343,11 +370,11 @@ public int getPoin() {
     JButton cancelButton = new JButton("Cancel");
     cancelButton.addActionListener(new ActionListener() {
           public void actionPerformed(ActionEvent arg0) {
-        	  if(getStatus() == 1) {
-              	cekStatus();
+            if(getStatus() == 1) {
+                cekStatus();
               }
               else {
-              	viewHarga.this.dispose();
+                viewHarga.this.dispose();
               }
           }
         });
@@ -374,7 +401,7 @@ public int getPoin() {
    }
    else {
 
-	    JOptionPane.showMessageDialog(this, "Hai tidak boleh melebihi persediaan");
+      JOptionPane.showMessageDialog(this, "Hai tidak boleh melebihi persediaan");
    }
   
   }

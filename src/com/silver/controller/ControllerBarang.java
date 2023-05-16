@@ -91,6 +91,8 @@ public class ControllerBarang {
 
     String mdiskon1 = view.getTextField_15().getText();
     String mdiskon2 = view.getTextField_16().getText();
+    System.out.println("harga diskon");
+    System.out.print(mdiskon2);
     if (nama_barang.trim().equals("")) {
       JOptionPane.showMessageDialog((Component)view, "Nama tidak boleh kosong");
     } else if (harga_beli.trim().equals("")) {
