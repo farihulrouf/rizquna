@@ -86,27 +86,27 @@ public class AdminKasir extends JFrame {
   public Double poin_total_jual;
   
   public Double getPoin_total_jual() {
-	return poin_total_jual;
+  return poin_total_jual;
 }
 
 public void setPoin_total_jual(Double poin_total_jual) {
-	this.poin_total_jual = poin_total_jual;
+  this.poin_total_jual = poin_total_jual;
 }
 
 public int getMindiskon1() {
-	return mindiskon1;
+  return mindiskon1;
 }
 
 public void setMindiskon1(int mindiskon1) {
-	this.mindiskon1 = mindiskon1;
+  this.mindiskon1 = mindiskon1;
 }
 
 public int getMindiskon2() {
-	return mindiskon2;
+  return mindiskon2;
 }
 
 public void setMindiskon2(int mindiskon2) {
-	this.mindiskon2 = mindiskon2;
+  this.mindiskon2 = mindiskon2;
 }
 
 private Double kembali;
@@ -192,8 +192,17 @@ private Double kembali;
   public Double getPoint() {
     return this.point;
   }
+  private Double uang;
   
-  public String getId_pelanggan() {
+  public Double getUang() {
+	return uang;
+}
+
+public void setUang(Double uang) {
+	this.uang = uang;
+}
+
+public String getId_pelanggan() {
     return this.id_pelanggan;
   }
   
@@ -984,10 +993,10 @@ private Double kembali;
         haarga = getHarga_juals().doubleValue();
     }
     else if ( k >= getMindiskon1() && k < getMindiskon2() ) {
-    	haarga = getHarga_diskon().doubleValue();
+      haarga = getHarga_diskon().doubleValue();
     }
     else if ( k >= getMindiskon2()) {
-    	haarga = getHarga_lain().doubleValue();
+      haarga = getHarga_lain().doubleValue();
     }
     int balanc = Integer.valueOf(Integer.parseInt(getBalance())).intValue();
     System.out.println("tes balance" + balanc);
@@ -1046,10 +1055,10 @@ private Double kembali;
         haarga = getHarga_juals().doubleValue();
     }
     else if ( k >=getMindiskon1() && k < getMindiskon2() ) {
-    	haarga = getHarga_diskon().doubleValue();
+      haarga = getHarga_diskon().doubleValue();
     }
     else if ( k >= getMindiskon2()) {
-    	haarga = getHarga_lain().doubleValue();
+      haarga = getHarga_lain().doubleValue();
     }
     System.out.println("nilai min diskon"+ getMindiskon2());
     System.out.println("cek"+ haarga);
@@ -1111,9 +1120,9 @@ private Double kembali;
   }
   
   private void hitung_poin() {
-	 // getHarga_juals().doubleValue();
+   // getHarga_juals().doubleValue();
 
-	double haarga = getHarga_juals().doubleValue();
+  double haarga = getHarga_juals().doubleValue();
     int k = Integer.valueOf(Integer.parseInt(getJuml())).intValue();
     if (getPoin_barang() != 0 ) {
         double total = haarga * k / getPoin_barang() + Double.parseDouble(this.poinDum.getText());
@@ -1131,7 +1140,7 @@ private Double kembali;
          //System.out.println("jumlah poin  =   " + getPoin_barang());
          System.out.println(total);
          this.poinDum.setText((new StringBuilder(String.valueOf(total))).toString());
-    	
+      
     }
   }
   
@@ -1165,7 +1174,7 @@ private Double kembali;
   private void cariPelanggan() throws SQLException {
     Connection konek = Koneksi.getKoneksi();
     Statement state = konek.createStatement();
-    String sql = "select id, nama, hp, poins from pelanggan WHERE id = '" + 
+    String sql = "select id, nama, hp, poins, uang from pelanggan WHERE id = '" + 
       
       this.textPelanggan.getText() + "'";
     ResultSet rs = state.executeQuery(sql);
@@ -1174,6 +1183,7 @@ private Double kembali;
       setNama_pelanggan(rs.getString(2));
       setNo_hp(rs.getString(3));
       setPoint(rs.getDouble(4));
+      setUang(rs.getDouble(5));
     } 
     rs.close();
     state.close();
@@ -1279,16 +1289,31 @@ private Double kembali;
       state.close();
     } catch (Exception exception) {}
   }
-  
+
+/*UPDATE school
+SET course = 'mysqli', teacher = 'Tanzania', student = 'you'
+WHERE id = 
+*/
   private void UpdatePoinPelanggan() {
     String idPelanggan = this.textPelanggan.getText();
+    //getTotal_bayar()
     if (idPelanggan != "") {
       Connection konek = Koneksi.getKoneksi();
       double i = Double.valueOf(this.poinDum.getText());
       double j = Double.valueOf(this.totalPoinPelanggan.getText());
       double poin = i + j;
+      double totalUang = getTotal_bayar() + getUang();
+      System.out.print("total uang"+totalUang);
+      System.out.println("toatl uang"+ getUang());
       setJumlahpoindiprint(poin);
-      String sql = "UPDATE pelanggan SET poin='" + poin + "'WHERE id = '" + idPelanggan + "'";
+      //UPDATE pelanggan SET poin = 150, uang = 4000 WHERE id = 4
+      //  String sql = "UPDATE pelanggan SET poin='" + poin + ","+ "uang ="+ getTotal_bayar() + ""  + "'WHERE id = '" + idPelanggan + "'";
+      // String sql = "UPDATE pelanggan SET poin='" + poin + "'WHERE id = '" + idPelanggan + "'";
+      //String satu = ", uang =" + getTotal_bayar() ;
+      //String dua = "update pelanggan set poin=" + poin;
+     // String sqlone = dua + satu + "'WHERE id = '" + idPelanggan + "'";
+      String sql =  "UPDATE pelanggan SET uang = uang + "+ totalUang + "," + "poin='" + poin + "'WHERE id = '" + idPelanggan + "'";
+      //String sql2 = "UPDATE pelanggan SET poin";
       try {
         Statement state = konek.createStatement();
         state.executeUpdate(sql);
@@ -1386,6 +1411,7 @@ private Double kembali;
       AdminKasir.this.setJumlahpoindiprint(0);
       AdminKasir.this.setPoinCetak(0);
       AdminKasir.this.setPoint(0.0);
+      AdminKasir.this.setUang(0.0);
       AdminKasir.this.setPoin_total_jual(0.0);
       AdminKasir.this.setPoin_barang(0);
       //clearPelanggan();
@@ -1421,6 +1447,7 @@ private Double kembali;
         convertArray();
         if (this.textPelanggan.getText() == "")
           setPoint(0.0); 
+          setUang(0.0);
         UpdatePoinPelanggan();
         this.controllerJ.insertJuals(this);
         this.conttrollerD.setNo_transaksi(this.controllerJ.getNo_trans());
@@ -1429,7 +1456,7 @@ private Double kembali;
         autoNumber3();
         this.barCode.requestFocus();
         @SuppressWarnings("unused")
-		NextPageDua nextPageDua = new NextPageDua();
+    NextPageDua nextPageDua = new NextPageDua();
         //clearPelanggan();
         resetTable();
         clearPelanggan();
@@ -1556,6 +1583,7 @@ private Double kembali;
     setSeluruh_poin(0);
     setNama_pelanggan("");
     setPoint(0.0);
+    setUang(0.0);
     this.totalPoinPelanggan.setText("0");
   }
   

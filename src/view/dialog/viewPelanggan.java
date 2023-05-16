@@ -267,6 +267,9 @@ public class viewPelanggan extends JDialog {
     this.tableModel.setList(dao.cariPelanggan(this.textField.getText()));
   }
   
+  /**
+   * @wbp.parser.constructor
+   */
   public viewPelanggan(AdminKasir parent, boolean modal) {
     setModal(true);
     this.tableModel = new TableModelPelanggan();

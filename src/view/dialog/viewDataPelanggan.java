@@ -111,7 +111,7 @@ public class viewDataPelanggan extends JDialog {
             } 
           }
         });
-    this.textField.setBounds(191, 120, 135, 27);
+    this.textField.setBounds(191, 120, 135, 40);
     this.contentPanel.add(this.textField);
     this.textField.setColumns(10);
     this.textField_1 = new JTextField();
@@ -128,7 +128,7 @@ public class viewDataPelanggan extends JDialog {
             } 
           }
         });
-    this.textField_1.setBounds(191, 178, 135, 27);
+    this.textField_1.setBounds(191, 178, 135, 40);
     this.contentPanel.add(this.textField_1);
     this.textField_1.setColumns(10);
     JLabel lblPassword = new JLabel("No HP");
@@ -156,7 +156,7 @@ public class viewDataPelanggan extends JDialog {
             viewDataPelanggan.this.insert();
           }
         });
-    this.passwordField.setBounds(189, 233, 137, 27);
+    this.passwordField.setBounds(189, 233, 137, 40);
     this.textPoin = new JTextField();
     this.textPoin.addKeyListener(new KeyAdapter() {
           public void keyPressed(KeyEvent e) {
@@ -171,7 +171,7 @@ public class viewDataPelanggan extends JDialog {
             } 
           }
         });
-    this.textPoin.setBounds(189, 300, 137, 27);
+    this.textPoin.setBounds(189, 300, 137, 40);
     this.contentPanel.add(this.textPoin);
     this.contentPanel.add(this.passwordField);
     JScrollPane scrollPane = new JScrollPane();
