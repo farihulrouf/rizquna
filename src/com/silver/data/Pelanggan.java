@@ -9,7 +9,17 @@ public class Pelanggan {
   
   private Double poin;
   
-  public String getId_pelanggan() {
+  private Double uang;
+  
+  public Double getUang() {
+	return uang;
+}
+
+public void setUang(Double uang) {
+	this.uang = uang;
+}
+
+public String getId_pelanggan() {
     return this.id_pelanggan;
   }
   

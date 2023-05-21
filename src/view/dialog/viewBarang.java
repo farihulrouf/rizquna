@@ -214,7 +214,7 @@ public class viewBarang extends JDialog {
             int keyCode = e.getKeyCode();
             switch (keyCode) {
               case 40:
-                //viewBarang.this.textField_2.requestFocus();
+                viewBarang.this.textField_1.requestFocus();
                 break;
               case 39:
                 viewBarang.this.textPointField.requestFocus();
@@ -260,8 +260,8 @@ public class viewBarang extends JDialog {
             int keyCode = e.getKeyCode();
             switch (keyCode) {
               case 38:
-                //viewBarang.this.textField_2.requestFocus();
-                //viewBarang.this.textField_2.selectAll();
+                viewBarang.this.textField.requestFocus();
+                viewBarang.this.textField.selectAll();
                 break;
               case 40:
                 viewBarang.this.textField_5.requestFocus();
@@ -420,11 +420,12 @@ public class viewBarang extends JDialog {
             int keyCode = e.getKeyCode();
             switch (keyCode) {
               case 38:
-               // viewBarang.this.textField_2.requestFocus();
+                 //viewBarang.this.textField_15.requestFocus();
+            	  //atas
                 //viewBarang.this.textField.selectAll();
                 break;
               case 40:
-                viewBarang.this.textField_5.requestFocus();
+                viewBarang.this.textField_15.requestFocus();
                 break;
               case 37:
                 viewBarang.this.textField_6.selectAll();
@@ -448,18 +449,18 @@ public class viewBarang extends JDialog {
           int keyCode = e.getKeyCode();
           switch (keyCode) {
             case 38:
-             // viewBarang.this.textField_2.requestFocus();
+               viewBarang.this.textField_7.requestFocus();
               //viewBarang.this.textField.selectAll();
               break;
             case 40:
-              //viewBarang.this.textField_5.requestFocus();
+              viewBarang.this.textField_9.requestFocus(); //bawah
               break;
             case 37:
-              //viewBarang.this.textField_6.selectAll();
-              //viewBarang.this.textField_6.requestFocus();
+             // viewBarang.this.textField_16.selectAll();
+              // viewBarang.this.textField_16.requestFocus();
               break;
             case 39:
-             // viewBarang.this.textField_8.requestFocus();
+               viewBarang.this.textField_16.requestFocus();
              // viewBarang.this.textField_8.selectAll();
               break;
           } 
@@ -478,14 +479,14 @@ public class viewBarang extends JDialog {
           int keyCode = e.getKeyCode();
           switch (keyCode) {
             case 38:
-              //viewBarang.this.textField_7.requestFocus();
+              viewBarang.this.textField_8.requestFocus();
               break;
             case 40:
-              //viewBarang.this.textField_9.requestFocus();
+              viewBarang.this.textField_9.requestFocus();
               break;
             case 37:
              // viewBarang.this.textField_7.selectAll();
-              //viewBarang.this.textField_7.requestFocus();
+              viewBarang.this.textField_15.requestFocus();
               break;
             case 39:
               //viewBarang.this.textField_9.requestFocus();
@@ -510,7 +511,7 @@ public class viewBarang extends JDialog {
                 viewBarang.this.textField_7.requestFocus();
                 break;
               case 40:
-                viewBarang.this.textField_9.requestFocus();
+                viewBarang.this.textField_16.requestFocus();
                 break;
               case 37:
                 viewBarang.this.textField_7.selectAll();

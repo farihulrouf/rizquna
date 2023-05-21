@@ -27,7 +27,7 @@ public class TableModelPelanggan extends AbstractTableModel {
       case 2:
         return "No HP";
       case 3:
-        return "pon";
+        return "poin";
     } 
     return null;
   }
