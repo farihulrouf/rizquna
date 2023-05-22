@@ -585,7 +585,7 @@ public String getId_pelanggan() {
     this.controllerJ.setModel(this.model);
     this.conttrollerD.setModel(this.model2);
     this.contentPane = new JPanel();
-    this.contentPane.setBackground(new Color(0, 191, 255));
+    this.contentPane.setBackground(new Color(64, 224, 208));
     this.contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
     getScreen();
     setContentPane(this.contentPane);
@@ -627,6 +627,7 @@ public String getId_pelanggan() {
     this.contentPane.add(this.textField_1);
     this.textField_1.setColumns(10);
     JLabel lblBayar = new JLabel("Bayar");
+    lblBayar.setForeground(new Color(255, 255, 255));
     lblBayar.setFont(new Font("Dialog", 1, 20));
     lblBayar.setBounds(12, 550, 96, 62);
     this.contentPane.add(lblBayar);
@@ -664,7 +665,7 @@ public String getId_pelanggan() {
     this.contentPane.add(this.textPelanggan);
     this.textPelanggan.setColumns(10);
     JScrollPane scrollPane = new JScrollPane();
-    scrollPane.setBounds(12, 125, 1013, 380);
+    scrollPane.setBounds(12, 125, 1153, 380);
     this.contentPane.add(scrollPane);
     this.table = new JTable() {
         public Component prepareRenderer(TableCellRenderer renderer, int row, int column) {
@@ -745,6 +746,7 @@ public String getId_pelanggan() {
     this.contentPane.add(this.barCode);
     this.barCode.setColumns(10);
     JLabel lblBarcode = new JLabel("BARCODE");
+    lblBarcode.setForeground(new Color(255, 255, 255));
     lblBarcode.setFont(new Font("Dialog", 1, 12));
     lblBarcode.setBounds(38, 98, 70, 15);
     this.contentPane.add(lblBarcode);
@@ -851,11 +853,13 @@ public String getId_pelanggan() {
     panel_4.setBounds(751, 630, 253, 45);
     this.contentPane.add(panel_4);
     JLabel lblpoinsaat = new JLabel("Poin Saat Ini");
+    lblpoinsaat.setForeground(new Color(255, 255, 255));
     lblpoinsaat.setFont(new Font("Dialog", 1, 10));
     lblpoinsaat.setBounds(12, 12, 80, 25);
     this.totalPoinPelanggan = new JLabel("0");
+    totalPoinPelanggan.setForeground(new Color(255, 255, 255));
     this.poinDum = new JLabel("0");
-    this.poinDum.setForeground(Color.RED);
+    this.poinDum.setForeground(new Color(255, 255, 255));
     this.poinDum.setFont(new Font("Dialog", 1, 22));
     this.totalPoinPelanggan.setFont(new Font("Dialog", 1, 22));
     this.totalPoinPelanggan.setBounds(90, 12, 90, 25);
@@ -864,6 +868,7 @@ public String getId_pelanggan() {
     panel_4.add(this.poinDum);
     panel_4.add(lblpoinsaat);
     JLabel lblTotal = new JLabel("Total");
+    lblTotal.setForeground(new Color(255, 255, 255));
     lblTotal.setFont(new Font("Dialog", 1, 15));
     lblTotal.setBounds(12, 12, 48, 53);
     panel_1.add(lblTotal);
@@ -999,20 +1004,23 @@ public String getId_pelanggan() {
       haarga = getHarga_lain().doubleValue();
     }
     int balanc = Integer.valueOf(Integer.parseInt(getBalance())).intValue();
-    System.out.println("tes balance" + balanc);
-    System.out.println(haarga);
-    System.out.println("harga diskon"+  getHarga_diskon().doubleValue());
-    System.out.println("nilai min diskon"+ getMindiskon2());
+    //System.out.println("tes balance" + balanc);
+   // System.out.println(haarga);
+    //System.out.println("harga diskon"+  getHarga_diskon().doubleValue());
+    //System.out.println("nilai min diskon"+ getMindiskon2());
 
     String s = "";
     boolean exists = false;
     double harg = 0.0D;
     int i = 0;
     while (i < this.table.getRowCount() && !exists) {
+    	
       s = this.tableModel.getValueAt(i, 0).toString().trim();
+      //System.out.println(s);
       harg = 
         Double.parseDouble(((String)this.table.getValueAt(i, 2)).replace(",", ""));
-      if (this.barCode.getText().equals(s) && haarga == harg) {
+      if (this.barCode.getText().equals(s)) {
+    	System.out.println("barcode__ "+ this.barCode.getText());
         setJumlah_barter(this.tableModel.getValueAt(i, 3).toString().trim());
         exists = true;
         this.tableModel.removeRow(i);
@@ -1034,13 +1042,36 @@ public String getId_pelanggan() {
       int juml = Integer.parseInt(getJumlah_barter());
       int y = 0;
       y = juml + k;
-      this.tableModel.addRow(new Object[] { this.barCode.getText(), 
-            getNama_barang(), 
-            this.decimalFormat.format(haarga), 
-            Integer.valueOf(juml + k), 
-            this.decimalFormat.format(y * haarga) });
-      SubTotal();
-      hitung_poin();
+      double harga_x = 0.0;
+      if(y< getMindiskon1()) {
+    	  this.tableModel.addRow(new Object[] { this.barCode.getText(), 
+    	            getNama_barang(), 
+    	            this.decimalFormat.format(haarga), 
+    	            Integer.valueOf(juml + k), 
+    	            this.decimalFormat.format(y * haarga) });
+    	      SubTotal();
+    	      hitung_poin(); 
+      }
+      else if (y>= getMindiskon1() && y < getMindiskon2()) {
+
+    	  this.tableModel.addRow(new Object[] { this.barCode.getText(), 
+    	            getNama_barang(), 
+    	            this.decimalFormat.format(getHarga_diskon().doubleValue()), 
+    	            Integer.valueOf(juml + k), 
+    	            this.decimalFormat.format(y * getHarga_diskon().doubleValue()) });
+    	      SubTotal();
+    	      hitung_poin(); 
+      }
+      else if( y >= getMindiskon2()) {
+    	  this.tableModel.addRow(new Object[] { this.barCode.getText(), 
+  	            getNama_barang(), 
+  	            this.decimalFormat.format(getHarga_lain().doubleValue()), 
+  	            Integer.valueOf(juml + k), 
+  	            this.decimalFormat.format(y * getHarga_lain().doubleValue()) });
+  	      SubTotal();
+  	      hitung_poin(); 
+      }
+      
     }   
   }
   
@@ -1074,7 +1105,7 @@ public String getId_pelanggan() {
       harg = 
         Double.parseDouble(((String)this.table.getValueAt(i, 2))
           .replace(",", ""));
-      if (this.barCode.getText().equals(s) && haarga == harg) {
+      if (this.barCode.getText().equals(s)) {
         setJumlah_barter(this.tableModel.getValueAt(i, 3).toString().trim());
         exists = true;
         this.tableModel.removeRow(i);
@@ -1095,13 +1126,37 @@ public String getId_pelanggan() {
       int juml = Integer.parseInt(getJumlah_barter());
       int y = 0;
       y = juml + k;
-      this.tableModel.addRow(new Object[] { this.barCode.getText(), 
-            getNama_barang(), 
-            this.decimalFormat.format(haarga), 
-            Integer.valueOf(juml + k), 
-            this.decimalFormat.format(y * haarga) });
-      SubTotal();
-      hitung_poin();
+
+      if(y< getMindiskon1()) {
+
+          this.tableModel.addRow(new Object[] { this.barCode.getText(), 
+                getNama_barang(), 
+                this.decimalFormat.format(haarga), 
+                Integer.valueOf(juml + k), 
+                this.decimalFormat.format(y * haarga) });
+          SubTotal();
+          hitung_poin();
+    	 
+      }
+
+      else if (y>= getMindiskon1() && y < getMindiskon2()) {
+    	  this.tableModel.addRow(new Object[] { this.barCode.getText(), 
+                  getNama_barang(), 
+                  this.decimalFormat.format(getHarga_diskon().doubleValue()), 
+                  Integer.valueOf(juml + k), 
+                  this.decimalFormat.format(y * getHarga_diskon().doubleValue()) });
+            SubTotal();
+            hitung_poin();
+      }
+      else if(y>= getMindiskon2()) {
+    	  this.tableModel.addRow(new Object[] { this.barCode.getText(), 
+                  getNama_barang(), 
+                  this.decimalFormat.format(getHarga_lain().doubleValue()), 
+                  Integer.valueOf(juml + k), 
+                  this.decimalFormat.format(y * getHarga_lain().doubleValue()) });
+            SubTotal();
+            hitung_poin();
+      }
     } else if (exists) {
       JOptionPane.showMessageDialog(null, "Hai " + getUser_name() + 
           "stok saat ini Berjumlah " + stok + " total transaksi " + 
