@@ -670,7 +670,7 @@ public class viewBarang extends JDialog {
     this.textField_11.setBounds(700, 16, 50, 19);
     this.contentPanel.add(this.textField_11);
     this.textField_11.setColumns(10);
-    JLabel lblNewLabel = new JLabel("Status Barang");
+    JLabel lblNewLabel = new JLabel("Kategori");
     lblNewLabel.setBounds(600, 70, 120, 15);
     this.contentPanel.add(lblNewLabel);
     this.textField_12 = new JTextField();

@@ -90,7 +90,7 @@ public class viewLogin extends JDialog {
     JLabel lblPassword = new JLabel("Password");
     lblPassword.setBounds(12, 119, 70, 15);
     panel.add(lblPassword);
-    JLabel lblSelamatDatangDi = new JLabel("Selamat Datang di Toko Rizquna ");
+    JLabel lblSelamatDatangDi = new JLabel("Selamat Datang di Toko Rahmat ");
     lblSelamatDatangDi.setFont(new Font("Dialog", 1, 14));
     lblSelamatDatangDi.setForeground(new Color(50, 205, 50));
     lblSelamatDatangDi.setBounds(124, 12, 280, 15);
