@@ -33,15 +33,21 @@ public class controllerDetailJual {
       this.model.setId_jual(no_jual);
       this.model.setKode_barang((String)view.getTable().getValueAt(i, 0));
       this.model.setJumlah(Integer.parseInt(
-            view.getTable().getValueAt(i, 3)
+            view.getTable().getValueAt(i, 4)
             .toString().trim()));
       this.model.setHarga_jual(
           Double.parseDouble((
             (String)view.getTable()
             .getValueAt(i, 2)).replace(",", "")));
-      System.out.println(Double.parseDouble((
+      /*
+      this.model.setPoin(
+              Double.parseDouble((
+                (String)view.getTable()
+                .getValueAt(i, 3)).replace(",", "")));
+     /* System.out.println(Double.parseDouble((
             (String)view.getTable()
             .getValueAt(i, 2)).replace(",", "")));
+      */
       try {
         this.model.insertDetailJual();
       } catch (Throwable throwable) {

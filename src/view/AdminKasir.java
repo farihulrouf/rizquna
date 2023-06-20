@@ -81,15 +81,15 @@ public class AdminKasir extends JFrame {
   
   private Double tunai;
   
-  private JLabel poinDum;
+  public static JLabel poinDum;
   
   public Double poin_total_jual;
   
-  public Double getPoin_total_jual() {
+ public Double getPoin_total_jual() {
   return poin_total_jual;
 }
 
-public void setPoin_total_jual(Double poin_total_jual) {
+public  void setPoin_total_jual(Double poin_total_jual) {
   this.poin_total_jual = poin_total_jual;
 }
 
@@ -117,7 +117,17 @@ private Double kembali;
   
   private ModelJual model;
   private int mindiskon1;
-  private int mindiskon2;
+  private static Double dapatPoin = 0.0;
+  
+  public static Double getDapatPoin() {
+	return dapatPoin;
+}
+
+public static void setDapatPoin(Double newAbc) {
+	dapatPoin = newAbc;
+}
+
+private int mindiskon2;
   
   private ModelDetailJual model2;
   
@@ -349,8 +359,17 @@ public String getId_pelanggan() {
   String jam_skr = this.jam.format(this.hasil).toString();
   
   int waktumulai = 0;
+  private  Double harga_jual1;
   
-  private JLabel lblJam;
+  public Double getHarga_jual1() {
+	return harga_jual1;
+}
+
+public static void setHarga_jual1(Double harga_jual1) {
+	harga_jual1 = harga_jual1;
+}
+
+private JLabel lblJam;
   
   private JButton btnReset;
   
@@ -388,11 +407,11 @@ public String getId_pelanggan() {
   
   private JTextField textPelanggan;
   
-  private JTable table;
+  public static JTable table;
   
   private Double total_bayar;
   
-  private JLabel labelTotal;
+  private static JLabel labelTotal;
   
   private JButton btnWithdraw;
   
@@ -535,9 +554,9 @@ public String getId_pelanggan() {
   
   private JLabel labelKembali;
   
-  DefaultTableModel tableModel = new DefaultTableModel(
+  public static DefaultTableModel tableModel = new DefaultTableModel(
       new Object[0][], (Object[])new String[] { "Barcode", "Barang", 
-        "Harga Jual", "Qty", "Total" }) {
+        "Harga Jual","status", "Qty", "Total" }) {
       public boolean isCellEditable(int row, int column) {
         return false;
       }
@@ -718,7 +737,7 @@ public String getId_pelanggan() {
                         AdminKasir.this.getPersedian(), AdminKasir.this.getPoin_barang(), AdminKasir.this.getNama_barang(), 
                         AdminKasir.this.getHarga_jual(), 
                         AdminKasir.this.getHarga_diskon(), AdminKasir.this.getHarga_lain(), 
-                        AdminKasir.this.getHarga_beli(), getBalance(), true, getMindiskon1(), getMindiskon2());
+                        AdminKasir.this.getHarga_beli(), getBalance(), true, getMindiskon1(), getMindiskon2(), barCode.getText());
                     AdminKasir.this.setHarga_juals(viewharga.getHarga_barang());
                     AdminKasir.this.setJuml(viewharga.getJumlah());
                     AdminKasir.this.setPoin_barang(viewharga.getPoin());
@@ -946,7 +965,7 @@ public String getId_pelanggan() {
         getPersedian(), getPoin_barang(), getNama_barang(), 
         getHarga_jual(), 
         getHarga_diskon(), getHarga_lain(), 
-        getHarga_beli(), getBalance(), true, getMindiskon1(), getMindiskon2() );
+        getHarga_beli(), getBalance(), true, getMindiskon1(), getMindiskon2(), barCode.getText() );
     
     setHarga_juals(viewharga.getHarga_barang());
     setJuml(viewharga.getJumlah());
@@ -989,8 +1008,14 @@ public String getId_pelanggan() {
   }
   
   private void ambil_Data() {
+   System.out.println("mengambil data ==="+ getHarga_jual1());
+   //viewHarga.getHarga3();
+
+	/*
     double totalnya = 0.0D;
     int k = Integer.valueOf(Integer.parseInt(getJuml())).intValue();
+
+	System.out.println("mengambil data ==="+k);
     simpan_dataArr(k * getPoin_barang());
     int stok = getPersedian();
     double haarga = 0.0;
@@ -1072,14 +1097,125 @@ public String getId_pelanggan() {
   	      hitung_poin(); 
       }
       
-    }   
+    }  
+    */ 
+  }
+  
+  public void ambil_coba() {
+	  System.out.println("ambil ata test");
+	  this.tableModel.addRow(new Object[] { "8734638743", 
+	            "Coba test", 
+	            5600, 
+	            5, 
+	            5000 });
+	  
+  }
+  
+  private void checkTable() {
+	  String s = "";
+	    boolean exists = false;
+	    double harg = 0.0D;
+	    int i = 0;
+	    while (i < this.table.getRowCount() && !exists) {
+	    	
+	      s = this.tableModel.getValueAt(i, 0).toString().trim();
+	      //System.out.println(s);
+	      harg = 
+	        Double.parseDouble(((String)this.table.getValueAt(i, 2)).replace(",", ""));
+	      if (this.barCode.getText().equals(s)) {
+	    	System.out.println("barcode__ "+ this.barCode.getText());
+	        setJumlah_barter(this.tableModel.getValueAt(i, 3).toString().trim());
+	        exists = true;
+	        this.tableModel.removeRow(i);
+	        i += 100000;
+	        continue;
+	      } 
+	      i++;
+	    } 
+	  
+  }
+  public static  void AddRowToJTable(Object[] dataRow, String barcodeid, String poin, Double totalBayar)
+  {
+	  //System.out.println()
+	 /* DefaultTableModel tableModel = new DefaultTableModel(
+		      new Object[0][], (Object[])new String[] { "Barcode", "Barang", 
+		        "Harga Jual", "Qty", "Total" }) {
+		      public boolean isCellEditable(int row, int column) {
+		        return false;
+		      }
+		    };
+	*/
+	  //dataRown
+	  
+
+	    tableModel.addRow(dataRow);	
+	    hitungTotal(poin, totalBayar);
+	    
+	    
+	 //DefaultTableModel model = (DefaultTableModel)jTable1.getModel();
+
+     // DefaultTableModel model = (DefaultTableModel)jTable1.getModel();
+     // model.addRow(dataRow);
+  } 
+  
+  
+	  
+  
+  public static Double test_poin = 0.0;
+  
+  public static void hitungTotal(String poin, Double totalBayar) {
+
+	 // System.out.println("nilai poin"+ poin);
+	  //System.out.println("nilai qty"+ totalBayar);
+
+     // System.out.println(getDapatPoin());
+	  //Double jumPoin = (totalBayar / Integer.parseInt(poin))+ getDapatPoin();
+	  //System.out.println((totalBayar / Integer.parseInt(poin)));
+	 // test_poin = jumPoin;
+	  //poinDum.setText(jumPoin+"");
+	  
+     // setPoin_total_jual(jumPoin);
+      //setDapatPoin(jumPoin);
+      //System.out.println(getDapatPoin());
+	  String pattern = "###,###.###";
+	  DecimalFormat decimalFormat = new DecimalFormat(pattern);
+	  
+
+	  Double Subtotal = 0.0;
+	  Double SubtotalPoin = 0.0;
+
+	  String totalString;
+	  String totalPoin;
+	 // Double totals = Double.valueOf(0.0D);
+	  for (int j = 0; j< table.getRowCount(); j++) {
+		  	totalString = tableModel.getValueAt(j, 5).toString().trim();
+		  	String strNew22 = totalString.replaceFirst(",", "");
+		  	Subtotal = Double.parseDouble(strNew22) +  Subtotal;
+		  	System.out.println(Subtotal);
+		  	totalPoin = tableModel.getValueAt(j, 3).toString().trim();
+		  	SubtotalPoin = Double.parseDouble(totalPoin) +  SubtotalPoin;
+		  	labelTotal.setText(decimalFormat.format(Subtotal));
+		  	poinDum.setText(SubtotalPoin+"");
+		    //setTotal_bayar(Subtotal);
+
+	  }
+	  
+	  /*
+	  this.barCode.setText("");
+	    for (int j = 0; j < this.table.getRowCount(); j++) {
+	      double value = 
+	      totals = Double.valueOf(totals.doubleValue() + value);
+	      this.labelTotal.setText(this.decimalFormat.format(totals));
+	    } 
+	    */
   }
   
   private void ambil_Data2() {
+	  /*
     double totalnya = 0.0D;
     int k = Integer.valueOf(Integer.parseInt(getJuml())).intValue();
     int stok = getPersedian();
-    System.out.println("total stok" + stok);
+    System.out.println("total s tok" + stok);
     //double haarga = getHarga_juals().doubleValue();
     double haarga = 2.0;
     if(k < getMindiskon1()) {
@@ -1172,6 +1308,7 @@ public String getId_pelanggan() {
       SubTotal();
       hitung_poin();
     } 
+    */
   }
   
   private void hitung_poin() {
@@ -1269,7 +1406,7 @@ public String getId_pelanggan() {
     } 
     setTotal_bayar(totals);
   }
-  
+  /*
   private void hapusTableJual() {
     if (this.table.getSelectedRowCount() == 0) {
       JOptionPane.showMessageDialog(this, "Pilih dahulu baris yang akan dihapus");
@@ -1285,7 +1422,22 @@ public String getId_pelanggan() {
       this.textField.requestFocus();
     } 
   }
-  
+  */
+  private void hapusTableJual() {
+	    if (this.table.getSelectedRowCount() == 0) {
+	      JOptionPane.showMessageDialog(this, "Pilih dahulu baris yang akan dihapus");
+	    } else if (this.table.getRowCount() == 1) {
+	      clearTable();
+	      this.labelTotal.setText("0");
+	      this.barCode.requestFocus();
+	    } else {
+	      int[] rows = this.table.getSelectedRows();
+	      for (int i = 0; i < rows.length; i++)
+	        this.tableModel.removeRow(rows[i] - i); 
+	      hitungTotal("1", 1000.00);
+	      this.textField.requestFocus();
+	    } 
+	  }
   private void findBarang() {
     try {
       ViewDialogBarang view = new ViewDialogBarang(this, true);
@@ -1442,11 +1594,11 @@ WHERE id =
           dfx.format(AdminKasir.this.getKembali()), jumlahPoin, AdminKasir.this.lblNamaPelanggan.getText());
       for (int i = 0; i < AdminKasir.this.table.getRowCount(); i++) {
         int jum = 0;
-        jum = Integer.parseInt(AdminKasir.this.table.getValueAt(i, 3).toString());
+        jum = Integer.parseInt(AdminKasir.this.table.getValueAt(i, 4).toString());
         fakturdua.tambahItemFaktur(new ItemFakturtiga((String)AdminKasir.this.table.getValueAt(i, 1), 
               Integer.valueOf(jum), 
               (String)AdminKasir.this.table.getValueAt(i, 2), 
-              (String)AdminKasir.this.table.getValueAt(i, 4)));
+              (String)AdminKasir.this.table.getValueAt(i, 5)));
       } 
       DataSource dataSource = DataSources.from(fakturdua);
       AdminKasir.this.clearTable();
@@ -1462,6 +1614,7 @@ WHERE id =
       } catch (Exception ex) {
         ex.printStackTrace();
       } 
+      
       //simpleEscp.print((Template)jsonTemplate1, dataSource);
       AdminKasir.this.setJumlahpoindiprint(0);
       AdminKasir.this.setPoinCetak(0);
@@ -1474,6 +1627,15 @@ WHERE id =
   }
   
   private void cek_uang() {
+	 // setTotal_bayar(200.00);
+	  	//String nilaiBayar;
+	  	//nilaiBayar = labelTotal.getText();
+	  	String strNew22 = labelTotal.getText().replaceFirst(",", "");
+	 // 	Subtotal = Double.parseDouble(strNew22) +  Subtotal;
+	 // Double bayar = Double.parseDouble(strNew22);
+	  setTotal_bayar(Double.parseDouble(strNew22));
+
+	  //labelTotal
     Double total_bayars = Double.valueOf(Double.parseDouble(this.textField.getText().replace(",", "")));
     Double y = Double.valueOf(0.0D);
     try {
@@ -1510,8 +1672,11 @@ WHERE id =
         this.labelKembali.setText(this.decimalFormat.format(getKembali()));
         autoNumber3();
         this.barCode.requestFocus();
+        
         @SuppressWarnings("unused")
     NextPageDua nextPageDua = new NextPageDua();
+    
+    
         //clearPelanggan();
         resetTable();
         clearPelanggan();

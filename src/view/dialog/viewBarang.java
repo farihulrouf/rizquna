@@ -210,7 +210,8 @@ public class viewBarang extends JDialog {
         });
     this.textField.setFont(new Font("Dialog", 1, 18));
     this.textField.addKeyListener(new KeyAdapter() {
-          public void keyPressed(KeyEvent e) {
+          
+    	public void keyPressed(KeyEvent e) {
             int keyCode = e.getKeyCode();
             switch (keyCode) {
               case 40:
