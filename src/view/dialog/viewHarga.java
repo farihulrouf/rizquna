@@ -42,6 +42,13 @@ public class viewHarga extends JDialog {
   private JLabel Jlabelstatus; 
   private String barcodeText;
   private JLabel lblpoin;
+  private JLabel lblBelanjaTotal;
+  private JLabel lblBelanjaPoin;
+  private JLabel lblBelanjaPoinNilai;
+  private JLabel lblBelanjaTotalNilai;
+
+  private JPanel panelTotal;
+  
   public String getBarcodeText() {
 	return barcodeText;
 }
@@ -175,7 +182,7 @@ public int getPoin() {
     setBackground(new Color(211, 211, 211));
     this.tableModel = new TableModelHarga();
     this.harga = new Harga();
-    setBounds(100, 100, 500, 500);
+    setBounds(100, 100, 500, 600);
     getContentPane().setLayout(new BorderLayout());
     this.contentPanel.setBackground(new Color(30, 144, 255));
     this.contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -228,6 +235,7 @@ public int getPoin() {
     lblJumlah.setBounds(32, 200, 112, 33);
     this.contentPanel.add(lblJumlah);
     JPanel panel = new JPanel();
+    
     panel.setBackground(Color.WHITE);
     panel.setBounds(27, 110, 436, 70);
     this.contentPanel.add(panel);
@@ -298,7 +306,7 @@ public int getPoin() {
                 else {
                  viewHarga.this.dispose();
                 }
-                //viewHarga.this.dispose();
+                viewHarga.this.dispose();
                 break;
             } 
           }
@@ -475,6 +483,7 @@ public int getPoin() {
 
    // private JTextField barcodeTextField;
     JLabel lblmin = new JLabel("min pembelian");
+    lblBelanjaTotalNilai = new JLabel("0");
     lblpoin = new JLabel("10000");
     lblpoin.setForeground(Color.ORANGE);
     lblpoin.setFont(new Font("Dialog", 1, 17));
@@ -535,7 +544,7 @@ public int getPoin() {
                 else {
                  viewHarga.this.dispose();
                 }
-                //viewHarga.this.dispose();
+                viewHarga.this.dispose();
                 break;
             } 
           }
@@ -571,7 +580,7 @@ public int getPoin() {
                 else {
                  viewHarga.this.dispose();
                 }
-                //viewHarga.this.dispose();
+                viewHarga.this.dispose();
                 break;
 
             } 
@@ -581,6 +590,7 @@ public int getPoin() {
     this.textField_3.setBounds(180, 350, 150, 33);
     this.textField_3.setText(this.df.format(harga3));
     this.contentPanel.add(this.textField_3);
+    lblBelanjaPoinNilai = new JLabel("0");
     JLabel lblHargaEcer = new JLabel("Harga Ecer");
     lblHargaEcer.setForeground(new Color(255, 255, 255));
     lblHargaEcer.setFont(new Font("Dialog", 1, 18));
@@ -592,6 +602,39 @@ public int getPoin() {
     lblHargaKulak.setBounds(32, 300, 174, 33);
     this.contentPanel.add(lblHargaKulak);
     JLabel lblHargaKarton = new JLabel("Harga Karton");
+    lblBelanjaTotal = new JLabel("Total Belanja");
+    lblBelanjaPoin = new JLabel("Total Poin");
+    //lblBelanjaTotalNilai
+
+    
+
+    lblBelanjaPoinNilai.setForeground(new Color(255, 255, 255));
+    lblBelanjaPoinNilai.setFont(new Font("Dialog", 1, 24));
+    lblBelanjaPoinNilai.setBounds(220, 400, 174, 33);
+    this.contentPanel.add(lblBelanjaPoinNilai);
+    
+
+
+    lblBelanjaTotal.setForeground(new Color(255, 255, 255));
+    lblBelanjaTotal.setFont(new Font("Dialog", 1, 18));
+    lblBelanjaTotal.setBounds(32, 460, 174, 33);
+    this.contentPanel.add(lblBelanjaTotal);
+    
+    lblBelanjaTotalNilai.setForeground(new Color(255, 255, 255));
+    lblBelanjaTotalNilai.setFont(new Font("Dialog", 1, 24));
+    lblBelanjaTotalNilai.setBounds(220, 460, 174, 33);
+    this.contentPanel.add(lblBelanjaTotalNilai);
+    
+    lblBelanjaPoin.setForeground(new Color(255, 255, 255));
+    lblBelanjaPoin.setFont(new Font("Dialog", 1, 18));
+    lblBelanjaPoin.setBounds(32, 400, 174, 33);
+    this.contentPanel.add(lblBelanjaPoin);
+    
+    
+
+
+    //lblBelanjaPoin
+    
     lblHargaKarton.setForeground(new Color(255, 255, 255));
     lblHargaKarton.setFont(new Font("Dialog", 1, 18));
     lblHargaKarton.setBounds(32, 350, 174, 33);
@@ -717,7 +760,64 @@ public int getPoin() {
 		
 
   }
+  
+  private void hitunssgTotalPoin() {
+	  if(AdminKasir.table.getRowCount()>0) {
+		  
+	  }
+  }
+  
+  
+  public void hitungTotalPoin() {
 
+	 // System.out.println("nilai poin"+ poin);
+	  //System.out.println("nilai qty"+ totalBayar);
+
+     // System.out.println(getDapatPoin());
+	  //Double jumPoin = (totalBayar / Integer.parseInt(poin))+ getDapatPoin();
+	  //System.out.println((totalBayar / Integer.parseInt(poin)));
+	 // test_poin = jumPoin;
+	  //poinDum.setText(jumPoin+"");
+	  
+     // setPoin_total_jual(jumPoin);
+      //setDapatPoin(jumPoin);
+      //System.out.println(getDapatPoin());
+	  String pattern = "###,###.###";
+	  DecimalFormat decimalFormat = new DecimalFormat(pattern);
+	  
+
+	  Double Subtotal = 0.0;
+	  Double SubtotalPoin = 0.0;
+
+	  String totalString;
+	  String totalPoin;
+	 // Double totals = Double.valueOf(0.0D);
+	  for (int j = 0; j< AdminKasir.table.getRowCount(); j++) {
+		  	totalString = AdminKasir.tableModel.getValueAt(j, 5).toString().trim();
+		  	String strNew22 = totalString.replaceFirst(",", "");
+		  	Subtotal = Double.parseDouble(strNew22) +  Subtotal;
+		  	System.out.println("nilai total di harga"+Subtotal);
+		  	totalPoin = AdminKasir.tableModel.getValueAt(j, 3).toString().trim();
+		  	SubtotalPoin = Double.parseDouble(totalPoin) +  SubtotalPoin;
+		  	System.out.println("nilai di harga"+ totalPoin);
+		  	lblBelanjaTotalNilai.setText(decimalFormat.format(Subtotal)); 
+		  	//DecimalFormat df = new DecimalFormat("#.00"); 
+		  	lblBelanjaPoinNilai.setText(decimalFormat.format(SubtotalPoin)); 
+
+		  	//lblBelanjaPoinNilai.setText(SubtotalPoin+"");
+		    //setTotal_bayar(Subtotal);
+
+	  }
+	  
+	  /*
+	  this.barCode.setText("");
+	    for (int j = 0; j < this.table.getRowCount(); j++) {
+	      double value = 
+	      totals = Double.valueOf(totals.doubleValue() + value);
+	      this.labelTotal.setText(this.decimalFormat.format(to00tals));
+	    } 
+	    */
+  }
   
   private void ambilDataDua() {
 	  int jumlah_qty = 0;
@@ -1049,7 +1149,7 @@ public int getPoin() {
 
 	            }, lblbarcodeBarang.getText(), lblpoin.getText(),jumlah_qty* harga);
 			}
-
+			hitungTotalPoin();
 			textField.setText("1");
 	  }
 	  		

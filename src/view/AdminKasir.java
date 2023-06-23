@@ -1195,7 +1195,7 @@ private JLabel lblJam;
 		  	totalPoin = tableModel.getValueAt(j, 3).toString().trim();
 		  	SubtotalPoin = Double.parseDouble(totalPoin) +  SubtotalPoin;
 		  	labelTotal.setText(decimalFormat.format(Subtotal));
-		  	poinDum.setText(SubtotalPoin+"");
+		  	poinDum.setText(decimalFormat.format(SubtotalPoin));
 		    //setTotal_bayar(Subtotal);
 
 	  }
