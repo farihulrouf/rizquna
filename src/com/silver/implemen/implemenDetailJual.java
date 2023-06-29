@@ -17,6 +17,13 @@ public class implemenDetailJual implements DaoDetailJual {
   }
   
   public void insertDetailJual(detail_jual detail) throws ErrorInfo {
+	  System.out.println("imolement");
+	  System.out.println(detail.getId_jual());
+	  System.out.println(detail.getKode_barang());
+	  System.out.println(detail.getHarga_jual().doubleValue());
+	  System.out.println(detail.getJumlah());
+
+
     PreparedStatement statement = null;
     try {
       this.con.setAutoCommit(false);

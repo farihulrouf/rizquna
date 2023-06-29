@@ -13,13 +13,13 @@ public class MappingDbDetailJual {
   
   public static Connection getConnection() throws SQLException {
     if (connection == null) {
-      MysqlDataSource dataSource = new MysqlDataSource();
+        MysqlDataSource dataSource = new MysqlDataSource();
 
-      //dataSource.setUrl("jdbc:mysql://192.168.1.10:3306/rizqy");
-      dataSource.setUrl("jdbc:mysql://localhost:3306/rizky");
-      dataSource.setUser("root");
-      dataSource.setPassword("");
-      connection = dataSource.getConnection();
+        //dataSource.setUrl("jdbc:mysql://192.168.1.10:3306/rizqy");
+        dataSource.setUrl("jdbc:mysql://localhost:3306/rizky");
+        dataSource.setUser("root");
+        dataSource.setPassword("");
+        connection = dataSource.getConnection();
     } 
     return connection;
   }

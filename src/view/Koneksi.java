@@ -13,9 +13,10 @@ public class Koneksi {
       try {
     	//String url = "jdbc:mysql:http://192.168.1.40:3306/rizky";
     	//jdbc:oracle:thin:@//192.168.1.105:1521/MYORA"
-    	String url = "jdbc:mysql://localhost:3306/rizky";
+    	//String url = "jdbc:mysql://192.168.1.40/rizky";
+    	//      dataSource.setUrl("jdbc:mysql://192.168.1.40:3306/rizky");
 
-        //String url = "jdbc:mysql://192.168.1.40:3306/rizky";
+        String url = "jdbc:mysql://localhost:3306/rizky";
         String username = "root";
         String password = "";
         DriverManager.registerDriver((Driver)new Driver());

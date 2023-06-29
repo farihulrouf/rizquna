@@ -13,7 +13,6 @@ import view.dialog.ViewDialogBarang;
 import view.dialog.Withdraw;
 import view.dialog.cekStok;
 import view.dialog.viewBarang;
-import view.dialog.viewCetakUlang;
 import view.dialog.viewDataPelanggan;
 import view.dialog.viewHarga;
 import view.dialog.viewKonfirmasi;
@@ -69,6 +68,7 @@ import simple.escp.Template;
 import simple.escp.data.DataSource;
 import simple.escp.data.DataSources;
 import simple.escp.json.JsonTemplate;
+import simple.escp.swing.PrintPreviewPane;
 
 public class AdminKasir extends JFrame {
   private String nomer;
@@ -555,8 +555,8 @@ private JLabel lblJam;
   private JLabel labelKembali;
   
   public static DefaultTableModel tableModel = new DefaultTableModel(
-      new Object[0][], (Object[])new String[] { "Barcode", "Barang", 
-        "Harga Jual","status", "Qty", "Total" }) {
+      new Object[0][], (Object[])new String[] { "Barcode", "Poin", 
+        "Nama barang","Harga Jual", "Qty", "Total" }) {
       public boolean isCellEditable(int row, int column) {
         return false;
       }
@@ -595,7 +595,7 @@ private JLabel lblJam;
   
   public AdminKasir() {
     setDefaultCloseOperation(3);
-    setBounds(100, 100, 1200, 700);
+    setBounds(100, 100, 1220, 720);
     this.usersesion = new UserSession();
     this.conttrollerD = new controllerDetailJual();
     this.controllerJ = new ControllerJual();
@@ -613,7 +613,7 @@ private JLabel lblJam;
     this.textPelanggan = new JTextField();
     this.barCode = new JTextField();
     this.barCode.requestFocus();
-    this.barCode.setBackground(Color.red);
+    this.barCode.setBackground(new Color(0, 255, 0));
     this.barCode.requestFocus();
     this.textPelanggan.addKeyListener(new KeyAdapter() {
           public void keyPressed(KeyEvent e) {
@@ -648,7 +648,7 @@ private JLabel lblJam;
     JLabel lblBayar = new JLabel("Bayar");
     lblBayar.setForeground(new Color(255, 255, 255));
     lblBayar.setFont(new Font("Dialog", 1, 20));
-    lblBayar.setBounds(12, 550, 96, 62);
+    lblBayar.setBounds(12, 600, 96, 62);
     this.contentPane.add(lblBayar);
     this.textField = new JTextField();
     this.textField.addKeyListener(new KeyAdapter() {
@@ -675,16 +675,16 @@ private JLabel lblJam;
         });
     this.textField.setForeground(Color.RED);
     this.textField.setFont(new Font("Dialog", 1, 40));
-    this.textField.setBounds(126, 550, 265, 77);
+    this.textField.setBounds(126, 600, 265, 77);
     this.contentPane.add(this.textField);
     this.textField.setColumns(10);
     this.textPelanggan.setForeground(Color.BLACK);
     this.textPelanggan.setFont(new Font("Dialog", 1, 17));
-    this.textPelanggan.setBounds(126, 630, 180, 40);
+    this.textPelanggan.setBounds(400, 630, 70, 20);
     this.contentPane.add(this.textPelanggan);
     this.textPelanggan.setColumns(10);
     JScrollPane scrollPane = new JScrollPane();
-    scrollPane.setBounds(12, 125, 1153, 380);
+    scrollPane.setBounds(12, 75, 1170, 520);
     this.contentPane.add(scrollPane);
     this.table = new JTable() {
         public Component prepareRenderer(TableCellRenderer renderer, int row, int column) {
@@ -695,6 +695,7 @@ private JLabel lblJam;
           return component;
         }
       };
+    table.setFillsViewportHeight(true);
     this.table.setBackground(new Color(255, 140, 0));
     this.table.setFont(new Font("Dialog", 1, 21));
     this.table.setModel(this.tableModel);
@@ -705,6 +706,11 @@ private JLabel lblJam;
           }
         });
     scrollPane.setViewportView(this.table);
+    scrollPane.setBackground(new Color(255, 140, 0));
+    scrollPane.setOpaque(true);
+
+   // scrollPane.getViewport().setBackground(new Color(255, 140, 0));
+
     this.barCode.addKeyListener(new KeyAdapter() {
           public void keyPressed(KeyEvent e) {
             Harga harga;
@@ -761,13 +767,13 @@ private JLabel lblJam;
             } 
           }
         });
-    this.barCode.setBounds(126, 89, 300, 34);
+    this.barCode.setBounds(126, 40, 300, 34);
     this.contentPane.add(this.barCode);
     this.barCode.setColumns(10);
     JLabel lblBarcode = new JLabel("BARCODE");
     lblBarcode.setForeground(new Color(255, 255, 255));
     lblBarcode.setFont(new Font("Dialog", 1, 12));
-    lblBarcode.setBounds(38, 98, 70, 15);
+    lblBarcode.setBounds(38, 50, 70, 15);
     this.contentPane.add(lblBarcode);
     this.btnWithdraw = new JButton("Hari ini");
     this.btnWithdraw.addActionListener(new ActionListener() {
@@ -776,7 +782,7 @@ private JLabel lblJam;
           }
         });
     this.btnWithdraw.setIcon(new ImageIcon(AdminKasir.class.getResource("/com/silver/peratan/image/wire-transfer-icon.png")));
-    this.btnWithdraw.setBounds(12, 1, 143, 35);
+    this.btnWithdraw.setBounds(12, 1, 140, 35);
     this.contentPane.add(this.btnWithdraw);
     this.btnBarang = new JButton("Barang");
     this.btnBarang.addActionListener(new ActionListener() {
@@ -787,8 +793,8 @@ private JLabel lblJam;
     this.btnBarang.setIcon(new ImageIcon(AdminKasir.class.getResource("/com/silver/peratan/image/sup.png")));
     this.btnBarang.setBounds(167, 1, 117, 35);
     this.contentPane.add(this.btnBarang);
-    this.btnHistori = new JButton("Histori");
-    this.btnHistori.addActionListener(new ActionListener() {
+   // this.btnHistori = new JButton("Histori");
+   /* this.btnHistori.addActionListener(new ActionListener() {
           public void actionPerformed(ActionEvent paramActionEvent) {
             viewSejarah view = new viewSejarah();
             view.setVisible(true);
@@ -798,8 +804,9 @@ private JLabel lblJam;
     this.btnHistori.setIcon(new ImageIcon(AdminKasir.class.getResource("/com/silver/peratan/image/chart.png")));
     this.btnHistori.setBounds(296, 1, 117, 35);
     this.contentPane.add(this.btnHistori);
-    JButton btnGantiShift = new JButton("x");
-    btnGantiShift.addActionListener(new ActionListener() {
+    */
+   // JButton btnGantiShift = new JButton("x");
+  /*  btnGantiShift.addActionListener(new ActionListener() {
           public void actionPerformed(ActionEvent arg0) {
             try {
               AdminKasir.this.konfirmasiTutup();
@@ -811,6 +818,7 @@ private JLabel lblJam;
     btnGantiShift.setIcon(new ImageIcon(AdminKasir.class.getResource("/com/silver/peratan/image/Preppy-icon.png")));
     btnGantiShift.setBounds(751, 39, 81, 25);
     this.contentPane.add(btnGantiShift);
+    */
     JButton btnHapus = new JButton("Hapus");
     btnHapus.addActionListener(new ActionListener() {
           public void actionPerformed(ActionEvent arg0) {
@@ -818,7 +826,7 @@ private JLabel lblJam;
           }
         });
     btnHapus.setIcon(new ImageIcon(AdminKasir.class.getResource("/com/silver/peratan/image/Actions-edit-clear-icon.png")));
-    btnHapus.setBounds(794, 83, 109, 25);
+    btnHapus.setBounds(450, 40, 109, 25);
     this.contentPane.add(btnHapus);
     this.btnReset = new JButton("Reset");
     this.btnReset.addActionListener(new ActionListener() {
@@ -827,7 +835,9 @@ private JLabel lblJam;
           }
         });
     this.btnReset.setIcon(new ImageIcon(AdminKasir.class.getResource("/com/silver/peratan/image/clear.png")));
-    this.btnReset.setBounds(908, 83, 117, 25);
+    this.btnReset.setBounds(700, 40, 109, 25);
+
+    //.btnReset.setBounds(908,00 10, 117, 25);
     this.contentPane.add(this.btnReset);
     JButton btnActive = new JButton("Active");
     btnActive.addActionListener(new ActionListener() {
@@ -836,15 +846,15 @@ private JLabel lblJam;
           }
         });
     btnActive.setIcon(new ImageIcon(AdminKasir.class.getResource("/com/silver/peratan/image/check.png")));
-    btnActive.setBounds(865, 39, 109, 25);
+    btnActive.setBounds(570, 40, 109, 25);
     this.contentPane.add(btnActive);
     setUser_name(UserSession.getUserLogin());
     JPanel panel = new JPanel();
     JPanel panel3 = new JPanel();
     panel.setBackground(SystemColor.info);
-    panel.setBounds(403, 550, 333, 77);
+    panel.setBounds(500, 600, 333, 77);
     panel3.setBackground(new Color(199, 21, 133));
-    panel3.setBounds(403, 630, 333, 40);
+    panel3.setBounds(850, 630, 333, 40);
     this.contentPane.add(panel);
     this.contentPane.add(panel3);
     panel.setLayout((LayoutManager)null);
@@ -864,54 +874,56 @@ private JLabel lblJam;
     JPanel panel_1 = new JPanel();
     panel_1.setBackground(new Color(218, 112, 214));
     panel_1.setLayout((LayoutManager)null);
-    panel_1.setBounds(751, 550, 253, 77);
+    panel_1.setBounds(1000, 5, 180, 30);
     this.contentPane.add(panel_1);
     JPanel panel_4 = new JPanel();
     panel_4.setBackground(new Color(255, 165, 0));
     panel_4.setLayout((LayoutManager)null);
-    panel_4.setBounds(751, 630, 253, 45);
+    panel_4.setBounds(1000, 45, 180, 120);
+
+    //panel_4.setBounds(751, 630, 253, 30);
     this.contentPane.add(panel_4);
     JLabel lblpoinsaat = new JLabel("Poin Saat Ini");
     lblpoinsaat.setForeground(new Color(255, 255, 255));
     lblpoinsaat.setFont(new Font("Dialog", 1, 10));
-    lblpoinsaat.setBounds(12, 12, 80, 25);
+    lblpoinsaat.setBounds(12, 2, 80, 25);
     this.totalPoinPelanggan = new JLabel("0");
     totalPoinPelanggan.setForeground(new Color(255, 255, 255));
     this.poinDum = new JLabel("0");
     this.poinDum.setForeground(new Color(255, 255, 255));
-    this.poinDum.setFont(new Font("Dialog", 1, 22));
-    this.totalPoinPelanggan.setFont(new Font("Dialog", 1, 22));
-    this.totalPoinPelanggan.setBounds(90, 12, 90, 25);
-    this.poinDum.setBounds(180, 12, 80, 25);
+    this.poinDum.setFont(new Font("Dialog", 1, 15));
+    this.totalPoinPelanggan.setFont(new Font("Dialog", 1, 15));
+    this.totalPoinPelanggan.setBounds(90, 2, 30, 25);
+    this.poinDum.setBounds(120, 2, 50, 25);
     panel_4.add(this.totalPoinPelanggan);
     panel_4.add(this.poinDum);
     panel_4.add(lblpoinsaat);
     JLabel lblTotal = new JLabel("Total");
     lblTotal.setForeground(new Color(255, 255, 255));
-    lblTotal.setFont(new Font("Dialog", 1, 15));
-    lblTotal.setBounds(12, 12, 48, 53);
+    lblTotal.setFont(new Font("Dialog", 1, 12));
+    lblTotal.setBounds(12, 2, 48, 20);
     panel_1.add(lblTotal);
     this.labelTotal = new JLabel("");
-    this.labelTotal.setFont(new Font("Dialog", 1, 30));
-    this.labelTotal.setBounds(72, 12, 160, 53);
+    this.labelTotal.setFont(new Font("Dialog", 2, 20));
+    this.labelTotal.setBounds(72, 2, 160, 20);
     panel_1.add(this.labelTotal);
     this.lblNewLabel = new JLabel("");
     this.lblNewLabel.setForeground(new Color(0, 128, 0));
-    this.lblNewLabel.setFont(new Font("Dialog", 1, 17));
-    this.lblNewLabel.setBounds(440, 68, 168, 45);
+    this.lblNewLabel.setFont(new Font("Dialog", 1, 14));
+    this.lblNewLabel.setBounds(690, 10, 168, 30);
     this.contentPane.add(this.lblNewLabel);
-    JLabel lblTerakhirTutup = new JLabel("Terakhir tutup di jam");
-    lblTerakhirTutup.setFont(new Font("Dialog", 1, 18));
-    lblTerakhirTutup.setBounds(685, 12, 265, 15);
-    this.contentPane.add(lblTerakhirTutup);
+    //JLabel lblTerakhirTutup = new JLabel("Terakhir tutup di jam");
+   // lblTerakhirTutup.setFont(new Font("Dialog", 1, 18));
+    //lblTerakhirTutup.setBounds(685, 12, 265, 15);
+   // this.contentPane.add(lblTerakhirTutup);
     this.lblJam = new JLabel("");
     this.lblJam.setFont(new Font("Dialog", 1, 20));
     this.lblJam.setBounds(925, 12, 143, 25);
     this.contentPane.add(this.lblJam);
-    JLabel label = new JLabel("Helo " + UserSession.getUserLogin() + " " + "Selamat Bekerja");
-    label.setFont(new Font("Dialog", 1, 15));
-    label.setBounds(421, 19, 280, 25);
-    this.contentPane.add(label);
+    //JLabel label = new JLabel("Helo " + UserSession.getUserLogin() + " " + "Selamat Bekerja");
+   // label.setFont(new Font("Dialog", 1, 15));
+    //label.setBounds(421, 19, 280, 25);
+    //this.contentPane.add(label);
     this.btnNewButton = new JButton("Pegawai");
     this.btnNewButton.setIcon(new ImageIcon(AdminKasir.class.getResource("/com/silver/peratan/image/login.png")));
     this.btnNewButton.addActionListener(new ActionListener() {
@@ -921,7 +933,9 @@ private JLabel lblJam;
         });
     this.btnNewButton.setVisible(false);
     this.btnNewButton.setFont(new Font("Dialog", 1, 10));
-    this.btnNewButton.setBounds(12, 48, 130, 34);
+    //this.btnNewButton.setBounds(12, 48, 130, 34);
+    this.btnNewButton.setBounds(300, 1, 117, 35);
+
     this.contentPane.add(this.btnNewButton);
     this.btnPelanggan = new JButton("Pelanggan");
     this.btnPelanggan.setIcon(new ImageIcon(AdminKasir.class.getResource("/com/silver/peratan/image/login.png")));
@@ -931,18 +945,27 @@ private JLabel lblJam;
           }
         });
     this.btnPelanggan.setFont(new Font("Dialog", 1, 10));
-    this.btnPelanggan.setBounds(167, 48, 130, 34);
+    this.btnPelanggan.setBounds(420, 1, 117, 35);
+
+   // this.btnPelanggan.setBounds(167, 48, 130, 34);
     this.contentPane.add(this.btnPelanggan);
     JButton btnNewButton_1 = new JButton("Cetak Ulang");
     btnNewButton_1.addActionListener(new ActionListener() {
           public void actionPerformed(ActionEvent arg0) {
-            viewCetakUlang viewcetak = new viewCetakUlang();
-            viewcetak.setVisible(true);
+        	  
+        	  //viewCetakUlang viewCetak =new viewCetakUlang(); 
+            //viewCetakUlang viewcetak = new viewCetakUlang();
+           // setVisible(true);
           }
         });
     btnNewButton_1.setIcon(new ImageIcon(AdminKasir.class.getResource("/com/silver/peratan/image/buku.png")));
-    btnNewButton_1.setBounds(296, 48, 140, 34);
+    // this.btnPelanggan.setBounds(167, 48, 130, 34);
+
+    //btnNewButton_1.setBounds(296, 48, 140, 34);
+    btnNewButton_1.setBounds(550, 1, 117, 35);
+
     this.contentPane.add(btnNewButton_1);
+    /*
     JButton btnCekstok = new JButton("stok");
     btnCekstok.addActionListener(new ActionListener() {
           public void actionPerformed(ActionEvent arg0) {
@@ -950,8 +973,10 @@ private JLabel lblJam;
           }
         });
     btnCekstok.setIcon(new ImageIcon(AdminKasir.class.getResource("/com/silver/peratan/image/check.png")));
-    btnCekstok.setBounds(450, 48, 100, 34);
-    this.contentPane.add(btnCekstok);
+    btnCekstok.setBounds(800, 1, 117, 35);
+*/
+   // btnCekstok.setBounds(450, 48, 100, 34);
+   // this.contentPane.add(btnCekstok);
     this.btnBarang.setVisible(false);
     this.btnWithdraw.setVisible(false);
     this.btnReset.setVisible(false);
@@ -1192,7 +1217,7 @@ private JLabel lblJam;
 		  	String strNew22 = totalString.replaceFirst(",", "");
 		  	Subtotal = Double.parseDouble(strNew22) +  Subtotal;
 		  	System.out.println(Subtotal);
-		  	totalPoin = tableModel.getValueAt(j, 3).toString().trim();
+		  	totalPoin = tableModel.getValueAt(j, 1).toString().trim();
 		  	SubtotalPoin = Double.parseDouble(totalPoin) +  SubtotalPoin;
 		  	labelTotal.setText(decimalFormat.format(Subtotal));
 		  	poinDum.setText(decimalFormat.format(SubtotalPoin));
@@ -1469,7 +1494,7 @@ private JLabel lblJam;
         this.btnNewButton.setVisible(true);
       } else {
         this.btnWithdraw.setVisible(false);
-        this.btnBarang.setVisible(false);
+        this.btnBarang.setVisible(true);
         this.btnReset.setVisible(false);
         this.btnHistori.setVisible(false);
         this.btnNewButton.setVisible(false);
@@ -1614,7 +1639,9 @@ WHERE id =
       } catch (Exception ex) {
         ex.printStackTrace();
       } 
-      
+      //PrintPreviewPane printPreviewPane  = new PrintPreviewPane();
+      //PrintPreviewPane printPreview = new PrintPreviewPane(template, value, null);  
+      //PrintPreviewPane printPreview = new PrintPreviewPane(template, null, anchor); 
       //simpleEscp.print((Template)jsonTemplate1, dataSource);
       AdminKasir.this.setJumlahpoindiprint(0);
       AdminKasir.this.setPoinCetak(0);
@@ -1673,8 +1700,8 @@ WHERE id =
         autoNumber3();
         this.barCode.requestFocus();
         
-        @SuppressWarnings("unused")
-    NextPageDua nextPageDua = new NextPageDua();
+      //  @SuppressWarnings("unused")
+   // NextPageDua nextPageDua = new NextPageDua();
     
     
         //clearPelanggan();

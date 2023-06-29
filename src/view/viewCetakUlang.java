@@ -1,4 +1,5 @@
-package view.dialog;
+package view;
+
 
 
 import com.silver.con2.MappingCetak;
@@ -53,6 +54,7 @@ import simple.escp.data.DataSources;
 import simple.escp.json.JsonTemplate;
 
 public class viewCetakUlang extends JDialog {
+
   private final JPanel contentPanel = new JPanel();
   
   private JTextField textField;
@@ -386,7 +388,7 @@ public class viewCetakUlang extends JDialog {
     int jum;
     
     public NextPageDua() {
-      JsonTemplate jsonTemplate;
+      JsonTemplate jsonTemplate = null;
       SimpleEscp simpleEscp = new SimpleEscp();
       int x = Integer.parseInt(viewCetakUlang.this.getId_jual());
       Fakturtiga fakturdua = new Fakturtiga(String.valueOf(String.valueOf(viewCetakUlang.this.textField_5.getText())) + "-" + x, 

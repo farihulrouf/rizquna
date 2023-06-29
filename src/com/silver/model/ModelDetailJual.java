@@ -54,6 +54,7 @@ public class ModelDetailJual {
     detal.setJumlah(this.jumlah);
     detal.setKode_barang(this.kode_barang);
     detal.setHarga_jual(this.harga_jual.doubleValue());
+    
     dao.insertDetailJual(detal);
   }
   

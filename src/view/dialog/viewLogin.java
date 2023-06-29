@@ -65,7 +65,7 @@ public class viewLogin extends JDialog {
   }
   
   public viewLogin() {
-    setBounds(100, 100, 450, 300);
+    setBounds(400, 100, 450, 300);
     getContentPane().setLayout(new BorderLayout());
     this.contentPanel.setBackground(new Color(128, 128, 128));
     this.contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));

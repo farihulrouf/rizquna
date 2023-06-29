@@ -38,7 +38,7 @@ public class controllerDetailJual {
       this.model.setHarga_jual(
           Double.parseDouble((
             (String)view.getTable()
-            .getValueAt(i, 2)).replace(",", "")));
+            .getValueAt(i, 3)).replace(",", "")));
       /*
       this.model.setPoin(
               Double.parseDouble((
@@ -48,6 +48,15 @@ public class controllerDetailJual {
             (String)view.getTable()
             .getValueAt(i, 2)).replace(",", "")));
       */
+      /*
+      System.out.println("test detail jual");
+
+      System.out.println(no_jual);
+      System.out.println((String)view.getTable().getValueAt(i, 0));
+      System.out.println(Integer.parseInt( view.getTable().getValueAt(i, 4) .toString().trim()));
+      System.out.println(Double.parseDouble(((String)view.getTable().getValueAt(i, 3)).replace(",", "")));
+      */
+      
       try {
         this.model.insertDetailJual();
       } catch (Throwable throwable) {

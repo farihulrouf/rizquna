@@ -16,6 +16,8 @@ public class AdminDatabase {
       MysqlDataSource dataSource = new MysqlDataSource();
 
       //dataSource.setUrl("jdbc:mysql://192.168.1.10:3306/rizqy");
+     // dataSource.setUrl("jdbc:mysql://192.168.1.40:3306/rizky");
+
       dataSource.setUrl("jdbc:mysql://localhost:3306/rizky");
       dataSource.setUser("root");
       dataSource.setPassword("");
