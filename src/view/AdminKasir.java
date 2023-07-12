@@ -103,7 +103,7 @@ public class AdminKasir extends JFrame {
   String patternx = "###,###.###";
   DecimalFormat decimalFormatx = new DecimalFormat(patternx);
   
-  
+  private JLabel lblTotal, lblpoinsaat;
   public Double getPoin_total_jual() {
     return this.poin_total_jual;
   }
@@ -627,23 +627,7 @@ public class AdminKasir extends JFrame {
     this.contentPane.setLayout((LayoutManager)null);
     this.textField_1 = new JTextField();
     textField_1.setBounds(0, 0, 0, 0);
-    contentPane.setLayout(null);
-    contentPane.setLayout(null);
-    contentPane.setLayout(null);
-    contentPane.setLayout(null);
-    contentPane.setLayout(null);
-    contentPane.setLayout(null);
-    contentPane.setLayout(null);
-    contentPane.setLayout(null);
-    contentPane.setLayout(null);
-    contentPane.setLayout(null);
-    contentPane.setLayout(null);
-    contentPane.setLayout(null);
-    contentPane.setLayout(null);
-    contentPane.setLayout(null);
-    contentPane.setLayout(null);
-    contentPane.setLayout(null);
-    contentPane.setLayout(null);
+
     this.contentPane.add(this.textField_1);
     this.textField_1.setColumns(10);
   
@@ -667,6 +651,7 @@ public class AdminKasir extends JFrame {
                 //AdminKasir.this.textField.selectAll();
                 //AdminKasir.this.textField.setBackground(Color.GREEN);
                 AdminKasir.this.barCode.setBackground(Color.WHITE);
+                
                 lihatBayar();
                 break;
               case 10:
@@ -792,38 +777,69 @@ public class AdminKasir extends JFrame {
     btnActive.setIcon(new ImageIcon(AdminKasir.class.getResource("/com/silver/peratan/image/check.png")));
     this.contentPane.add(btnActive);
     setUser_name(UserSession.getUserLogin());
-    JPanel panel3 = new JPanel();
-    panel3.setBounds(1200, 6, 230, 34);panel3.setBackground(new Color(199, 21, 133));
+    //JPanel panel3 = new JPanel();
+   // panel3.setBounds(1200, 6, 230, 34);panel3.setBackground(new Color(199, 21, 133));
    
-    this.contentPane.add(panel3);
+    //this.contentPane.add(panel3);
    
-    panel3.setLayout((LayoutManager)null);
+  //  panel3.setLayout((LayoutManager)null);
  
     this.lblNamaPelanggan = new JLabel("");
-    lblNamaPelanggan.setForeground(Color.WHITE);
+    this.lblNamaPelanggan.setForeground(Color.WHITE);
     this.lblNamaPelanggan.setFont(new Font("Dialog", Font.BOLD, 20));
-    this.lblNamaPelanggan.setBounds(12, 5, 200, 30);
+    this.lblNamaPelanggan.setBounds(1159, 10, 200, 30);
   
-    panel3.add(this.lblNamaPelanggan);
+    //panel3.add(this.lblNamaPelanggan);
     this.labelKembali = new JLabel("");
     this.labelKembali.setFont(new Font("Dialog", 1, 27));
     this.labelKembali.setBounds(114, 12, 207, 53);
    
-    JPanel panel_1 = new JPanel();
-    panel_1.setBounds(971, 2, 228, 94);
-    panel_1.setBackground(new Color(218, 112, 214));
-    panel_1.setLayout((LayoutManager)null);
-    this.contentPane.add(panel_1);
-    panel_1.setLayout(null);
-    JLabel lblTotal = new JLabel("Total");
-    lblTotal.setForeground(new Color(255, 255, 255));
+    //JPanel panel_1 = new JPanel();
+    //panel_1.setBounds(971, 2, 424, 94);
+    //panel_1.setBackground(new Color(218, 112, 214));
+    //panel_1.setLayout((LayoutManager)null);
+    //this.contentPane.add(panel_1);
+    //panel_1.setLayout(null);
+    lblTotal = new JLabel("Total");
+    lblpoinsaat = new JLabel("Poin Saat Ini");
+    lblpoinsaat.setForeground(SystemColor.activeCaptionText);
+    lblpoinsaat.setFont(new Font("Dialog", 1, 10));
+    lblpoinsaat.setBounds(1035, 71, 80, 25);
+
+    this.poinDum = new JLabel("0");
+    this.poinDum.setForeground(SystemColor.activeCaptionText);
+    this.poinDum.setFont(new Font("Dialog", 1, 15));
+    this.poinDum.setBounds(1198, 66, 50, 25);
+    this.labelTotal = new JLabel("0");
+
+    lblTotal.setForeground(SystemColor.controlText);
     lblTotal.setFont(new Font("Dialog", 1, 12));
-    lblTotal.setBounds(12, 2, 48, 20);
-    panel_1.add(lblTotal);
-    this.labelTotal = new JLabel("");
+    lblTotal.setBounds(1016, 0, 48, 20);
+    this.totalPoinPelanggan = new JLabel("0");
+    this.totalPoinPelanggan.setForeground(SystemColor.activeCaptionText);
+    
+    this.totalPoinPelanggan.setFont(new Font("Dialog", 1, 15));
+    this.totalPoinPelanggan.setBounds(1127, 66, 59, 25);
+    labelTotal.setBounds(963, 35, 194, 34);
+
     this.labelTotal.setFont(new Font("Dialog", Font.ITALIC, 40));
-    this.labelTotal.setBounds(12, 34, 208, 54);
-    panel_1.add(this.labelTotal);
+    this.contentPane.add(labelTotal);
+    this.contentPane.add(lblTotal);
+    this.contentPane.add(totalPoinPelanggan);
+    this.contentPane.add(poinDum);
+    this.contentPane.add(lblpoinsaat);
+    this.contentPane.add(lblNamaPelanggan);
+    
+
+  //  this.labelTotal.setBounds(12, 34, 208, 54);
+   //     panel_1.add(totalPoinPelanggan);
+
+   // panel_1.add(this.lblNamaPelanggan);
+   // panel_1.add(this.lblTotal);
+
+    //panel_1.add(poinDum);
+    //panel_1.add(lblpoinsaat);
+    //panel_1.add(this.labelTotal);
     this.lblNewLabel = new JLabel("");
     lblNewLabel.setBounds(690, 10, 168, 30);
     this.lblNewLabel.setForeground(new Color(0, 128, 0));
@@ -863,27 +879,17 @@ public class AdminKasir extends JFrame {
     this.textPelanggan.setFont(new Font("Dialog", 1, 17));
     this.contentPane.add(this.textPelanggan);
     this.textPelanggan.setColumns(10);
-    JPanel panel_4 = new JPanel();
-    panel_4.setBounds(1200, 46, 129, 50);
-    panel_4.setBackground(new Color(255, 165, 0));
-    panel_4.setLayout((LayoutManager)null);
-    this.contentPane.add(panel_4);
-    JLabel lblpoinsaat = new JLabel("Poin Saat Ini");
-    lblpoinsaat.setForeground(new Color(255, 255, 255));
-    lblpoinsaat.setFont(new Font("Dialog", 1, 10));
-    lblpoinsaat.setBounds(12, 2, 80, 25);
-    this.totalPoinPelanggan = new JLabel("0");
-    this.totalPoinPelanggan.setForeground(new Color(255, 255, 255));
-    poinDum = new JLabel("0");
-    poinDum.setForeground(new Color(255, 255, 255));
-    poinDum.setFont(new Font("Dialog", 1, 15));
-    this.totalPoinPelanggan.setFont(new Font("Dialog", 1, 15));
-    this.totalPoinPelanggan.setBounds(22, 19, 30, 25);
-    poinDum.setBounds(83, 19, 50, 25);
-    panel_4.setLayout(null);
-    panel_4.add(this.totalPoinPelanggan);
-    panel_4.add(poinDum);
-    panel_4.add(lblpoinsaat);
+    //JPanel panel_4 = new JPanel();
+    //panel_4.setBounds(821, 35, 129, 50);
+    //panel_4.setBackground(new Color(255, 165, 0));
+    //panel_4.setLayout((LayoutManager)null);
+    //this.contentPane.add(panel_4);
+   
+
+    //panel_4.setLayout(null);
+    //panel_4.add(this.totalPoinPelanggan);
+    //panel_4.add(poinDum);
+    //panel_4.add(lblpoinsaat);
     this.lblJam = new JLabel("");
     lblJam.setBounds(925, 12, 143, 25);
     this.lblJam.setFont(new Font("Dialog", 1, 20));
@@ -1008,6 +1014,7 @@ public class AdminKasir extends JFrame {
   
   public static void AddRowToJTable(Object[] dataRow, String barcodeid, String poin, Double totalBayar) {
     tableModel.addRow(dataRow);
+    
     hitungTotal(poin, totalBayar);
   }
   
@@ -1475,14 +1482,16 @@ public class AdminKasir extends JFrame {
     } catch (Exception exception) {}
   }
   
-  private void clearPelanggan() {
+  public void clearPelanggan() {
     this.textPelanggan.setText("");
     this.lblNamaPelanggan.setText("");
+    labelTotal.setText("0");
     setSeluruh_poin(0.0D);
     setNama_pelanggan("");
     setPoint(Double.valueOf(0.0D));
     setUang(Double.valueOf(0.0D));
     this.totalPoinPelanggan.setText("0");
+    System.out.println("dibersihkan");
   }
   
   private void pesandua() {
@@ -1531,7 +1540,14 @@ public class AdminKasir extends JFrame {
       this.barCode.requestFocus();
       resetTable();
       clearPelanggan();
-    //  this.poin_aray.clear();
+      resetTransaksi();
+      /*
+      this.lblTotal.setText("0");
+      this.totalPoinPelanggan.setText("0");
+      this.poinDum.setText("0");//
+      this.lblNamaPelanggan.setText("");
+     this.poin_aray.clear();
+     */
       
   }
   private void lihatBayar() {
@@ -1723,6 +1739,10 @@ class CetakPrint extends JFrame {
       AdminKasir.this.setPoin_barang(0);
     }
   }
+
+ private static void resetTransaksi() {
+	 labelTotal.setText("0");
+ }
 
 
 }

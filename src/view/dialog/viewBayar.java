@@ -131,6 +131,8 @@ public class viewBayar extends JDialog {
 	    	AdminKasir adminKasir = new AdminKasir();
 			adminKasir.insertPenjualan(harga, total_bayar, (total_bayar - harga), poin);
 	    	lblNewLabel_5.setText((total_bayar - harga)+"");
+	    	//AdminKasir.labelTotal.setText("0");
+	    	//adminKasir.clearPelanggan();
 	    }
 	    else {
 	    	System.out.println("Tidak");
