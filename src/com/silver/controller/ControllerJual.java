@@ -71,8 +71,8 @@ public class ControllerJual {
         this.model.setNo(id_juals);
         this.model.setTunai(view.getTunai());
         this.model.setJam(jam_skr);
-        this.model.setTotal(Double.valueOf(Math.round(view.getTotal_bayar().doubleValue())));
-        this.model.setPoin(0);
+        this.model.setTotal(Double.valueOf(Math.round(view.getUang().doubleValue())));
+        this.model.setPoin(view.getPoinTotal());
         this.model.setNama(" ");
         System.out.println("ok ok sip");
       } else {
@@ -82,9 +82,9 @@ public class ControllerJual {
         this.model.setNo(id_juals);
         this.model.setTunai(view.getTunai());
         this.model.setJam(jam_skr);
-        this.model.setTotal(Double.valueOf(Math.round(view.getTotal_bayar().doubleValue())));
+        this.model.setTotal(Double.valueOf(Math.round(view.getUang().doubleValue())));
         //this.model.setPoin(2.0);
-        this.model.setPoin(Double.parseDouble(view.poinDum.getText()));
+        this.model.setPoin(view.getPoinTotal());
         this.model.setNama(view.getNama_pelanggan());
       } 
       try {

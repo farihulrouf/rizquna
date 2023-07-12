@@ -1,0 +1,24 @@
+{
+     "pageFormat": {
+         "pageLength": 10,
+         "pageWidth": 50,
+         "usePageLengthFromPrinter": false
+     },
+     "template": {
+         "header": [ "  PT. XYZ                              HAL: %{PAGE_NO}" ],
+         "detail": [
+             " Nomor Faktur: ${nomorFaktur:20}",
+             {
+                "table": "listItemFaktur",
+                "border": false,
+                "columns": [
+                    { "caption": "Nama Barang", "source": "namaBarang", "width": 15, "wrap": false },
+                    { "caption": "Qty", "source": "qty::right", "width": 10 },
+                    { "caption": "Harga", "source": "harga::right", "width": 20 },
+                    { "caption": "Total", "source": "total::right", "width": 20 }
+
+                ]
+             }
+         ]
+     }
+ }

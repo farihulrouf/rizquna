@@ -5,13 +5,13 @@ package view;
 public class ItemFakturDua {
   private String namaBarang;
   
-  private Integer qty;
+  private String qty;
   
   private String harga;
   
   private String total;
   
-  public ItemFakturDua(String namaBarang, Integer qty, String harga, String total) {
+  public ItemFakturDua(String namaBarang, String qty, String harga, String total) {
     this.namaBarang = namaBarang;
     this.qty = qty;
     this.harga = harga;
@@ -22,7 +22,7 @@ public class ItemFakturDua {
     return this.namaBarang;
   }
   
-  public Integer getQty() {
+  public String getQty() {
     return this.qty;
   }
   

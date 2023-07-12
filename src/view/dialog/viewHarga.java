@@ -1,14 +1,9 @@
 package view.dialog;
 
-
 import com.silver.data.Harga;
 import com.silver.model.table.TableModelHarga;
-import view.AdminKasir;
-import view.Koneksi;
-
 import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.Component;
 import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.LayoutManager;
@@ -28,1188 +23,959 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
+import javax.swing.border.Border;
 import javax.swing.border.EmptyBorder;
-import javax.swing.border.LineBorder;
 import javax.swing.table.DefaultTableModel;
-import javax.swing.SpringLayout;
-
 import view.AdminKasir;
+import view.Koneksi;
 
 public class viewHarga extends JDialog {
+  private final JPanel contentPanel = new JPanel();
+  
+  private TableModelHarga tableModel;
+  
+  private JLabel Jlablediskon1;
+  
+  private JLabel Jlablediskon2;
+  
+  private Harga harga;
+  
+  private JLabel lblNewLabel;
+  
+  private JLabel Jlabelstatus;
+  
+  private String barcodeText;
+  
+  private JLabel lblpoin;
+  
+  private JLabel lblBelanjaTotal;
+  
+  private JLabel lblBelanjaPoin;
+  
+  private JLabel lblBelanjaPoinNilai;
+  
+  private JLabel lblBelanjaTotalNilai;
+  private int diskon1;
+  private int diskon2;
+  
+  public int getDiskon1() {
+	return diskon1;
+}
 
-	private final JPanel contentPanel = new JPanel();
-	//private final JPanel contentPanel = new JPanel();
-	  
-	  private TableModelHarga tableModel;
-	  private JLabel Jlablediskon1;
-	  private JLabel Jlablediskon2;
-	  private Harga harga;
-	  private JLabel lblNewLabel;
-	  private JLabel Jlabelstatus; 
-	  private String barcodeText;
-	  private JLabel lblpoin;
-	  private JLabel lblBelanjaTotal;
-	  private JLabel lblBelanjaPoin;
-	  private JLabel lblBelanjaPoinNilai;
-	  private JLabel lblBelanjaTotalNilai;
+public void setDiskon1(int diskon1) {
+	this.diskon1 = diskon1;
+}
 
-	  private JPanel panelTotal;
-	  
-	  public String getBarcodeText() {
-		return barcodeText;
-	}
+public int getDiskon2() {
+	return diskon2;
+}
 
-	public void setBarcodeText(String barcodeText) {
-		this.barcodeText = barcodeText;
-	}
+public void setDiskon2(int diskon2) {
+	this.diskon2 = diskon2;
+}
 
-	Locale locale = new Locale("en", "UK");
-	  DecimalFormat decimalFormat = (DecimalFormat)NumberFormat.getNumberInstance(this.locale);
+private JPanel panelTotal;
+  
+  public String getBarcodeText() {
+    return this.barcodeText;
+  }
+  
+  public void setBarcodeText(String barcodeText) {
+    this.barcodeText = barcodeText;
+  }
+  
+  Locale locale = new Locale("en", "UK");
+  
+  DecimalFormat decimalFormat = (DecimalFormat)NumberFormat.getNumberInstance(this.locale);
+  
+  private JLabel jLjLabelStatuttext;
+  
+  DecimalFormat df = (DecimalFormat)NumberFormat.getNumberInstance(this.locale);
+  
+  public static Double harga_barang;
+  
+  public Double getHarga_barang() {
+    return harga_barang;
+  }
+  
+  public void setHarga_barang(Double harga_barang) {
+    viewHarga.harga_barang = harga_barang;
+  }
+  
+  private String[] columns = new String[] { "harga", "Rp" };
+  
+  public String jumlah;
+  
+  private String barcode;
+  
+  private int poin;
+  
+  private int status;
+  
+  private int persediaanBarang;
+  
+  private Double harga1;
+  
+  private Double harga2;
+  
+  private Double harga3;
+  
+  private JLabel lblbarcodeBarang;
+  
+  public Double getHarga1() {
+    return this.harga1;
+  }
+  
+  public void setHarga1(Double harga1) {
+    this.harga1 = harga1;
+  }
+  
+  public Double getHarga2() {
+    return this.harga2;
+  }
+  
+  public void setHarga2(Double harga2) {
+    this.harga2 = harga2;
+  }
+  
+  public Double getHarga3() {
+    return this.harga3;
+  }
+  
+  public void setHarga3(Double harga3) {
+    this.harga3 = harga3;
+  }
+  
+  public int getPersediaanBarang() {
+    return this.persediaanBarang;
+  }
+  
+  public void setPersediaanBarang(int persediaanBarang) {
+    this.persediaanBarang = persediaanBarang;
+  }
+  
+  public int getStatus() {
+    return this.status;
+  }
+  
+  public void setStatus(int status) {
+    this.status = status;
+  }
+  
+  public int getPoin() {
+    return this.poin;
+  }
+  
+  public void setPoin(int poin) {
+    this.poin = poin;
+  }
+  
+  public String getJumlah() {
+    return this.jumlah;
+  }
+  
+  public void setJumlah(String jumlah) {
+    this.jumlah = jumlah;
+  }
+  
+  public String getBarcode() {
+    return this.barcode;
+  }
+  
+  public void setBarcode(String barcode) {
+    this.barcode = barcode;
+  }
+  
+  DefaultTableModel tableModel2 = new DefaultTableModel(
+      new Object[0][], (Object[])new String[] { "harga", "nominal" }) {
+      public boolean isCellEditable(int row, int column) {
+        return false;
+      }
+    };
+  
+  private JTextField textField;
+  
+  Object[][] data;
+  
+  private JTextField textField_1;
+  
+  private JTextField textField_2;
+  
+  private JTextField textField_3;
+  
+  private JTextField textField_4;
+  
+  private JTextField barcodeTextField;
+  
+  public viewHarga(AdminKasir parent, int persediaan, int poin, String nama, Double harga1, 
+		  Double haraga2, Double harga3, Double harga_beli, String status, 
+		  boolean modal, int mindiskon, int mindiskon2, String barcodeAdmin) {
+    setUndecorated(true);
+    setBounds(390, 10, 550, 450);
+    setVisible(true);
+    setBackground(new Color(1.0F, 1.0F, 1.0F, 0.0F));
+    this.tableModel = new TableModelHarga();
+    this.harga = new Harga();
+    getContentPane().setLayout(new BorderLayout());
+    this.contentPanel.setBackground(new Color(0.1F, 0.1F, 0.1F, 0.0F));
+    this.contentPanel.setBorder(new EmptyBorder(0, 0, 0, 0));
+    getContentPane().add(this.contentPanel, "Center");
+    this.data = new Object[][] { { "harga ecerl", harga1 }, { "harga kulak", haraga2 }, { "harga carton", harga3 } };
+    this.contentPanel.setLayout((LayoutManager)null);
+    setPoin(poin);
+    setStatus(Integer.parseInt(status));
+    setPersediaanBarang(persediaan);
+    this.textField = new JTextField();
+    this.textField.addKeyListener(new KeyAdapter() {
+          public void keyPressed(KeyEvent e) {
+            int keyCode = e.getKeyCode();
+            switch (keyCode) {
+              case 40:
+                viewHarga.this.textField.setBackground(Color.WHITE);
+                viewHarga.this.textField_1.setBackground(Color.GREEN);
+                viewHarga.this.textField_1.requestFocus();
+                break;
+              case 38:
+                viewHarga.this.barcodeTextField.requestFocus();
+                viewHarga.this.barcodeTextField.setBackground(Color.GREEN);
+                break;
+              case 10:
+                viewHarga.this.ambilDataBarang();
+                viewHarga.this.dispose();
+                break;
+            } 
+          }
+        });
+    this.textField.setText("1");
+    this.textField.selectAll();
+    this.textField.setFont(new Font("Dialog", 1, 24));
+    this.textField.setBounds(180, 100, 50, 48);
+    this.contentPanel.add(this.textField);
+    this.textField.setColumns(10);
+    JLabel lblJumlah = new JLabel("Jumlah");
+    lblJumlah.setBackground(Color.GREEN);
+    lblJumlah.setForeground(new Color(34, 139, 34));
+    lblJumlah.setFont(new Font("Dialog", 1, 20));
+    lblJumlah.setBounds(32, 100, 112, 33);
+    this.contentPanel.add(lblJumlah);
+    JLabel lblKodeBarcode = new JLabel("Persediaan");
+    lblKodeBarcode.setForeground(new Color(255, 0, 255));
+    lblKodeBarcode.setFont(new Font("Dialog", 1, 15));
+    lblKodeBarcode.setBounds(27, 70, 117, 23);
+    JButton btnNewButton = new JButton("Simpan");
+    btnNewButton.addActionListener(new ActionListener() {
+          public void actionPerformed(ActionEvent arg0) {}
+        });
+    btnNewButton.setBounds(605, 392, 133, 33);
+    this.contentPanel.add(btnNewButton);
+    this.textField_1 = new JTextField();
+    this.textField_1.setFont(new Font("Dialog", 1, 25));
+    this.textField_1.addKeyListener(new KeyAdapter() {
+          public void keyPressed(KeyEvent e) {
+            int keyCode = e.getKeyCode();
+            switch (keyCode) {
+              case 40:
+                viewHarga.this.textField_1.setBackground(Color.WHITE);
+                viewHarga.this.textField_2.requestFocus();
+                viewHarga.this.textField_2.setBackground(Color.GREEN);
+                break;
+              case 38:
+                viewHarga.this.textField_1.setBackground(Color.WHITE);
+                viewHarga.this.textField.requestFocus();
+                viewHarga.this.textField.setBackground(Color.GREEN);
+                break;
+              case 10:
+                viewHarga.this.ambilHargaSatu();
+                viewHarga.this.dispose();
+                break;
+            } 
+          }
+        });
+    this.textField_1.setBounds(180, 150, 120, 33);
+    this.textField_1.setText(this.df.format(harga1));
+    this.contentPanel.add(this.textField_1);
+    this.textField_1.setColumns(10);
+    this.lblbarcodeBarang = new JLabel(barcodeAdmin);
+    this.lblbarcodeBarang.setFont(new Font("Lucida Grande", 0, 5));
+    this.lblbarcodeBarang.setForeground(Color.ORANGE);
+    this.lblbarcodeBarang.setBackground(new Color(1.0F, 1.0F, 1.0F, 0.2F));
+    this.lblbarcodeBarang.setBounds(10, 380, 200, 33);
+    this.contentPanel.add(this.lblbarcodeBarang);
+    this.textField_1.setText(this.df.format(harga1));
+    this.textField_1.setColumns(10);
+    this.lblBelanjaTotalNilai = new JLabel("0");
+    JPanel panel = new JPanel();
+    panel.setBorder((Border)null);
+    panel.setBackground(new Color(1.0F, 1.0F, 1.0F, 0.0F));
 
-	 // private JButton  btnTest;
-	  private JLabel jLjLabelStatuttext;
-	  DecimalFormat df = (DecimalFormat)NumberFormat.getNumberInstance(this.locale);
-	  
-	  public static Double harga_barang;
-	  
-	  public Double getHarga_barang() {
-	    return harga_barang;
-	  }
-	  
-	  public void setHarga_barang(Double harga_barang) {
-	    viewHarga.harga_barang = harga_barang;
-	  }
-	  
-	  private String[] columns = new String[] { "harga", "Rp" };
-	  
-	  public String jumlah;
-	  
-	  private String barcode;
-	  
-	  private int poin;
-	  
-	  private int status;
-	  
-	  private int persediaanBarang;
-	  private Double harga1;
-	  private Double harga2;
-	  private Double harga3;
-	  private JLabel lblbarcodeBarang;
-	  
-	  public Double getHarga1() {
-		return harga1;
-	}
+    //panel.setBackground(Color.WHITE);
+    panel.setBounds(0, 0, 600, 70);
+    this.contentPanel.add(panel);
+    panel.setLayout((LayoutManager)null);
+    this.lblNewLabel = new JLabel(nama);
 
-	public void setHarga1(Double harga1) {
-		this.harga1 = harga1;
-	}
+    this.lblNewLabel.setBounds(5, 2, 540, 35);
+    JLabel jLjLabelStatuttext_1 = new JLabel("Persediaan");
+    jLjLabelStatuttext_1.setForeground(new Color(0, 0, 0));
+    jLjLabelStatuttext_1.setFont(new Font("Dialog", 1, 14));
+    jLjLabelStatuttext_1.setBounds(5, 39, 100, 35);
+    JLabel lblNewLabel_1 = new JLabel(String.valueOf(persediaan));
+    lblNewLabel_1.setForeground(new Color(0, 0, 0));
+    lblNewLabel_1.setFont(new Font("Dialog", 1, 14));
+    lblNewLabel_1.setBounds(140, 39, 30, 35);
+    panel.setLayout(null);
+    this.barcodeTextField = new JTextField();
+    this.barcodeTextField.setBackground(new Color(0, 120, 255));
+    panel.add(this.barcodeTextField);
+    this.barcodeTextField.setBounds(379, 49, 150, 15);
+    this.barcodeTextField.addKeyListener(new KeyAdapter() {
+          public void keyPressed(KeyEvent e) {
+            int keyCode = e.getKeyCode();
+            switch (keyCode) {
+              case 40:
+                viewHarga.this.textField.setBackground(Color.WHITE);
+                viewHarga.this.textField.setBackground(Color.GREEN);
+                viewHarga.this.textField.selectAll();
+                viewHarga.this.textField.requestFocus();
+                break;
+              case 38:
+                viewHarga.this.ambilDataDua();
+                viewHarga.this.dispose();
+                break;
+            } 
+          }
+        });
+    this.barcodeTextField.addActionListener(new ActionListener() {
+          public void actionPerformed(ActionEvent e) {
+            if (viewHarga.this.barcodeTextField.getText().equals(viewHarga.this.lblbarcodeBarang.getText())) {
+              int jumlah_aja = 0;
+              jumlah_aja = 1 + Integer.parseInt(viewHarga.this.textField.getText());
+              //viewHarga.this.textField.setText(jumlah_aja);
+              viewHarga.this.CariBarang();
+              viewHarga.this.barcodeTextField.selectAll();
+              viewHarga.this.barcodeTextField.requestFocus();
+            } else if (viewHarga.this.barcodeTextField.getText().equals("")) {
+              System.out.println("kosong");
+            } else {
+              viewHarga.this.ambilDataBarang();
+              viewHarga.this.CariBarang2();
+              viewHarga.this.barcodeTextField.selectAll();
+              viewHarga.this.barcodeTextField.requestFocus();
+            } 
+          }
+        });
+    panel.add(this.lblNewLabel);
+    this.lblpoin = new JLabel((new StringBuilder(String.valueOf(poin))).toString());
+    panel.add(this.lblpoin);
+    this.lblpoin.setForeground(new Color(0, 0, 0));
+    this.lblpoin.setFont(new Font("Dialog", 1, 14));
+    this.lblpoin.setBounds(250, 42, 100, 29);
+    JLabel lblmin = new JLabel("Poin");
+    panel.add(lblmin);
+    lblmin.setForeground(new Color(0, 0, 0));
+    lblmin.setFont(new Font("Dialog", 1, 14));
+    lblmin.setBounds(200, 42, 80, 29);
+    panel.add(jLjLabelStatuttext_1);
+    panel.add(lblNewLabel_1);
+    this.lblNewLabel.setForeground(new Color(0, 0, 0));
+    this.lblNewLabel.setFont(new Font("Dialog", 1, 24));
+    this.Jlablediskon1 = new JLabel(String.valueOf(mindiskon));
+    Jlablediskon1.setForeground(new Color(34, 139, 34));
+    this.Jlablediskon1.setFont(new Font("Dialog", 1, 25));
+    this.Jlablediskon1.setBounds(320, 200, 200, 29);
+    this.contentPanel.add(Jlablediskon1);
+    this.Jlablediskon2 = new JLabel(String.valueOf(mindiskon2));
+    System.out.print("labeldiskon"+ mindiskon);
+    this.Jlablediskon2.setForeground(new Color(34, 139, 34));
+    this.Jlablediskon2.setFont(new Font("Dialog", 1, 25));
+    this.Jlablediskon2.setBounds(320, 250, 200, 29);
+    this.contentPanel.add(Jlablediskon2);
+    this.textField_2 = new JTextField();
+    this.textField_2.setFont(new Font("Dialog", 1, 25));
+    this.textField_2.addKeyListener(new KeyAdapter() {
+          public void keyPressed(KeyEvent e) {
+            int keyCode = e.getKeyCode();
+            switch (keyCode) {
+              case 40:
+                viewHarga.this.textField_3.requestFocus();
+                viewHarga.this.textField_3.setBackground(Color.GREEN);
+                viewHarga.this.textField_2.setBackground(Color.WHITE);
+                break;
+              case 38:
+                viewHarga.this.textField_1.requestFocus();
+                viewHarga.this.textField_1.setBackground(Color.GREEN);
+                viewHarga.this.textField_2.setBackground(Color.WHITE);
+                break;
+              case 10:
+                viewHarga.this.ambilHargaDua();
+                viewHarga.this.dispose();
+                break;
+            } 
+          }
+        });
+    this.textField_2.setColumns(10);
+    this.textField_2.setBounds(180, 200, 120, 33);
+    this.textField_2.setText(this.df.format(haraga2));
+    this.contentPanel.add(this.textField_2);
+    this.textField_3 = new JTextField();
+    this.textField_3.setFont(new Font("Dialog", 1, 25));
+    this.textField_3.addKeyListener(new KeyAdapter() {
+          public void keyPressed(KeyEvent e) {
+            int keyCode = e.getKeyCode();
+            switch (keyCode) {
+              case 40:
+                viewHarga.this.textField_3.setBackground(Color.WHITE);
+                viewHarga.this.textField.requestFocus();
+                viewHarga.this.textField.setBackground(Color.GREEN);
+                break;
+              case 38:
+                viewHarga.this.textField_3.setBackground(Color.WHITE);
+                viewHarga.this.textField_2.requestFocus();
+                viewHarga.this.textField_2.setBackground(Color.GREEN);
+                break;
+              case 10:
+                viewHarga.this.ambilHargaTiga();
+                if (viewHarga.this.getStatus() == 1) {
+                  viewHarga.this.cekStatus();
+                } else {
+                  viewHarga.this.dispose();
+                } 
+                viewHarga.this.dispose();
+                break;
+            } 
+          }
+        });
+    this.textField_3.setColumns(10);
+    this.textField_3.setBounds(180, 250, 120, 33);
+    this.textField_3.setText(this.df.format(harga3));
+    this.contentPanel.add(this.textField_3);
+    this.lblBelanjaPoinNilai = new JLabel("0");
+    JLabel lblHargaEcer = new JLabel("Harga Ecer");
+    lblHargaEcer.setForeground(new Color(34, 139, 34));
+    lblHargaEcer.setFont(new Font("Dialog", 1, 18));
+    lblHargaEcer.setBounds(32, 150, 118, 33);
+    this.contentPanel.add(lblHargaEcer);
+    JLabel lblHargaKulak = new JLabel("Harga Kulak");
+    lblHargaKulak.setForeground(new Color(46, 139, 87));
+    lblHargaKulak.setFont(new Font("Dialog", 1, 18));
+    lblHargaKulak.setBounds(32, 200, 174, 33);
+    this.contentPanel.add(lblHargaKulak);
+    JLabel lblHargaKarton = new JLabel("Harga Karton");
+    this.lblBelanjaTotal = new JLabel("Total Belanja");
+    this.lblBelanjaPoin = new JLabel("Total Poin");
+    this.lblBelanjaPoinNilai.setForeground(new Color(34, 139, 34));
+    this.lblBelanjaPoinNilai.setFont(new Font("Dialog", 1, 24));
+    this.lblBelanjaPoinNilai.setBounds(220, 300, 174, 33);
+    this.contentPanel.add(this.lblBelanjaPoinNilai);
+    this.lblBelanjaTotal.setForeground(new Color(34, 139, 34));
+    this.lblBelanjaTotal.setFont(new Font("Dialog", 1, 18));
+    this.lblBelanjaTotal.setBounds(32, 350, 174, 33);
+    this.contentPanel.add(this.lblBelanjaTotal);
+    this.lblBelanjaTotalNilai.setForeground(new Color(34, 139, 34));
+    this.lblBelanjaTotalNilai.setFont(new Font("Dialog", 1, 24));
+    this.lblBelanjaTotalNilai.setBounds(220, 350, 174, 33);
+    this.contentPanel.add(this.lblBelanjaTotalNilai);
+    this.lblBelanjaPoin.setForeground(new Color(34, 139, 34));
+    this.lblBelanjaPoin.setFont(new Font("Dialog", 1, 18));
+    this.lblBelanjaPoin.setBounds(32, 300, 174, 33);
+    this.contentPanel.add(this.lblBelanjaPoin);
+    lblHargaKarton.setForeground(new Color(34, 139, 34));
+    lblHargaKarton.setFont(new Font("Dialog", 1, 18));
+    lblHargaKarton.setBounds(32, 250, 174, 33);
+    this.contentPanel.add(lblHargaKarton);
 
-	public Double getHarga2() {
-		return harga2;
-	}
+  }
+  
+  private void klik() {
+    setJumlah(this.textField.getText());
+  }
+  
+  private void cekStatus() {
+    System.out.println(getJumlah());
+    System.out.println(getPersediaanBarang());
+    if (getPersediaanBarang() - Integer.parseInt(getJumlah()) >= 1) {
+      System.out.print("oke");
+      dispose();
+    } else {
+      JOptionPane.showMessageDialog(this, "Hai tidak boleh melebihi persediaan");
+    } 
+  }
+  
+  private void ambil_satu(Double hargas) {
+    setJumlah(this.textField.getText());
+    setHarga_barang(hargas);
+  }
+  
+  private void ambilHargaTiga() {
+    int jumlah_qty = 0;
+    System.out.println("test" + AdminKasir.table.getRowCount());
+    if (AdminKasir.table.getRowCount() > 0) {
+      String s = "";
+      boolean exists = false;
+      double harg = 0.0D;
+      int i = 0;
+      while (i < AdminKasir.table.getRowCount() && !exists) {
+        s = AdminKasir.tableModel.getValueAt(i, 0).toString().trim();
+        if (this.lblbarcodeBarang.getText().equals(s)) {
+          System.out.println(AdminKasir.tableModel.getValueAt(i, 3).toString().trim());
+          jumlah_qty = Integer.parseInt(AdminKasir.tableModel.getValueAt(i, 3).toString().trim());
+          exists = true;
+          AdminKasir.tableModel.removeRow(i);
+          i += 100000;
+          continue;
+        } 
+        i++;
+      } 
+    } else {
+      System.out.println("silver");
+    } 
+    jumlah_qty += Integer.parseInt(this.textField.getText());
+    String str = this.textField_3.getText();
+    String strNew = str.replaceFirst(",", "");
+    Double harga = Double.valueOf(Double.parseDouble(strNew));
+    AdminKasir.AddRowToJTable(new Object[] { this.lblbarcodeBarang.getText(), 
+          Double.valueOf(jumlah_qty * harga.doubleValue() / Integer.parseInt(this.lblpoin.getText())), 
+          this.lblNewLabel.getText(), 
+          Integer.toString(jumlah_qty), 
+          this.textField_3.getText(), 
+          this.decimalFormat.format(jumlah_qty * harga.doubleValue()) }, this.lblbarcodeBarang.getText(), this.lblpoin.getText(), Double.valueOf(jumlah_qty * harga.doubleValue()));
+  }
+  
+  private void hitunssgTotalPoin() {
+    AdminKasir.table.getRowCount();
+  }
+  
+  public void hitungTotalPoin() {
+    String pattern = "###,###.###";
+    DecimalFormat decimalFormat = new DecimalFormat(pattern);
+    Double Subtotal = Double.valueOf(0.0D);
+    Double SubtotalPoin = Double.valueOf(0.0D);
+    for (int j = 0; j < AdminKasir.table.getRowCount(); j++) {
+      String totalString = AdminKasir.tableModel.getValueAt(j, 5).toString().trim();
+      String strNew22 = totalString.replaceFirst(",", "");
+      Subtotal = Double.valueOf(Double.parseDouble(strNew22) + Subtotal.doubleValue());
+      System.out.println("nilai total di harga" + Subtotal);
+      String totalPoin = AdminKasir.tableModel.getValueAt(j, 1).toString().trim();
+      SubtotalPoin = Double.valueOf(Double.parseDouble(totalPoin) + SubtotalPoin.doubleValue());
+      System.out.println("nilai di harga" + totalPoin);
+      this.lblBelanjaTotalNilai.setText(decimalFormat.format(Subtotal));
+      this.lblBelanjaPoinNilai.setText(decimalFormat.format(SubtotalPoin));
+    } 
+  }
+  
+  private void ambilDataDua() {
+    int jumlah_qty = 0;
+    System.out.println("test" + AdminKasir.table.getRowCount());
+    if (AdminKasir.table.getRowCount() > 0) {
+      String s = "";
+      boolean exists = false;
+      double harg = 0.0D;
+      int i = 0;
+      while (i < AdminKasir.table.getRowCount() && !exists) {
+        s = AdminKasir.tableModel.getValueAt(i, 0).toString().trim();
+        if (this.lblbarcodeBarang.getText().equals(s)) {
+          System.out.println(AdminKasir.tableModel.getValueAt(i, 3).toString().trim());
+          jumlah_qty = Integer.parseInt(AdminKasir.tableModel.getValueAt(i, 3).toString().trim());
+          exists = true;
+          AdminKasir.tableModel.removeRow(i);
+          i += 100000;
+          continue;
+        } 
+        i++;
+      } 
+    } else {
+      System.out.println("silver");
+    } 
+    jumlah_qty += Integer.parseInt(this.textField.getText());
+   // String mind = Jlablediskon1.getText()
+    //System.out.print("nilai min diskon"+mind);
+    if (jumlah_qty >=  Integer.parseInt(Jlablediskon1.getText()) && jumlah_qty <  Integer.parseInt(Jlablediskon2.getText()) ) {
+       if(Jlablediskon1.getText().equals("0")) {
+    	   String str22 = this.textField_1.getText();
+    	      String strNew22 = str22.replaceFirst(",", "");
+    	      Double harga32 = Double.valueOf(Double.parseDouble(strNew22));
+    	      AdminKasir.AddRowToJTable(new Object[] { this.lblbarcodeBarang.getText(), 
+    	            Double.valueOf(jumlah_qty * harga32.doubleValue() / Integer.parseInt(this.lblpoin.getText())), 
+    	            this.lblNewLabel.getText(), 
+    	            Integer.toString(jumlah_qty), 
+    	            this.textField_1.getText(), 
+    	            this.decimalFormat.format(jumlah_qty * harga32.doubleValue()) }, this.lblbarcodeBarang.getText(), this.lblpoin.getText(), Double.valueOf(jumlah_qty * harga32.doubleValue()));
+       }
+       else if(Jlablediskon1.getText().equals("0") && Jlablediskon2.getText().equals("0")) {
+    	   String str22 = this.textField_2.getText();
+ 	      String strNew22 = str22.replaceFirst(",", "");
+ 	      Double harga32 = Double.valueOf(Double.parseDouble(strNew22));
+ 	      AdminKasir.AddRowToJTable(new Object[] { this.lblbarcodeBarang.getText(), 
+ 	            Double.valueOf(jumlah_qty * harga32.doubleValue() / Integer.parseInt(this.lblpoin.getText())), 
+ 	            this.lblNewLabel.getText(), 
+ 	            Integer.toString(jumlah_qty), 
+ 	            this.textField_2.getText(), 
+ 	            this.decimalFormat.format(jumlah_qty * harga32.doubleValue()) }, this.lblbarcodeBarang.getText(), this.lblpoin.getText(), Double.valueOf(jumlah_qty * harga32.doubleValue()));
+ 
+       }
+       else {
+    	   String str22 = this.textField_2.getText();
+    	      String strNew22 = str22.replaceFirst(",", "");
+    	      Double harga32 = Double.valueOf(Double.parseDouble(strNew22));
+    	      AdminKasir.AddRowToJTable(new Object[] { this.lblbarcodeBarang.getText(), 
+    	            Double.valueOf(jumlah_qty * harga32.doubleValue() / Integer.parseInt(this.lblpoin.getText())), 
+    	            this.lblNewLabel.getText(), 
+    	            Integer.toString(jumlah_qty), 
+    	            this.textField_2.getText(), 
+    	            this.decimalFormat.format(jumlah_qty * harga32.doubleValue()) }, this.lblbarcodeBarang.getText(), this.lblpoin.getText(), Double.valueOf(jumlah_qty * harga32.doubleValue()));
+       }
+     
+    } else if (jumlah_qty >=  Integer.parseInt(Jlablediskon2.getText())) {
+    	if(Jlablediskon2.getText().equals("0")) {
+    		
+    		  String str2 = this.textField_2.getText();
+    	      String strNew2 = str2.replaceFirst(",", "");
+    	      Double harga3 = Double.valueOf(Double.parseDouble(strNew2));
+    	      AdminKasir.AddRowToJTable(new Object[] { this.lblbarcodeBarang.getText(), 
+    	            Double.valueOf(jumlah_qty * harga3.doubleValue() / Integer.parseInt(this.lblpoin.getText())), 
+    	            this.lblNewLabel.getText(), 
+    	            Integer.toString(jumlah_qty), 
+    	            this.textField_2.getText(), 
+    	            this.decimalFormat.format(jumlah_qty * harga3.doubleValue()) }, this.lblbarcodeBarang.getText(), this.lblpoin.getText(), Double.valueOf(jumlah_qty * harga3.doubleValue()));
+    		
+    	}
+    	else if (Jlablediskon2.getText().equals("0") && Jlablediskon1.getText().equals("0")) {
+    		  String str2 = this.textField_1.getText();
+    	      String strNew2 = str2.replaceFirst(",", "");
+    	      Double harga3 = Double.valueOf(Double.parseDouble(strNew2));
+    	      AdminKasir.AddRowToJTable(new Object[] { this.lblbarcodeBarang.getText(), 
+    	            Double.valueOf(jumlah_qty * harga3.doubleValue() / Integer.parseInt(this.lblpoin.getText())), 
+    	            this.lblNewLabel.getText(), 
+    	            Integer.toString(jumlah_qty), 
+    	            this.textField_1.getText(), 
+    	            this.decimalFormat.format(jumlah_qty * harga3.doubleValue()) }, this.lblbarcodeBarang.getText(), this.lblpoin.getText(), Double.valueOf(jumlah_qty * harga3.doubleValue()));
+    	}
+    	else {
+    		 String str2 = this.textField_3.getText();
+    	      String strNew2 = str2.replaceFirst(",", "");
+    	      Double harga3 = Double.valueOf(Double.parseDouble(strNew2));
+    	      AdminKasir.AddRowToJTable(new Object[] { this.lblbarcodeBarang.getText(), 
+    	            Double.valueOf(jumlah_qty * harga3.doubleValue() / Integer.parseInt(this.lblpoin.getText())), 
+    	            this.lblNewLabel.getText(), 
+    	            Integer.toString(jumlah_qty), 
+    	            this.textField_3.getText(), 
+    	            this.decimalFormat.format(jumlah_qty * harga3.doubleValue()) }, this.lblbarcodeBarang.getText(), this.lblpoin.getText(), Double.valueOf(jumlah_qty * harga3.doubleValue()));
+    	}
+     
+    } else {
+      String str = this.textField_1.getText();
+      String strNew = str.replaceFirst(",", "");
+      Double harga = Double.valueOf(Double.parseDouble(strNew));
+      System.out.println("hasil x" + strNew);
+      AdminKasir.AddRowToJTable(new Object[] { this.lblbarcodeBarang.getText(), 
+            Double.valueOf(jumlah_qty * harga.doubleValue() / Integer.parseInt(this.lblpoin.getText())), 
+            this.lblNewLabel.getText(), 
+            Integer.toString(jumlah_qty), 
+            this.textField_1.getText(), 
+            this.decimalFormat.format(jumlah_qty * harga.doubleValue()) }, this.lblbarcodeBarang.getText(), this.lblpoin.getText(), Double.valueOf(jumlah_qty * harga.doubleValue()));
+    } 
+    
+  }
+  
+  
+  private void ambilHargaSatu() {
+    int jumlah_qty = 0;
+    System.out.println("test" + AdminKasir.table.getRowCount());
+    if (AdminKasir.table.getRowCount() > 0) {
+      String s = "";
+      boolean exists = false;
+      double harg = 0.0D;
+      int i = 0;
+      while (i < AdminKasir.table.getRowCount() && !exists) {
+        s = AdminKasir.tableModel.getValueAt(i, 0).toString().trim();
+        if (this.lblbarcodeBarang.getText().equals(s)) {
+          System.out.println(AdminKasir.tableModel.getValueAt(i, 3).toString().trim());
+          jumlah_qty = Integer.parseInt(AdminKasir.tableModel.getValueAt(i, 3).toString().trim());
+          exists = true;
+          AdminKasir.tableModel.removeRow(i);
+          i += 100000;
+          continue;
+        } 
+        i++;
+      } 
+    } else {
+      System.out.println("silver");
+    } 
+    jumlah_qty += Integer.parseInt(this.textField.getText());
+    String str = this.textField_1.getText();
+    String strNew = str.replaceFirst(",", "");
+    Double harga = Double.valueOf(Double.parseDouble(strNew));
+    AdminKasir.AddRowToJTable(new Object[] { this.lblbarcodeBarang.getText(), 
+          Double.valueOf(jumlah_qty * harga.doubleValue() / Integer.parseInt(this.lblpoin.getText())), 
+          this.lblNewLabel.getText(), 
+          Integer.toString(jumlah_qty), 
+          this.textField_1.getText(), 
+          this.decimalFormat.format(jumlah_qty * harga.doubleValue()) }, this.lblbarcodeBarang.getText(), this.lblpoin.getText(), Double.valueOf(jumlah_qty * harga.doubleValue()));
+  }
+  
+private void ambilHargaDua() {
+		    int jumlah_qty = 0;
+		    System.out.println("test" + AdminKasir.table.getRowCount());
+		    if (AdminKasir.table.getRowCount() > 0) {
+		      String s = "";
+		      boolean exists = false;
+		      double harg = 0.0D;
+		      int i = 0;
+		      while (i < AdminKasir.table.getRowCount() && !exists) {
+		        s = AdminKasir.tableModel.getValueAt(i, 0).toString().trim();
+		        if (this.lblbarcodeBarang.getText().equals(s)) {
+		          System.out.println(AdminKasir.tableModel.getValueAt(i, 3).toString().trim());
+		          jumlah_qty = Integer.parseInt(AdminKasir.tableModel.getValueAt(i, 3).toString().trim());
+		          exists = true;
+		          AdminKasir.tableModel.removeRow(i);
+		          i += 100000;
+		          continue;
+		        } 
+		        i++;
+		      } 
+		    } else {
+		      System.out.println("silver");
+		    } 
+		    jumlah_qty = Integer.parseInt(this.textField.getText());
+		    String str = this.textField_2.getText();
+		    String strNew = str.replaceFirst(",", "");
+		    Double harga = Double.valueOf(Double.parseDouble(strNew));
+		    AdminKasir.AddRowToJTable(new Object[] { this.lblbarcodeBarang.getText(), 
+		          Double.valueOf(jumlah_qty * harga.doubleValue() / Integer.parseInt(this.lblpoin.getText())), 
+		          this.lblNewLabel.getText(), 
+		          Integer.toString(jumlah_qty), 
+		          this.textField_2.getText(), 
+		          this.decimalFormat.format(jumlah_qty * harga.doubleValue()) }, this.lblbarcodeBarang.getText(), this.lblpoin.getText(), Double.valueOf(jumlah_qty * harga.doubleValue()));
+ }
 
-	public void setHarga2(Double harga2) {
-		this.harga2 = harga2;
-	}
+private void ambilDataBarang() {
+    int jumlah_qty = 0;
+    System.out.println("test" + AdminKasir.table.getRowCount());
+    if (AdminKasir.table.getRowCount() > 0) {
+      String s = "";
+      boolean exists = false;
+      double harg = 0.0D;
+      int i = 0;
+      while (i < AdminKasir.table.getRowCount() && !exists) {
+        s = AdminKasir.tableModel.getValueAt(i, 0).toString().trim();
+        if (this.lblbarcodeBarang.getText().equals(s)) {
+          System.out.println(AdminKasir.tableModel.getValueAt(i, 3).toString().trim());
+          jumlah_qty = Integer.parseInt(AdminKasir.tableModel.getValueAt(i, 3).toString().trim());
+          exists = true;
+          AdminKasir.tableModel.removeRow(i);
+          i += 100000;
+          continue;
+        } 
+        i++;
+      } 
+    } else {
+      System.out.println("silver");
+    } 
+    jumlah_qty += Integer.parseInt(this.textField.getText());
+    if(Jlablediskon1.getText().equals("0") && Jlablediskon2.getText().equals("0")) {
+        String str = this.textField_1.getText();
+        String strNew = str.replaceFirst(",", "");
+        Double harga = Double.valueOf(Double.parseDouble(strNew));
+        AdminKasir.AddRowToJTable(new Object[] { this.lblbarcodeBarang.getText(), 
+              Double.valueOf(jumlah_qty * harga.doubleValue() / Integer.parseInt(this.lblpoin.getText())), 
+              this.lblNewLabel.getText(), 
+              Integer.toString(jumlah_qty), 
+              this.textField_1.getText(), 
+              this.decimalFormat.format(jumlah_qty * harga.doubleValue()) }, this.lblbarcodeBarang.getText(), this.lblpoin.getText(), Double.valueOf(jumlah_qty * harga.doubleValue()));
 
-	public Double getHarga3() {
-		return harga3;
-	}
+    }
+    else if(Jlablediskon2.getText().equals("0") && Jlablediskon1.getText() != "0" ) {
+    	if(jumlah_qty < Integer.parseInt(Jlablediskon1.getText())) {
+    	    String str = this.textField_1.getText();
+ 
+    		String strNew = str.replaceFirst(",", "");
+    	        Double harga = Double.valueOf(Double.parseDouble(strNew));
+    	        AdminKasir.AddRowToJTable(new Object[] { this.lblbarcodeBarang.getText(), 
+    	              Double.valueOf(jumlah_qty * harga.doubleValue() / Integer.parseInt(this.lblpoin.getText())), 
+    	              this.lblNewLabel.getText(), 
+    	              Integer.toString(jumlah_qty), 
+    	              this.textField_1.getText(), 
+    	              this.decimalFormat.format(jumlah_qty * harga.doubleValue()) }, this.lblbarcodeBarang.getText(), this.lblpoin.getText(), Double.valueOf(jumlah_qty * harga.doubleValue()));
 
-	public void setHarga3(Double harga3) {
-		this.harga3 = harga3;
-	}
+    	}
+    	else if (jumlah_qty>= Integer.parseInt(Jlablediskon1.getText())) {
+    	    String str = this.textField_2.getText();
 
-	public int getPersediaanBarang() {
-	  return persediaanBarang;
-	}
+    		String strNew = str.replaceFirst(",", "");
+	        Double harga = Double.valueOf(Double.parseDouble(strNew));
+	        AdminKasir.AddRowToJTable(new Object[] { this.lblbarcodeBarang.getText(), 
+	              Double.valueOf(jumlah_qty * harga.doubleValue() / Integer.parseInt(this.lblpoin.getText())), 
+	              this.lblNewLabel.getText(), 
+	              Integer.toString(jumlah_qty), 
+	              this.textField_2.getText(), 
+	              this.decimalFormat.format(jumlah_qty * harga.doubleValue()) }, this.lblbarcodeBarang.getText(), this.lblpoin.getText(), Double.valueOf(jumlah_qty * harga.doubleValue()));
 
-	public void setPersediaanBarang(int persediaanBarang) {
-	  this.persediaanBarang = persediaanBarang;
-	}
+    	}
+    }
+    else if(Jlablediskon1.getText().equals("0") && Jlablediskon2.getText() != "0" ) {
+    	if (jumlah_qty < Integer.parseInt(Jlablediskon2.getText())) {
+    		 String str = this.textField_1.getText();
 
-	public int getStatus() {
-	  return status;
-	}
+     		String strNew = str.replaceFirst(",", "");
+ 	        Double harga = Double.valueOf(Double.parseDouble(strNew));
+ 	        AdminKasir.AddRowToJTable(new Object[] { this.lblbarcodeBarang.getText(), 
+ 	              Double.valueOf(jumlah_qty * harga.doubleValue() / Integer.parseInt(this.lblpoin.getText())), 
+ 	              this.lblNewLabel.getText(), 
+ 	              Integer.toString(jumlah_qty), 
+ 	              this.textField_1.getText(), 
+ 	              this.decimalFormat.format(jumlah_qty * harga.doubleValue()) }, this.lblbarcodeBarang.getText(), this.lblpoin.getText(), Double.valueOf(jumlah_qty * harga.doubleValue()));
 
-	public void setStatus(int status) {
-	  this.status = status;
-	}
+    	}
+    	else  if(jumlah_qty >=  Integer.parseInt(Jlablediskon2.getText())){
+   		 String str = this.textField_3.getText();
 
-	public int getPoin() {
-	    return this.poin;
-	  }
-	  
-	  public void setPoin(int poin) {
-	    this.poin = poin;
-	  }
-	  
-	  public String getJumlah() {
-	    return this.jumlah;
-	  }
-	  
-	  public void setJumlah(String jumlah) {
-	    this.jumlah = jumlah;
-	  }
-	  
-	  
-	  public String getBarcode() {
-	    return this.barcode;
-	  }
-	  
-	  public void setBarcode(String barcode) {
-	    this.barcode = barcode;
-	  }
-	  
-	  DefaultTableModel tableModel2 = new DefaultTableModel(
-	      new Object[0][], (Object[])new String[] { "harga", "nominal" }) {
-	      public boolean isCellEditable(int row, int column) {
-	        return false;
-	      }
-	    };
-	  
-	  private JTextField textField;
-	  
-	  Object[][] data;
-	  
-	  private JTextField textField_1;
-	  
-	  private JTextField textField_2;
-	  
-	  private JTextField textField_3;
-	  
-	  private JTextField textField_4;
-	  private JTextField barcodeTextField;
+    		String strNew = str.replaceFirst(",", "");
+	        Double harga = Double.valueOf(Double.parseDouble(strNew));
+	        AdminKasir.AddRowToJTable(new Object[] { this.lblbarcodeBarang.getText(), 
+	              Double.valueOf(jumlah_qty * harga.doubleValue() / Integer.parseInt(this.lblpoin.getText())), 
+	              this.lblNewLabel.getText(), 
+	              Integer.toString(jumlah_qty), 
+	              this.textField_3.getText(), 
+	              this.decimalFormat.format(jumlah_qty * harga.doubleValue()) }, this.lblbarcodeBarang.getText(), this.lblpoin.getText(), Double.valueOf(jumlah_qty * harga.doubleValue()));
 
-	/**
-	 * Launch the application.
-	 */
+    	}
+
+
+    }
+    else {
+        String str = this.textField_2.getText();
+    	 String strNew = str.replaceFirst(",", "");
+ 	    Double harga = Double.valueOf(Double.parseDouble(strNew));
+ 	    AdminKasir.AddRowToJTable(new Object[] { this.lblbarcodeBarang.getText(), 
+ 	          Double.valueOf(jumlah_qty * harga.doubleValue() / Integer.parseInt(this.lblpoin.getText())), 
+ 	          this.lblNewLabel.getText(), 
+ 	          Integer.toString(jumlah_qty), 
+ 	          this.textField_2.getText(), 
+ 	          this.decimalFormat.format(jumlah_qty * harga.doubleValue()) }, this.lblbarcodeBarang.getText(), this.lblpoin.getText(), Double.valueOf(jumlah_qty * harga.doubleValue()));
+    }
 	
+}
+		 
+  /*
+  private void ambilDataBarang() {
+    if (this.barcodeTextField.getText().equals(this.lblbarcodeBarang.getText())) {
+      int jumlah_qty = 0;
+      jumlah_qty += Integer.parseInt(this.textField.getText());
+    } else {
+      int jumlah_qty = 0;
+      System.out.println("test" + AdminKasir.table.getRowCount());
+      if (AdminKasir.table.getRowCount() > 0) {
+        String s = "";
+        boolean exists = false;
+        double harg = 0.0D;
+        int i = 0;
+        while (i < AdminKasir.table.getRowCount() && !exists) {
+          s = AdminKasir.tableModel.getValueAt(i, 0).toString().trim();
+          if (this.lblbarcodeBarang.getText().equals(s)) {
+            System.out.println(AdminKasir.tableModel.getValueAt(i, 3).toString().trim());
+            jumlah_qty = Integer.parseInt(AdminKasir.tableModel.getValueAt(i, 3).toString().trim());
+            exists = true;
+            AdminKasir.tableModel.removeRow(i);
+            i += 100000;
+            continue;
+          } 
+          i++;
+        } 
+      } else {
+        System.out.println("silver");//
+      } 
 
-	/**
-	 * Create the dialog.
-	 */
-	  public viewHarga(AdminKasir parent, int persediaan, 
-			  int poin, String nama, final Double harga1, final Double haraga2, 
-			  final Double harga3, Double harga_beli, String status, boolean modal, int mindiskon, int mindiskon2, String barcodeAdmin) {
-		setUndecorated(true);
-		//setBounds(400, 10, 450, 300);
-		  setBounds(380, 10, 500, 450);
-		  setVisible(true);
-		  setBackground(new Color(1.0f, 1.0f, 1.0f, 0.0f));
-		  //setBackground(new Color(211, 211, 211));
-		    this.tableModel = new TableModelHarga();
-		    this.harga = new Harga();
-		    
-		   // yourDialog.setUndecorated(true);
-		   // yourDialog.getRootPane().setOpaque(false);
-		    getContentPane().setLayout(new BorderLayout());
-		    //        setBackground(new Color(1.0f, 1.0f, 1.0f, 0.0f));
-
-		    this.contentPanel.setBackground(new Color(0.1f, 0.1f, 0.1f, 0f)); //
-		    this.contentPanel.setBorder(new EmptyBorder(0, 0, 0, 0)); //
-		    /*
-		     * 
-		        setBackground(new Color(1.0f, 1.0f, 1.0f, 0.0f));
-		        contentPane = new JPanel();
-		        contentPane.setBorder(new LineBorder(Color.GRAY, 2));
-		        setContentPane(contentPane);
-		        contentPane.setLayout(null);
-		        contentPane.setBackground(new Color(1.0f, 1.0f, 1.0f, 0.2f));
-		     */
-		    getContentPane().add(this.contentPanel, "Center");
-		    this.data = new Object[][] { { "harga ecerl", harga1 }, { "harga kulak", haraga2 }, { "harga carton", harga3 } };
-		    this.contentPanel.setLayout((LayoutManager)null);
-		    setPoin(poin);
-		    setStatus(Integer.parseInt(status));
-		    setPersediaanBarang(persediaan);
-		    this.textField = new JTextField();
-		    this.textField.addKeyListener(new KeyAdapter() {
-		          public void keyPressed(KeyEvent e) {
-		            int keyCode = e.getKeyCode();
-		            switch (keyCode) {
-		              case 40:
-		                viewHarga.this.textField.setBackground(Color.WHITE);
-		                viewHarga.this.textField_1.setBackground(Color.GREEN);
-		                viewHarga.this.textField_1.requestFocus();
-		                break;
-		              case 38:
-		                  viewHarga.this.barcodeTextField.requestFocus();
-		                  viewHarga.this.barcodeTextField.setBackground(Color.GREEN);
-		                  break;
-		              case 10:
-		            	  ambilDataDua();
-		                //viewHarga.this.ambil_satu(harga1);
-		                //AdminKasir.setHarga_jual1(6000.00);
-		                //textField_1
-		            	  /*
-		                if(getStatus() == 1) {
-		                  cekStatus();
-		                }
-		                else {
-		                 viewHarga.this.dispose();
-		                }
-		                */
-		                //viewHarga.this.dispose();
-		                  viewHarga.this.dispose();
-
-		                break;
-		            } 
-		          }
-		        });
-		    this.textField.setText("1");
-		    this.textField.selectAll();
-		    this.textField.setFont(new Font("Dialog", 1, 24));
-		    this.textField.setBounds(180, 100, 50, 48);
-		    this.contentPanel.add(this.textField);
-		    this.textField.setColumns(10);
-		    JLabel lblJumlah = new JLabel("Jumlah");
-		    lblJumlah.setBackground(Color.GREEN);
-		    lblJumlah.setForeground(new Color(255, 255, 255));
-		    lblJumlah.setFont(new Font("Dialog", 1, 20));
-		    lblJumlah.setBounds(32, 100, 112, 33);
-		    this.contentPanel.add(lblJumlah);
-		    JLabel lblKodeBarcode = new JLabel("Persediaan");
-		    lblKodeBarcode.setForeground(new Color(255, 0, 255));
-		    lblKodeBarcode.setFont(new Font("Dialog", 1, 15));
-		    lblKodeBarcode.setBounds(27, 70, 117, 23);
-		    JButton btnNewButton = new JButton("Simpan");
-		    btnNewButton.addActionListener(new ActionListener() {
-		          public void actionPerformed(ActionEvent arg0) {}
-		        });
-		    btnNewButton.setBounds(605, 392, 133, 33);
-		    this.contentPanel.add(btnNewButton);
-		    this.textField_1 = new JTextField();
-		    this.textField_1.setFont(new Font("Dialog", 1, 25));
-		    this.textField_1.addKeyListener(new KeyAdapter() {
-		          public void keyPressed(KeyEvent e) {
-		            int keyCode = e.getKeyCode();
-		            switch (keyCode) {
-		              case 40:
-		                viewHarga.this.textField_1.setBackground(Color.WHITE);
-		                viewHarga.this.textField_2.requestFocus();
-		                viewHarga.this.textField_2.setBackground(Color.GREEN);
-		                break;
-		              case 38:
-		                viewHarga.this.textField_1.setBackground(Color.WHITE);
-		                viewHarga.this.textField.requestFocus();
-		                viewHarga.this.textField.setBackground(Color.GREEN);
-		                break;
-		              case 10:
-		            	  ambilHargaSatu();
-		            	  //ambilDataDua();
-		                //viewHarga.this.ambil_satu(harga1);
-		                //AdminKasir.setHarga_jual1(6000.00);
-		                //textField_1
-		            	  /*
-		                if(getStatus() == 1) {
-		                  cekStatus();
-		                }
-		                else {
-		                 viewHarga.this.dispose();
-		                }
-		                */
-		                viewHarga.this.dispose();
-		                break;
-		            } 
-		          }
-		        });
-		    this.textField_1.setBounds(180, 150, 150, 33);
-		    this.textField_1.setText(this.df.format(harga1));
-		    this.contentPanel.add(this.textField_1);
-		    this.textField_1.setColumns(10);
-
-		    lblbarcodeBarang = new JLabel(barcodeAdmin);
-		    lblbarcodeBarang.setFont(new Font("Lucida Grande", Font.PLAIN, 5));
-		    lblbarcodeBarang.setForeground(Color.ORANGE);
-		     lblbarcodeBarang.setBackground(new Color(1.0f, 1.0f, 1.0f, 0.2f));
-
-		     //lblbarcodeBarang.setForeground(new Color(30, 144, 255));
-		    this.lblbarcodeBarang.setBounds(10, 380, 200, 33);
-		    this.contentPanel.add(lblbarcodeBarang);
-		   
-		    this.textField_1.setText(this.df.format(harga1));
-		    this.textField_1.setColumns(10);
-		    lblBelanjaTotalNilai = new JLabel("0");
-		    //		    this.barcodeTextField.setBounds(25, 50, 200, 20);
-
-		    JPanel panel = new JPanel();
-		    panel.setBorder(new LineBorder(new Color(50, 205, 50)));
-		    panel.setBackground(Color.WHITE);
-		    panel.setBounds(0, 0, 500, 70);
-		    this.contentPanel.add(panel);
-		    panel.setLayout((LayoutManager)null);
-		    lblNewLabel = new JLabel(nama);
-		    lblNewLabel.setBounds(5, 2, 373, 35);
-		    JLabel jLjLabelStatuttext_1 = new JLabel("Persediaan");
-		    jLjLabelStatuttext_1.setForeground(new Color(0, 0, 0));
-		    jLjLabelStatuttext_1.setFont(new Font("Dialog", Font.BOLD, 14));
-		    jLjLabelStatuttext_1.setBounds(350, 20, 100, 35);
-		    
-		    
-		    JLabel lblNewLabel_1 = new JLabel(String.valueOf(persediaan));
-		    
-		    lblNewLabel_1.setForeground(new Color(0, 0, 0));
-		    lblNewLabel_1.setFont(new Font("Dialog", 1, 14));
-		    lblNewLabel_1.setBounds(440, 20, 30, 35);
-		    
-		    		    
-		    		    barcodeTextField = new JTextField();
-		    		    barcodeTextField.setBackground(new Color(0, 191, 255));
-		    		    panel.add(barcodeTextField);
-		    		    this.barcodeTextField.setBounds(25, 45, 200, 20);
-		    		    
-		    		    		   // barcodeTextField.setBackground(new Color(1.0f, 1.0f, 1.0f, 0.2f));
-		    		    
-		    		    		   // new Color(1.0f, 1.0f, 1.0f, 0.2f)
-		    		    		    barcodeTextField.addKeyListener(new KeyAdapter() {
-		    		    		    	@Override
-		    		    		    	public void keyPressed(KeyEvent e) {
-		    		    		    		 int keyCode = e.getKeyCode();
-		    		    		             switch (keyCode) {
-		    		    		               case 40:
-		    		    		                 viewHarga.this.textField.setBackground(Color.WHITE);
-		    		    		                 viewHarga.this.textField.setBackground(Color.GREEN);
-		    		    		                 viewHarga.this.textField.selectAll();
-		    		    		                 viewHarga.this.textField.requestFocus();
-		    		    		                 break;
-		    		    		                 
-		    		    		               case 38:
-		    		    		            	   ambilDataDua();
-		    		    		                  
-		    		    		                     viewHarga.this.dispose();
-		    		    		               //
-		    		    		             }
-		    		    		    	}
-		    		    		    });
-		    		    		    barcodeTextField.addActionListener(new ActionListener() {
-		    		    		    	public void actionPerformed(ActionEvent e) {
-		    		    		    		if(barcodeTextField.getText().equals(lblbarcodeBarang.getText())) {
-		    		    		    			int jumlah_aja = 0;
-		    		    		    			jumlah_aja = 1+ Integer.parseInt(textField.getText());
-		    		    		    			textField.setText(""+jumlah_aja);
-		    		    		    			
-		    		    		        		CariBarang();
-		    		    		        		barcodeTextField.selectAll();
-		    		    		        		barcodeTextField.requestFocus();
-		    		    		        		
-		    		    		        		
-		    		    		        		//ambilDataBarang();
-		    		    		    		}
-		    		    		    		else if(barcodeTextField.getText().equals("")){
-		    		    		    			System.out.println("kosong");
-		    		    		    		}
-		    		    		    		else {
-		    		    		    			//CariBarang2();
-		    		    		    			ambilDataBarang();
-		    		    		    			CariBarang2();
-		    		    		    			barcodeTextField.selectAll();
-		    		    		        		barcodeTextField.requestFocus();
-		    		    		        		
-
-		    		    		    		}
-		    		    		    	}
-		    		    		    });
-		    		    		    panel.add(lblNewLabel);
-		    		    		    lblpoin = new JLabel(poin+"");
-		    		    		    panel.add(lblpoin);
-		    		    		    lblpoin.setForeground(new Color(0, 0, 0));
-		    		    		    lblpoin.setFont(new Font("Dialog", Font.BOLD, 14));
-		    		    		    //
-		    		    		    lblpoin.setBounds(420, 45, 100, 29);
-		    		    		    JLabel lblmin = new JLabel("Poin");
-		    		    		    panel.add(lblmin);
-		    		    		    
-		    		    		    		    lblmin.setForeground(new Color(0, 0, 0));
-		    		    		    		    lblmin.setFont(new Font("Dialog", 1, 14));
-		    		    		    		    lblmin.setBounds(350, 45, 80, 29);
-		    		    		    panel.add(jLjLabelStatuttext_1);
-		    		    		    panel.add(lblNewLabel_1);
-		    		    		    
-		    		    		    
-		    		    		    		    //    panel.add(lblNewLabel);
-		    		    		    
-		    		    		    		    lblNewLabel.setForeground(new Color(0, 0, 0));
-		    		    		    		    lblNewLabel.setFont(new Font("Dialog", Font.BOLD, 24));
-
-		    
-		    JLabel Jlablediskon1 = new JLabel(String.valueOf(mindiskon));
-		    Jlablediskon1.setForeground(Color.WHITE);
-		    Jlablediskon1.setFont(new Font("Dialog", 1, 25));
-		    Jlablediskon1.setBounds(400, 200, 40, 29);
-		    
-		    this.contentPanel.add(Jlablediskon1);
-		   // this.contentPanel.add(btnTest);
-		    
-		    
-		    JLabel Jlablediskon2 = new JLabel(String.valueOf(mindiskon2));
-		    Jlablediskon2.setForeground(Color.WHITE);
-		      Jlablediskon2.setFont(new Font("Dialog", 1, 25));
-		      Jlablediskon2.setBounds(400, 250, 40, 29);
-		      
-		      this.contentPanel.add(Jlablediskon2);
-		      
-		    
-		    this.textField_2 = new JTextField();
-		    this.textField_2.setFont(new Font("Dialog", 1, 25));
-		    this.textField_2.addKeyListener(new KeyAdapter() {
-		          public void keyPressed(KeyEvent e) {
-		            int keyCode = e.getKeyCode();
-		            switch (keyCode) {
-		              case 40:
-		                viewHarga.this.textField_3.requestFocus();
-		                viewHarga.this.textField_3.setBackground(Color.GREEN);
-		                viewHarga.this.textField_2.setBackground(Color.WHITE);
-		                break;
-		              case 38:
-		                viewHarga.this.textField_1.requestFocus();
-		                viewHarga.this.textField_1.setBackground(Color.GREEN);
-		                viewHarga.this.textField_2.setBackground(Color.WHITE);
-		                break;
-		              case 10:
-		            	  ambilHargaDua();
-		            	  //ambilDataDua();
-		                //viewHarga.this.ambil_satu(harga1);
-		                //AdminKasir.setHarga_jual1(6000.00);
-		                //textField_1
-		            	  /*
-		                if(getStatus() == 1) {
-		                  cekStatus();
-		                }
-		                else {
-		                 viewHarga.this.dispose();
-		                }
-		                */
-		                viewHarga.this.dispose();
-		                break;
-		            } 
-		          }
-		        });
-		    this.textField_2.setColumns(10);
-		    this.textField_2.setBounds(180, 200, 150, 33);
-		    this.textField_2.setText(this.df.format(haraga2));
-		    this.contentPanel.add(this.textField_2);
-		    this.textField_3 = new JTextField();
-		    this.textField_3.setFont(new Font("Dialog", 1, 25));
-		    this.textField_3.addKeyListener(new KeyAdapter() {
-		          public void keyPressed(KeyEvent e) {
-		            int keyCode = e.getKeyCode();
-		            switch (keyCode) {
-		              case 40:
-		                viewHarga.this.textField_3.setBackground(Color.WHITE);
-		                viewHarga.this.textField.requestFocus();
-		                viewHarga.this.textField.setBackground(Color.GREEN);
-		                break;
-		              case 38:
-		                viewHarga.this.textField_3.setBackground(Color.WHITE);
-		                viewHarga.this.textField_2.requestFocus();
-		                viewHarga.this.textField_2.setBackground(Color.GREEN);
-		                break;
-		              case 10:
-		            	  ambilHargaTiga();
-		                //viewHarga.this.ambil_satu(harga1);
-		                //AdminKasir.setHarga_jual1(6000.00);
-		                //textField_1
-		                if(getStatus() == 1) {
-		                  cekStatus();
-		                }
-		                else {
-		                 viewHarga.this.dispose();
-		                }
-		                viewHarga.this.dispose();
-		                break;
-
-		            } 
-		          }
-		        });
-		    this.textField_3.setColumns(10);
-		    this.textField_3.setBounds(180, 250, 150, 33);
-		    this.textField_3.setText(this.df.format(harga3));
-		    this.contentPanel.add(this.textField_3);
-		    lblBelanjaPoinNilai = new JLabel("0");
-		    JLabel lblHargaEcer = new JLabel("Harga Ecer");
-		    lblHargaEcer.setForeground(new Color(255, 255, 255));
-		    lblHargaEcer.setFont(new Font("Dialog", 1, 18));
-		    lblHargaEcer.setBounds(32, 150, 118, 33);
-		    this.contentPanel.add(lblHargaEcer);
-		    JLabel lblHargaKulak = new JLabel("Harga Kulak");
-		    
-		    lblHargaKulak.setForeground(new Color(255, 255, 255));
-		    lblHargaKulak.setFont(new Font("Dialog", 1, 18));
-		    lblHargaKulak.setBounds(32, 200, 174, 33);
-		    this.contentPanel.add(lblHargaKulak);
-		    JLabel lblHargaKarton = new JLabel("Harga Karton");
-		    lblBelanjaTotal = new JLabel("Total Belanja");
-		    lblBelanjaPoin = new JLabel("Total Poin");
-
-
-		    lblBelanjaPoinNilai.setForeground(Color.WHITE);
-		    lblBelanjaPoinNilai.setFont(new Font("Dialog", 1, 24));
-		    lblBelanjaPoinNilai.setBounds(220, 300, 174, 33);
-		    this.contentPanel.add(lblBelanjaPoinNilai);
-		    
-
-
-		    lblBelanjaTotal.setForeground(Color.WHITE);
-		    lblBelanjaTotal.setFont(new Font("Dialog", 1, 18));
-		    lblBelanjaTotal.setBounds(32, 350, 174, 33);
-		    this.contentPanel.add(lblBelanjaTotal);
-		    
-		    lblBelanjaTotalNilai.setForeground(Color.WHITE);
-		    lblBelanjaTotalNilai.setFont(new Font("Dialog", 1, 24));
-		    lblBelanjaTotalNilai.setBounds(220, 350, 174, 33);
-		    this.contentPanel.add(lblBelanjaTotalNilai);
-		    
-		    lblBelanjaPoin.setForeground(Color.WHITE);
-		    lblBelanjaPoin.setFont(new Font("Dialog", 1, 18));
-		    lblBelanjaPoin.setBounds(32, 300, 174, 33);
-		    this.contentPanel.add(lblBelanjaPoin);
-		    
-		    
-
-
-		    //lblBelanjaPoin
-		    
-		    lblHargaKarton.setForeground(new Color(255, 255, 255));
-		    lblHargaKarton.setFont(new Font("Dialog", 1, 18));
-		    lblHargaKarton.setBounds(32, 250, 174, 33);
-		    this.contentPanel.add(lblHargaKarton);
-		    JPanel buttonPane = new JPanel();
-		    buttonPane.setBackground(new Color(1.0f, 1.0f, 1.0f, 0.2f));
-
-		   // buttonPane.setBackground(new Color(165, 42, 42));
-		    buttonPane.setLayout(new FlowLayout(2));
-		    getContentPane().add(buttonPane, "South");
-		    JButton okButton = new JButton("OK");
-		    okButton.addActionListener(new ActionListener() {
-		          public void actionPerformed(ActionEvent arg0) {
-		            viewHarga.this.klik();
-		            if(getStatus() == 1) {
-		              cekStatus();
-		            }
-		            else {
-		              //viewHarga.this.dispose();
-		            };
-		            //viewHarga.this.dispose();
-		          }
-		        });
-		    okButton.setActionCommand("OK");
-		    buttonPane.add(okButton);
-		    getRootPane().setDefaultButton(okButton);
-		    JButton cancelButton = new JButton("Cancel");
-		    cancelButton.addActionListener(new ActionListener() {
-		          public void actionPerformed(ActionEvent arg0) {
-		            if(getStatus() == 1) {
-		                cekStatus();
-		              }
-		              else {
-		                viewHarga.this.dispose();
-		              }
-		          }
-		        });
-		    cancelButton.setActionCommand("Cancel");
-		    buttonPane.add(cancelButton);
-
-		    
-
-	}
-	  
-	  private void klik() {
-		    setJumlah(this.textField.getText());
-		  }
-		  
-		  private void cekStatus() {
-		   // getPersediaanBarang
-		  // setStatus(Integer.parseInt(status));
-		    //getJumlah
-		   System.out.println(getJumlah());
-		   System.out.println(getPersediaanBarang());
-		   
-		   if(getPersediaanBarang()-Integer.parseInt(getJumlah()) >= 1 ) {
-		     System.out.print("oke");
-		     viewHarga.this.dispose();
-		   }
-		   else {
-
-		      JOptionPane.showMessageDialog(this, "Hai tidak boleh melebihi persediaan");
-		   }
-		  
-		  }
-		  
-		  private void ambil_satu(Double hargas) {
-		    setJumlah(this.textField.getText());
-		    setHarga_barang(hargas);
-		  }
-		  private void ambilHargaTiga() {
-			  int jumlah_qty = 0;
-				System.out.println("test"+AdminKasir.table.getRowCount());
-				if(AdminKasir.table.getRowCount()> 0) {
-					String s = "";
-				    boolean exists = false;
-				    double harg = 0.0D;
-				    int i = 0;
-				    while (i < AdminKasir.table.getRowCount() && !exists) {
-				    	
-				      s = AdminKasir.tableModel.getValueAt(i, 0).toString().trim();
-				      //System.out.println(s);
-				      //harg = 
-				        //Double.parseDouble(((String)this.table.getValueAt(i, 2)).replace(",", ""));
-				      if (lblbarcodeBarang.getText().equals(s)) {
-				    	//System.out.println("barcode__ "+ this.barCode.getText());
-				        //setJumlah_barter(AdminKasir.tableModel.getValueAt(i, 3).toString().trim());
-				    	 System.out.println(AdminKasir.tableModel.getValueAt(i, 4).toString().trim());
-				    	 jumlah_qty = Integer.parseInt(AdminKasir.tableModel.getValueAt(i, 4).toString().trim());
-				        exists = true;
-				        AdminKasir.tableModel.removeRow(i);
-				        i += 100000;
-				        continue;
-				      } 
-				      i++;
-				    } 
-				}
-				else {
-					System.out.println("silver");
-				}
-				jumlah_qty = jumlah_qty + Integer.parseInt(textField.getText());
-				
-					String str = textField_3.getText();
-					String strNew = str.replaceFirst(",", "");
-					Double harga = Double.parseDouble(strNew);
-					//Double ds=Double.parseDouble(textField_1.getText());
-					//System.out.println("nilai d"+ ds);
-					//String x = textField.getText().replaceAll(".", "");
-					// System.out.println("hasil x"+ strNew);
-
-				AdminKasir.AddRowToJTable(new Object[]{
-						lblbarcodeBarang.getText(), 
-		  				jumlah_qty* harga/ Integer.parseInt(lblpoin.getText()),
-						lblNewLabel.getText(), 
-						textField_3.getText(), 
-			            Integer.toString(jumlah_qty),
-			  	         decimalFormat.format(jumlah_qty* harga),
-			           // decimalFormat.format(Integer.parseInt(textField.getText())* getHarga1()),
-			           // this.decimalFormat.format(Integer.parseInt(textField.getText()* getHarga1())),
-			            
-			           // this.decimalFormat.format
-			            //(Integer.parseInt(textField.getText())
-			            //this.decimalFormat.format(y * getHarga_diskon().doubleValue()) });
-
-		          }, lblbarcodeBarang.getText(), lblpoin.getText(), jumlah_qty* harga);
-				
-
-		  }
-		  
-		  private void hitunssgTotalPoin() {
-			  if(AdminKasir.table.getRowCount()>0) {
-				  
-			  }
-		  }
-		  
-		  
-		  public void hitungTotalPoin() {
-
-			 // System.out.println("nilai poin"+ poin);
-			  //System.out.println("nilai qty"+ totalBayar);
-
-		     // System.out.println(getDapatPoin());
-			  //Double jumPoin = (totalBayar / Integer.parseInt(poin))+ getDapatPoin();
-			  //System.out.println((totalBayar / Integer.parseInt(poin)));
-			 // test_poin = jumPoin;
-			  //poinDum.setText(jumPoin+"");
-			  
-		     // setPoin_total_jual(jumPoin);
-		      //setDapatPoin(jumPoin);
-		      //System.out.println(getDapatPoin());
-			  String pattern = "###,###.###";
-			  DecimalFormat decimalFormat = new DecimalFormat(pattern);
-			  
-
-			  Double Subtotal = 0.0;
-			  Double SubtotalPoin = 0.0;
-
-			  String totalString;
-			  String totalPoin;
-			 // Double totals = Double.valueOf(0.0D);
-			  for (int j = 0; j< AdminKasir.table.getRowCount(); j++) {
-				  	totalString = AdminKasir.tableModel.getValueAt(j, 5).toString().trim();
-				  	
-				  	
-				  	String strNew22 = totalString.replaceFirst(",", "");
-				  	Subtotal = Double.parseDouble(strNew22) +  Subtotal;
-				  	System.out.println("nilai total di harga"+Subtotal);
-				  	totalPoin = AdminKasir.tableModel.getValueAt(j, 1).toString().trim();
-				  	SubtotalPoin = Double.parseDouble(totalPoin) +  SubtotalPoin;
-				  	System.out.println("nilai di harga"+ totalPoin);
-				  	
-				  	lblBelanjaTotalNilai.setText(decimalFormat.format(Subtotal)); 
-				  	//DecimalFormat df = new DecimalFormat("#.00"); 
-				  	lblBelanjaPoinNilai.setText(decimalFormat.format(SubtotalPoin)); 
-
-				  	//lblBelanjaPoinNilai.setText(SubtotalPoin+"");
-				    //setTotal_bayar(Subtotal);
-
-			  }
-			  
-			  /*
-			  this.barCode.setText("");
-			    for (int j = 0; j < this.table.getRowCount(); j++) {
-			      double value = 
-			      totals = Double.valueOf(totals.doubleValue() + value);
-			      this.labelTotal.setText(this.decimalFormat.format(to00tals));
-			    } 
-			    */
-		  }
-		  
-		  private void ambilDataDua() {
-			  int jumlah_qty = 0;
-				System.out.println("test"+AdminKasir.table.getRowCount());
-				if(AdminKasir.table.getRowCount()> 0) {
-					String s = "";
-				    boolean exists = false;
-				    double harg = 0.0D;
-				    int i = 0;
-				    while (i < AdminKasir.table.getRowCount() && !exists) {
-				    	
-				      s = AdminKasir.tableModel.getValueAt(i, 0).toString().trim();
-				      //System.out.println(s);
-				      //harg = 
-				        //Double.parseDouble(((String)this.table.getValueAt(i, 2)).replace(",", ""));
-				      if (lblbarcodeBarang.getText().equals(s)) {
-				    	//System.out.println("barcode__ "+ this.barCode.getText());
-				        //setJumlah_barter(AdminKasir.tableModel.getValueAt(i, 3).toString().trim());
-				    	 System.out.println(AdminKasir.tableModel.getValueAt(i, 4).toString().trim());
-				    	 jumlah_qty = Integer.parseInt(AdminKasir.tableModel.getValueAt(i, 4).toString().trim());
-				        exists = true;
-				        AdminKasir.tableModel.removeRow(i);
-				        i += 100000;
-				        continue;
-				      } 
-				      i++;
-				    } 
-				}
-				else {
-					System.out.println("silver");
-				}
-				jumlah_qty = jumlah_qty + Integer.parseInt(textField.getText());
-				if(jumlah_qty >= 3 && jumlah_qty < 15) {
-
-					String str22 = textField_2.getText();
-					String strNew22 = str22.replaceFirst(",", "");
-					Double harga32 = Double.parseDouble(strNew22);
-				AdminKasir.AddRowToJTable(new Object[]{
-						lblbarcodeBarang.getText(), 
-		  				jumlah_qty* harga32/ Integer.parseInt(lblpoin.getText()),
-						lblNewLabel.getText(), 
-						textField_2.getText(), 
-			            Integer.toString(jumlah_qty),
-			  	         decimalFormat.format(jumlah_qty* harga32),
-
-			            //decimalFormat.format(Integer.parseInt(textField.getText())* getHarga2()),
-			           // this.decimalFormat.format(Integer.parseInt(textField.getText()* getHarga1())),
-			            
-			           // this.decimalFormat.format
-			            //(Integer.parseInt(textField.getText())
-			            //this.decimalFormat.format(y * getHarga_diskon().doubleValue()) });
-
-		          }, lblbarcodeBarang.getText(), lblpoin.getText(), jumlah_qty* harga32  );
-					//textField_2
-				}
-				else  if(jumlah_qty >= 15) {
-
-					String str2 = textField_3.getText();
-					String strNew2 = str2.replaceFirst(",", "");
-					Double harga3 = Double.parseDouble(strNew2);
-				AdminKasir.AddRowToJTable(new Object[]{
-						lblbarcodeBarang.getText(), 
-		  				jumlah_qty* harga3/ Integer.parseInt(lblpoin.getText()),
-						lblNewLabel.getText(), 
-						textField_3.getText(), 
-			            Integer.toString(jumlah_qty),
-			  	         decimalFormat.format(jumlah_qty* harga3),
-		//
-			           // decimalFormat.format(Integer.parseInt(textField.getText())* getHarga3()),
-			           // this.decimalFormat.format(Integer.parseInt(textField.getText()* getHarga1())),
-			            
-			           // this.decimalFormat.format
-			            //(Integer.parseInt(textField.getText())
-			            //this.decimalFormat.format(y * getHarga_diskon().doubleValue()) });
-
-		          }, lblbarcodeBarang.getText(), lblpoin.getText(), jumlah_qty* harga3);
-				}
-				else {
-					String str = textField_1.getText();
-					String strNew = str.replaceFirst(",", "");
-					Double harga = Double.parseDouble(strNew);
-					//Double ds=Double.parseDouble(textField_1.getText());
-					//System.out.println("nilai d"+ ds);
-					//String x = textField.getText().replaceAll(".", "");
-					 System.out.println("hasil x"+ strNew);
-
-				AdminKasir.AddRowToJTable(new Object[]{
-						lblbarcodeBarang.getText(), 
-		  				jumlah_qty* harga/ Integer.parseInt(lblpoin.getText()),
-						lblNewLabel.getText(), 
-						textField_1.getText(), 
-			            Integer.toString(jumlah_qty),
-			  	         decimalFormat.format(jumlah_qty* harga),
-			           // decimalFormat.format(Integer.parseInt(textField.getText())* getHarga1()),
-			           // this.decimalFormat.format(Integer.parseInt(textField.getText()* getHarga1())),
-			            
-			           // this.decimalFormat.format
-			            //(Integer.parseInt(textField.getText())
-			            //this.decimalFormat.format(y * getHarga_diskon().doubleValue()) });
-
-		          }, lblbarcodeBarang.getText(), lblpoin.getText(), jumlah_qty* harga);
-				}
-
-		  }
-		  private void ambilHargaSatu() {
-			  int jumlah_qty = 0;
-				System.out.println("test"+AdminKasir.table.getRowCount());
-				if(AdminKasir.table.getRowCount()> 0) {
-					String s = "";
-				    boolean exists = false;
-				    double harg = 0.0D;
-				    int i = 0;
-				    while (i < AdminKasir.table.getRowCount() && !exists) {
-				    	
-				      s = AdminKasir.tableModel.getValueAt(i, 0).toString().trim();
-				      //System.out.println(s);
-				      //harg = 
-				        //Double.parseDouble(((String)this.table.getValueAt(i, 2)).replace(",", ""));
-				      if (lblbarcodeBarang.getText().equals(s)) {
-				    	//System.out.println("barcode__ "+ this.barCode.getText());
-				        //setJumlah_barter(AdminKasir.tableModel.getValueAt(i, 3).toString().trim());
-				    	 System.out.println(AdminKasir.tableModel.getValueAt(i, 4).toString().trim());
-				    	 jumlah_qty = Integer.parseInt(AdminKasir.tableModel.getValueAt(i, 4).toString().trim());
-				        exists = true;
-				        AdminKasir.tableModel.removeRow(i);
-				        i += 100000;
-				        continue;
-				      } 
-				      i++;
-				    } 
-				}
-				else {
-					System.out.println("silver");
-				}
-				jumlah_qty = jumlah_qty + Integer.parseInt(textField.getText());
-				
-					String str = textField_1.getText();
-					String strNew = str.replaceFirst(",", "");
-					Double harga = Double.parseDouble(strNew);
-					//Double ds=Double.parseDouble(textField_1.getText());
-					//System.out.println("nilai d"+ ds);
-					//String x = textField.getText().replaceAll(".", "");
-					// System.out.println("hasil x"+ strNew);
-
-				AdminKasir.AddRowToJTable(new Object[]{
-						lblbarcodeBarang.getText(), 
-		  				jumlah_qty* harga/ Integer.parseInt(lblpoin.getText()),
-						lblNewLabel.getText(), 
-						textField_1.getText(), 
-			            Integer.toString(jumlah_qty),
-			  	         decimalFormat.format(jumlah_qty* harga),
-			           // decimalFormat.format(Integer.parseInt(textField.getText())* getHarga1()),
-			           // this.decimalFormat.format(Integer.parseInt(textField.getText()* getHarga1())),
-			            
-			           // this.decimalFormat.format
-			            //(Integer.parseInt(textField.getText())
-			            //this.decimalFormat.format(y * getHarga_diskon().doubleValue()) });
-
-		          }, lblbarcodeBarang.getText(), lblpoin.getText(), jumlah_qty* harga);
-				
-
-		  }
-
-		  private void ambilHargaDua() {
-			  int jumlah_qty = 0;
-				System.out.println("test"+AdminKasir.table.getRowCount());
-				if(AdminKasir.table.getRowCount()> 0) {
-					String s = "";
-				    boolean exists = false;
-				    double harg = 0.0D;
-				    int i = 0;
-				    while (i < AdminKasir.table.getRowCount() && !exists) {
-				    	
-				      s = AdminKasir.tableModel.getValueAt(i, 0).toString().trim();
-				      //System.out.println(s);
-				      //harg = 
-				        //Double.parseDouble(((String)this.table.getValueAt(i, 2)).replace(",", ""));
-				      if (lblbarcodeBarang.getText().equals(s)) {
-				    	//System.out.println("barcode__ "+ this.barCode.getText());
-				        //setJumlah_barter(AdminKasir.tableModel.getValueAt(i, 3).toString().trim());
-				    	 System.out.println(AdminKasir.tableModel.getValueAt(i, 4).toString().trim());
-				    	 jumlah_qty = Integer.parseInt(AdminKasir.tableModel.getValueAt(i, 4).toString().trim());
-				        exists = true;
-				        AdminKasir.tableModel.removeRow(i);
-				        i += 100000;
-				        continue;
-				      } 
-				      i++;
-				    } 
-				}
-				else {
-					System.out.println("silver");
-				}
-				jumlah_qty = jumlah_qty + Integer.parseInt(textField.getText());
-				
-					String str = textField_2.getText();
-					String strNew = str.replaceFirst(",", "");
-					Double harga = Double.parseDouble(strNew);
-					//Double ds=Double.parseDouble(textField_1.getText());
-					//System.out.println("nilai d"+ ds);
-					//String x = textField.getText().replaceAll(".", "");
-					// System.out.println("hasil x"+ strNew);
-
-				AdminKasir.AddRowToJTable(new Object[]{
-						lblbarcodeBarang.getText(), 
-		  				jumlah_qty* harga/ Integer.parseInt(lblpoin.getText()),
-						lblNewLabel.getText(), 
-						textField_2.getText(), 
-			            Integer.toString(jumlah_qty),
-			  	         decimalFormat.format(jumlah_qty* harga),
-			           // decimalFormat.format(Integer.parseInt(textField.getText())* getHarga1()),
-			           // this.decimalFormat.format(Integer.parseInt(textField.getText()* getHarga1())),
-			            
-			           // this.decimalFormat.format
-			            //(Integer.parseInt(textField.getText())
-			            //this.decimalFormat.format(y * getHarga_diskon().doubleValue()) });
-
-		          }, lblbarcodeBarang.getText(), lblpoin.getText(), jumlah_qty* harga);
-				
-
-		  }
-		  
-		  private void ambilDataBarang() {
-			  
-			  if(barcodeTextField.getText().equals(lblbarcodeBarang.getText())) {
-				  int jumlah_qty = 0;
-					jumlah_qty = jumlah_qty + Integer.parseInt(textField.getText());
-					//textField.setText(barcodeText);
-			  }
-			  else {
-				  int jumlah_qty = 0;
-					System.out.println("test"+AdminKasir.table.getRowCount());
-					if(AdminKasir.table.getRowCount()> 0) {
-						String s = "";
-					    boolean exists = false;
-					    double harg = 0.0D;
-					    int i = 0;
-					    while (i < AdminKasir.table.getRowCount() && !exists) {
-					    	
-					      s = AdminKasir.tableModel.getValueAt(i, 0).toString().trim();
-					      //System.out.println(s);
-					      //harg = 
-					        //Double.parseDouble(((String)this.table.getValueAt(i, 2)).replace(",", ""));
-					      if (lblbarcodeBarang.getText().equals(s)) {
-					    	//System.out.println("barcode__ "+ this.barCode.getText());
-					        //setJumlah_barter(AdminKasir.tableModel.getValueAt(i, 3).toString().trim());
-					    	 System.out.println(AdminKasir.tableModel.getValueAt(i, 4).toString().trim());
-					    	 jumlah_qty = Integer.parseInt(AdminKasir.tableModel.getValueAt(i, 4).toString().trim());
-					        exists = true;
-					        AdminKasir.tableModel.removeRow(i);
-					        i += 100000;
-					        continue;
-					      } 
-					      i++;
-					    } 
-					}
-					else {
-						System.out.println("silver");
-					}
-					jumlah_qty = jumlah_qty + Integer.parseInt(textField.getText());
-					if(jumlah_qty >= 3 && jumlah_qty < 15) {
-
-						String str22 = textField_2.getText();
-						String strNew22 = str22.replaceFirst(",", "");
-						Double harga32 = Double.parseDouble(strNew22);
-			  		AdminKasir.AddRowToJTable(new Object[]{
-			  				lblbarcodeBarang.getText(), 
-			  				jumlah_qty* harga32/ Integer.parseInt(lblpoin.getText()),
-			  				lblNewLabel.getText(), 
-			  				textField_2.getText(), 
-			  	            Integer.toString(jumlah_qty),
-				  	         decimalFormat.format(jumlah_qty* harga32),
-
-			  	            //decimalFormat.format(Integer.parseInt(textField.getText())* getHarga2()),
-			  	           // this.decimalFormat.format(Integer.parseInt(textField.getText()* getHarga1())),
-			  	            
-			  	           // this.decimalFormat.format
-			  	            //(Integer.parseInt(textField.getText())
-			  	            //this.decimalFormat.format(y * getHarga_diskon().doubleValue()) });
-
-			            }, lblbarcodeBarang.getText(), lblpoin.getText(),jumlah_qty* harga32 );
-						//textField_2
-					}
-					else  if(jumlah_qty >= 15) {
-
-						String str2 = textField_3.getText();
-						String strNew2 = str2.replaceFirst(",", "");
-						Double harga3 = Double.parseDouble(strNew2);
-			  		AdminKasir.AddRowToJTable(new Object[]{
-			  				lblbarcodeBarang.getText(), 
-			  				jumlah_qty* harga3/ Integer.parseInt(lblpoin.getText()),
-			  				lblNewLabel.getText(), 
-			  				textField_3.getText(), 
-			  	            Integer.toString(jumlah_qty),
-				  	         decimalFormat.format(jumlah_qty* harga3),
-		//
-			  	           // decimalFormat.format(Integer.parseInt(textField.getText())* getHarga3()),
-			  	           // this.decimalFormat.format(Integer.parseInt(textField.getText()* getHarga1())),
-			  	            
-			  	           // this.decimalFormat.format
-			  	            //(Integer.parseInt(textField.getText())
-			  	            //this.decimalFormat.format(y * getHarga_diskon().doubleValue()) });
-
-			            }, lblbarcodeBarang.getText(), lblpoin.getText(),jumlah_qty* harga3);
-					}
-					else {
-						String str = textField_1.getText();
-						String strNew = str.replaceFirst(",", "");
-						Double harga = Double.parseDouble(strNew);
-						//Double ds=Double.parseDouble(textField_1.getText());
-						//System.out.println("nilai d"+ ds);
-						//String x = textField.getText().replaceAll(".", "");
-						 System.out.println("hasil x"+ strNew);
-
-			  		AdminKasir.AddRowToJTable(new Object[]{
-			  				lblbarcodeBarang.getText(), 
-			  				jumlah_qty* harga/ Integer.parseInt(lblpoin.getText()),
-			  				lblNewLabel.getText(), 
-			  				textField_1.getText(), 
-			  	            Integer.toString(jumlah_qty),
-
-				  	         decimalFormat.format(jumlah_qty* harga),
-			  	           // decimalFormat.format(Integer.parseInt(textField.getText())* getHarga1()),
-			  	           // this.decimalFormat.format(Integer.parseInt(textField.getText()* getHarga1())),
-			  	            
-			  	           // this.decimalFormat.format
-			  	            //(Integer.parseInt(textField.getText())
-			  	            //this.decimalFormat.format(y * getHarga_diskon().doubleValue()) });
-
-			            }, lblbarcodeBarang.getText(), lblpoin.getText(),jumlah_qty* harga);
-					}
-					hitungTotalPoin();
-					textField.setText("1");
-			  }
-			  		
-			
-		  }
-		  
-		  private void CariBarang2() {
-			    boolean benar = true;
-			    try {
-			      Connection konek = Koneksi.getKoneksi();
-			      Statement state = konek.createStatement();
-			      String sql = "select nama_barang, harga_jual,harga_diskon,harga_lain,persediaan,balance,mindiskon,mindiskon2,harga_beli,id_kategori,satuan, poins, kd_barang from Barang WHERE kd_barang = '" + 
-			        
-			        this.barcodeTextField.getText() + "'";
-			      ResultSet rs = state.executeQuery(sql);
-			      if (rs.next()) {
-			    	  lblNewLabel.setText(rs.getString(1));
-			    	  textField_1.setText(this.df.format(rs.getDouble(2)));
-			    	  setHarga1(rs.getDouble(2));
-				       textField_2.setText(this.df.format(rs.getDouble(3)));
-				    	  setHarga2(rs.getDouble(3));
-
-				       textField_3.setText(this.df.format(rs.getDouble(4)));
-				    	  setHarga3(rs.getDouble(4));
-				    	  lblbarcodeBarang.setText(rs.getString(13));
-				    	  lblpoin.setText(String.valueOf(rs.getInt(12)));
-				    	  Jlabelstatus.setText(rs.getInt(6)+"");
-
-				    	  //setBarcodeText(barcodeTextField.getText());
-				       
-			    	  
-				     //textField_1.setText(this.df.format(rs.getDouble(2)));
-			        /*this.textField_6.setText(this.df.format(rs.getDouble(2)));
-			        this.textField_7.setText(this.df.format(rs.getDouble(3)));
-			        this.textField_8.setText(this.df.format(rs.getDouble(4)));
-			        this.textField_9.setText(String.valueOf(rs.getInt(5)));
-			        this.textField_5.setText(this.df.format(rs.getDouble(9)));
-			        this.textField_11.setText("1");
-			        this.textField_15.setText(String.valueOf(rs.getInt(7)));
-			        this.textField_16.setText(String.valueOf(rs.getInt(8)));
-			        this.textPointField.setText(String.valueOf(rs.getInt(12)));
-			        this.textField_12.setText((new StringBuilder(String.valueOf(rs.getInt(6)))).toString());*/
-			        
-			        benar = false;
-			      } else {
-			    	/*
-			        this.textField_1.setText("");
-			        this.textField_6.setText("0");
-			        this.textField_7.setText("0");
-			        this.textField_8.setText("0");
-			        this.textField_9.setText("0");
-			        this.textField_5.setText("0");
-			        this.textField_11.setText("0");
-			        this.textField_12.setText("0");
-			        this.textPointField.setText("0");
-			        */
-			      } 
-			    } catch (Exception exception) {}
-			  }
-
-
-		  
-		  private void CariBarang() {
-			    boolean benar = true;
-			    try {
-			      Connection konek = Koneksi.getKoneksi();
-			      Statement state = konek.createStatement();
-			      String sql = "select nama_barang, harga_jual,harga_diskon,harga_lain,persediaan,balance,mindiskon,mindiskon2,harga_beli,id_kategori,satuan, poins, kd_barang from Barang WHERE kd_barang = '" + 
-			        
-			        this.barcodeTextField.getText() + "'";
-			      ResultSet rs = state.executeQuery(sql);
-			      if (rs.next()) {
-			    	  lblNewLabel.setText(rs.getString(1));
-			    	  textField_1.setText(this.df.format(rs.getDouble(2)));
-			    	  setHarga1(rs.getDouble(2));
-				       textField_2.setText(this.df.format(rs.getDouble(3)));
-				    	  setHarga2(rs.getDouble(3));
-
-				       textField_3.setText(this.df.format(rs.getDouble(4)));
-				    	  setHarga3(rs.getDouble(4));
-				    	  lblbarcodeBarang.setText(rs.getString(13));
-				    	  lblpoin.setText(String.valueOf(rs.getInt(12)));
-				    	  Jlabelstatus.setText(rs.getInt(6)+"");
-				    	  
-
-				    	  //setBarcodeText(barcodeTextField.getText());
-				       
-			    	  
-				     //textField_1.setText(this.df.format(rs.getDouble(2)));
-			        /*this.textField_6.setText(this.df.format(rs.getDouble(2)));
-			        this.textField_7.setText(this.df.format(rs.getDouble(3)));
-			        this.textField_8.setText(this.df.format(rs.getDouble(4)));
-			        this.textField_9.setText(String.valueOf(rs.getInt(5)));
-			        this.textField_5.setText(this.df.format(rs.getDouble(9)));
-			        this.textField_11.setText("1");
-			        this.textField_15.setText(String.valueOf(rs.getInt(7)));
-			        this.textField_16.setText(String.valueOf(rs.getInt(8)));
-			        this.textPointField.setText(String.valueOf(rs.getInt(12)));
-			        this.textField_12.setText((new StringBuilder(String.valueOf(rs.getInt(6)))).toString());*/
-			        
-			        benar = false;
-			      } else {
-			    	/*
-			        this.textField_1.setText("");
-			        this.textField_6.setText("0");
-			        this.textField_7.setText("0");
-			        this.textField_8.setText("0");
-			        this.textField_9.setText("0");
-			        this.textField_5.setText("0");
-			        this.textField_11.setText("0");
-			        this.textField_12.setText("0");
-			        this.textPointField.setText("0");
-			        */
-			      } 
-			    } catch (Exception exception) {}
-			  }
-		  //ambilDataBarang();
-			  /*public JTextField getTextField_15() {
-				return textField_15;
-			} */
-
+      if (jumlah_qty >=  Integer.parseInt(Jlablediskon1.getText()) && jumlah_qty <  Integer.parseInt(Jlablediskon2.getText())) {
+        String str22 = this.textField_2.getText();
+        String strNew22 = str22.replaceFirst(",", "");
+        Double harga32 = Double.valueOf(Double.parseDouble(strNew22));
+        AdminKasir.AddRowToJTable(new Object[] { this.lblbarcodeBarang.getText(), 
+              Double.valueOf(jumlah_qty * harga32.doubleValue() / Integer.parseInt(this.lblpoin.getText())), 
+              this.lblNewLabel.getText(), 
+              Integer.toString(jumlah_qty), 
+              this.textField_2.getText(), 
+              this.decimalFormat.format(jumlah_qty * harga32.doubleValue()) }, this.lblbarcodeBarang.getText(), this.lblpoin.getText(), Double.valueOf(jumlah_qty * harga32.doubleValue()));
+      } else if (jumlah_qty >=  Integer.parseInt(Jlablediskon2.getText())) {
+        String str2 = this.textField_3.getText();
+        String strNew2 = str2.replaceFirst(",", "");
+        Double harga3 = Double.valueOf(Double.parseDouble(strNew2));
+        AdminKasir.AddRowToJTable(new Object[] { this.lblbarcodeBarang.getText(), 
+              Double.valueOf(jumlah_qty * harga3.doubleValue() / Integer.parseInt(this.lblpoin.getText())), 
+              this.lblNewLabel.getText(), 
+              Integer.toString(jumlah_qty), 
+              this.textField_3.getText(), 
+              this.decimalFormat.format(jumlah_qty * harga3.doubleValue()) }, this.lblbarcodeBarang.getText(), this.lblpoin.getText(), Double.valueOf(jumlah_qty * harga3.doubleValue()));
+      } else {
+        String str = this.textField_1.getText();
+        String strNew = str.replaceFirst(",", "");
+        Double harga = Double.valueOf(Double.parseDouble(strNew));
+        System.out.println("hasil x" + strNew);
+        AdminKasir.AddRowToJTable(new Object[] { this.lblbarcodeBarang.getText(), 
+              Double.valueOf(jumlah_qty * harga.doubleValue() / Integer.parseInt(this.lblpoin.getText())), 
+              this.lblNewLabel.getText(), 
+              Integer.toString(jumlah_qty), 
+              this.textField_1.getText(),               
+              this.decimalFormat.format(jumlah_qty * harga.doubleValue()) }, this.lblbarcodeBarang.getText(), this.lblpoin.getText(), Double.valueOf(jumlah_qty * harga.doubleValue()));
+      } 
+      
+      hitungTotalPoin();
+      this.textField.setText("1");
+    } 
+  }
+  */
+  private void CariBarang2() {
+    boolean benar = true;
+    try {
+      Connection konek = Koneksi.getKoneksi();
+      Statement state = konek.createStatement();
+      String sql = "select nama_barang, harga_jual,harga_diskon,harga_lain,persediaan,balance,mindiskon,mindiskon2,harga_beli,id_kategori,satuan, poins, kd_barang from Barang WHERE kd_barang = '" + 
+        
+        this.barcodeTextField.getText() + "'";
+      ResultSet rs = state.executeQuery(sql);
+      if (rs.next()) {
+        this.lblNewLabel.setText(rs.getString(1));
+        this.textField_1.setText(this.df.format(rs.getDouble(2)));
+        setHarga1(Double.valueOf(rs.getDouble(2)));
+        this.textField_2.setText(this.df.format(rs.getDouble(3)));
+        setHarga2(Double.valueOf(rs.getDouble(3)));
+        this.textField_3.setText(this.df.format(rs.getDouble(4)));
+        setHarga3(Double.valueOf(rs.getDouble(4)));
+        this.lblbarcodeBarang.setText(rs.getString(13));
+        this.Jlablediskon1.setText(rs.getInt(7)+"");
+        this.Jlablediskon2.setText(rs.getInt(8)+"");
+        System.out.println("nilai nya"+ rs.getInt(7));
+        this.lblpoin.setText(String.valueOf(rs.getInt(12)));
+        this.Jlabelstatus.setText((new StringBuilder(String.valueOf(rs.getInt(6)))).toString());
+        benar = false;
+      } 
+    } catch (Exception exception) {}
+  }
+  
+  private void CariBarang() {
+    boolean benar = true;
+    try {
+      Connection konek = Koneksi.getKoneksi();
+      Statement state = konek.createStatement();
+      String sql = "select nama_barang, harga_jual,harga_diskon,harga_lain,persediaan,balance,mindiskon,mindiskon2,harga_beli,id_kategori,satuan, poins, kd_barang from Barang WHERE kd_barang = '" + 
+        
+        this.barcodeTextField.getText() + "'";
+      ResultSet rs = state.executeQuery(sql);
+      if (rs.next()) {
+        this.lblNewLabel.setText(rs.getString(1));
+        this.textField_1.setText(this.df.format(rs.getDouble(2)));
+        setHarga1(Double.valueOf(rs.getDouble(2)));
+        this.textField_2.setText(this.df.format(rs.getDouble(3)));
+        setHarga2(Double.valueOf(rs.getDouble(3)));
+        this.textField_3.setText(this.df.format(rs.getDouble(4)));
+        setHarga3(Double.valueOf(rs.getDouble(4)));
+        this.lblbarcodeBarang.setText(rs.getString(13));
+        this.lblpoin.setText(String.valueOf(rs.getInt(12)));
+        
+        this.Jlablediskon1.setText((rs.getInt(7))+"");
+        this.Jlablediskon2.setText((rs.getInt(8))+"");
+        this.Jlabelstatus.setText((new StringBuilder(String.valueOf(rs.getInt(6)))).toString());
+        benar = false;
+      } 
+    } catch (Exception exception) {}
+  }
 }

@@ -15,7 +15,7 @@
             
                 
             {
-                "table": "listItemFakturDua",
+                "table": "listItemFaktur",
                 "border": true,
                 "columns": [
                     { "caption": "Nama Barang", "source": "${namaBarang}", "width": 13, "wrap": false },
