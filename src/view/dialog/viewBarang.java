@@ -168,11 +168,11 @@ public class viewBarang extends JDialog {
     this.textField_6.setText(this.df.format(barang.getHarga_jual()));
     this.textField_7.setText(this.df.format(barang.getHarga_diskon()));
     this.textField_8.setText(this.df.format(barang.getHarga_lain()));
-    this.textField_9.setText(this.df.format(barang.getPersediaan()));
+    this.textField_9.setText(barang.getPersediaan()+"");
 
-    this.textField_15.setText(this.df.format(barang.getMindiskon()));
+    this.textField_15.setText(barang.getMindiskon()+"");
 
-    this.textField_16.setText(this.df.format(barang.getMindiskon2()));
+    this.textField_16.setText(barang.getMindiskon2()+"");
     this.textPointField.setText(String.valueOf(barang.getPoin()));
     this.textField_12.setText(String.valueOf(barang.getBalance()));
     this.textField_11.setText("1");
@@ -192,12 +192,12 @@ public class viewBarang extends JDialog {
   
   public viewBarang() {
     setBackground(new Color(34, 139, 34));
-    setBounds(100, 100, 900, 700);
+    setBounds(100, 100, 1200, 700);
     this.controller = new ControllerBarang();
     this.model = new ModelBarang();
     this.controller.setModel(this.model);
     getContentPane().setLayout(new BorderLayout());
-    this.contentPanel.setBackground(SystemColor.info);
+    this.contentPanel.setBackground(new Color(64, 224, 208));
     this.contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
     getContentPane().add(this.contentPanel, "Center");
     this.tableModel = new TableModelBarang();
@@ -211,7 +211,7 @@ public class viewBarang extends JDialog {
     this.textField.setFont(new Font("Dialog", 1, 18));
     this.textField.addKeyListener(new KeyAdapter() {
           
-    	public void keyPressed(KeyEvent e) {
+      public void keyPressed(KeyEvent e) {
             int keyCode = e.getKeyCode();
             switch (keyCode) {
               case 40:
@@ -230,10 +230,12 @@ public class viewBarang extends JDialog {
             viewBarang.this.CariBarang();
           }
         });
+    contentPanel.setLayout(null);
     this.textField.setBounds(100, 10, 260, 29);
     this.contentPanel.add(this.textField);
     this.textField.setColumns(10);
     this.textPointField = new JTextField();
+    textPointField.setFont(new Font("Lucida Grande", Font.PLAIN, 24));
     this.textPointField.addKeyListener(new KeyAdapter() {
           public void keyPressed(KeyEvent e) {
             int keyCode = e.getKeyCode();
@@ -242,12 +244,12 @@ public class viewBarang extends JDialog {
                 viewBarang.this.textField.requestFocus();
                 break;
               case 40:
-                //viewBarang.this.textField_2.requestFocus();
+                viewBarang.this.textField_1.requestFocus();
                 break;
             } 
           }
         });
-    this.textPointField.setBounds(450, 14, 70, 23);
+    this.textPointField.setBounds(450, 14, 129, 23);
     this.contentPanel.add(this.textPointField);
     JLabel lblBarcode = new JLabel("Barcode");
     JLabel lblpoint = new JLabel("Poin");
@@ -422,7 +424,7 @@ public class viewBarang extends JDialog {
             switch (keyCode) {
               case 38:
                  //viewBarang.this.textField_15.requestFocus();
-            	  //atas
+                //atas
                 //viewBarang.this.textField.selectAll();
                 break;
               case 40:
@@ -592,7 +594,7 @@ public class viewBarang extends JDialog {
     this.lblPersediaan.setBounds(12, 240, 94, 15);
     this.contentPanel.add(this.lblPersediaan);
     this.scrollPane = new JScrollPane();
-    this.scrollPane.setBounds(12, 370, 850, 300);
+    this.scrollPane.setBounds(12, 370, 1170, 300);
     this.contentPanel.add(this.scrollPane);
     this.table = new JTable() {
         public Component prepareRenderer(TableCellRenderer renderer, int row, int column) {
@@ -869,19 +871,19 @@ public class viewBarang extends JDialog {
   }
   
   public JTextField getTextField_15() {
-	return textField_15;
+  return textField_15;
 }
 
 public void setTextField_15(JTextField textField_15) {
-	this.textField_15 = textField_15;
+  this.textField_15 = textField_15;
 }
 
 public JTextField getTextField_16() {
-	return textField_16;
+  return textField_16;
 }
 
 public void setTextField_16(JTextField textField_16) {
-	this.textField_16 = textField_16;
+  this.textField_16 = textField_16;
 }
 
 public JTextField getTextPointField() {
