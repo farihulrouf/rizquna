@@ -26,16 +26,25 @@ public class viewBayar extends JDialog {
 	private JTextField textField;
 	private JLabel lblNewLabel_1, lblNewLabel_3;
 	private JLabel  lblNewLabel_5;
+	private JLabel lblNewLabel_6;
+	private JPanel panel_1;
+	private String idPegawai;
 	/**
 	 * Launch the application.
 	 */
 
+	public String getIdPegawai() {
+		return idPegawai;
+	}
+	public void setIdPegawai(String idPegawai) {
+		this.idPegawai = idPegawai;
+	}
 	/**
 	 * Create the dialog.
 	 */
-	public viewBayar(String total, String poin) {
+	public viewBayar(String total, String poin, String nama_pelanggan, String idPegawai) {
 		setUndecorated(true);
-		setBounds(400, 300, 500, 300);
+		setBounds(400, 300, 500, 350);
 		setBackground(new Color(1.0F, 1.0F, 1.0F, 0.0F));
 		getContentPane().setLayout(new BorderLayout());
 		//lblByar = new JLabel(total);
@@ -44,26 +53,68 @@ public class viewBayar extends JDialog {
 	   
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
-		
+		setIdPegawai(idPegawai);
 	   // getContentPane().setLayout(new BorderLayout());
 	    this.contentPanel.setBackground(new Color(0.1F, 0.1F, 0.1F, 0.0F));
 	    this.contentPanel.setBorder(new EmptyBorder(0, 0, 0, 0));
 		contentPanel.setLayout(null);
 		{
+			JLabel lblNewLabel_2 = new JLabel("Total Poin");
+			lblNewLabel_2.setBounds(248, 237, 150, 16);
+			lblNewLabel_2.setFont(new Font("Lucida Grande", Font.PLAIN, 14));
+			contentPanel.add(lblNewLabel_2);
+		}
+		{
+			JLabel lblNewLabel_4 = new JLabel("Kembali");
+			lblNewLabel_4.setBounds(40, 273, 128, 25);
+			lblNewLabel_4.setFont(new Font("Lucida Grande", Font.PLAIN, 24));
+			contentPanel.add(lblNewLabel_4);
+		}
+		{
+		    lblNewLabel_5 = new JLabel("0");
+		    lblNewLabel_5.setBounds(180, 248, 229, 67);
+			lblNewLabel_5.setFont(new Font("Lucida Grande", Font.PLAIN, 35));
+			contentPanel.add(lblNewLabel_5);
+		}
+		
+		JPanel panel = new JPanel();
+		panel.setBackground(new Color(64, 224, 208));
+		panel.setBounds(0, 6, 500, 154);
+		contentPanel.add(panel);
+		panel.setLayout(null);
+		{
 			JLabel lblNewLabel = new JLabel("Total Bayar");
-			lblNewLabel.setBounds(34, 62, 150, 30);
+			lblNewLabel.setBounds(31, 32, 125, 28);
+			panel.add(lblNewLabel);
 			lblNewLabel.setFont(new Font("Lucida Grande", Font.PLAIN, 23));
-			contentPanel.add(lblNewLabel);
 		}
 		{
 		    lblNewLabel_1 = new JLabel(total);
-		    lblNewLabel_1.setBounds(196, 62, 250, 40);
+		    lblNewLabel_1.setBounds(169, 20, 250, 40);
+		    panel.add(lblNewLabel_1);
 			lblNewLabel_1.setFont(new Font("Lucida Grande", Font.PLAIN, 40));
-			contentPanel.add(lblNewLabel_1);
+		}
+		{
+			panel_1 = new JPanel();
+			panel_1.setBounds(114, 98, 267, 40);
+			panel.add(panel_1);
+			panel_1.setLayout(null);
+			
+	    lblNewLabel_6 = new JLabel(nama_pelanggan);
+	    lblNewLabel_6.setBounds(31, 0, 230, 40);
+	    panel_1.add(lblNewLabel_6);
+	    lblNewLabel_6.setFont(new Font("Lucida Grande", Font.PLAIN, 20));
+		}
+		{
+		    lblNewLabel_3 = new JLabel(poin);
+		    lblNewLabel_3.setBounds(354, 220, 122, 50);
+		    contentPanel.add(lblNewLabel_3);
+			lblNewLabel_3.setFont(new Font("Lucida Grande", Font.PLAIN, 14));
 		}
 		
 		textField = new JTextField();
-		textField.setBounds(111, 123, 265, 40);
+		textField.setBounds(141, 185, 201, 40);
+		contentPanel.add(textField);
 		textField.addKeyListener(new KeyAdapter() {
 			@Override
 			public void keyPressed(KeyEvent e) {
@@ -84,32 +135,7 @@ public class viewBayar extends JDialog {
 			}
 		});
 		textField.setFont(new Font("Lucida Grande", Font.PLAIN, 40));
-		contentPanel.add(textField);
 		textField.setColumns(10);
-		{
-			JLabel lblNewLabel_2 = new JLabel("Total Poin");
-			lblNewLabel_2.setBounds(34, 19, 150, 16);
-			lblNewLabel_2.setFont(new Font("Lucida Grande", Font.PLAIN, 21));
-			contentPanel.add(lblNewLabel_2);
-		}
-		{
-		    lblNewLabel_3 = new JLabel(poin);
-		    lblNewLabel_3.setBounds(199, -5, 150, 50);
-			lblNewLabel_3.setFont(new Font("Lucida Grande", Font.PLAIN, 40));
-			contentPanel.add(lblNewLabel_3);
-		}
-		{
-			JLabel lblNewLabel_4 = new JLabel("Kembali");
-			lblNewLabel_4.setBounds(34, 193, 128, 25);
-			lblNewLabel_4.setFont(new Font("Lucida Grande", Font.PLAIN, 24));
-			contentPanel.add(lblNewLabel_4);
-		}
-		{
-		    lblNewLabel_5 = new JLabel("0");
-		    lblNewLabel_5.setBounds(217, 175, 229, 67);
-			lblNewLabel_5.setFont(new Font("Lucida Grande", Font.PLAIN, 35));
-			contentPanel.add(lblNewLabel_5);
-		}
 		{
 			JPanel buttonPane = new JPanel();
 			buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
@@ -128,14 +154,27 @@ public class viewBayar extends JDialog {
 	    Double poin =  Double.valueOf(Double.parseDouble(lblNewLabel_3.getText()));
 	    if(total_bayar>= harga) {
 	    	System.out.println("sulses");
+	    	
 	    	AdminKasir adminKasir = new AdminKasir();
-			adminKasir.insertPenjualan(harga, total_bayar, (total_bayar - harga), poin);
+			adminKasir.insertPenjualan(harga, total_bayar,  (total_bayar - harga), poin, getIdPegawai());
 	    	lblNewLabel_5.setText((total_bayar - harga)+"");
-	    	//AdminKasir.labelTotal.setText("0");
+	    	
+	    	//AdminKasir adminKasir = new AdminKasir();
+	    	//AdminKasir.resetTransaksi();
+			//transaksi(harga, total_bayar, (total_bayar - harga), poin);
+	    	//lblNewLabel_5.setText((total_bayar - harga)+"");
 	    	//adminKasir.clearPelanggan();
 	    }
 	    else {
 	    	System.out.println("Tidak");
 	    }
+	}
+	
+	private void transaksi(Double harga, Double total_bayar, Double kembali, Double poin) {
+		/*AdminKasir adminKasir = new AdminKasir();
+		adminKasir.insertPenjualan(harga, total_bayar, kembali, poin);
+    	lblNewLabel_5.setText((total_bayar - harga)+"");
+    	*/
+		
 	}
 }

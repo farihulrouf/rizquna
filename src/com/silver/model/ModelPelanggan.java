@@ -13,7 +13,17 @@ public class ModelPelanggan {
   
   private Double poin;
   
-  private String id_pelanggan;
+  private Double uang;
+  
+  public Double getUang() {
+	return uang;
+}
+
+public void setUang(Double uang) {
+	this.uang = uang;
+}
+
+private String id_pelanggan;
   
   public String getNama_pelanggan() {
     return this.nama_pelanggan;
@@ -54,6 +64,7 @@ public class ModelPelanggan {
     pelanggan.setNo_hp(this.no_hp);
     pelanggan.setPoin(this.poin);
     pelanggan.setId_pelanggan(this.id_pelanggan);
+    pelanggan.setUang(this.uang);
     dao.insertPelanggan(pelanggan);
   }
   
@@ -64,6 +75,7 @@ public class ModelPelanggan {
     pelanggan.setNo_hp(this.no_hp);
     pelanggan.setPoin(this.poin);
     pelanggan.setId_pelanggan(this.id_pelanggan);
+    pelanggan.setUang(this.uang);
     dao.updatePelanggan(pelanggan);
   }
   

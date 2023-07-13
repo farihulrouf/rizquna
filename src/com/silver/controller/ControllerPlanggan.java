@@ -41,6 +41,7 @@ public class ControllerPlanggan {
       this.model.setNama_pelanggan(view.getTextField_1().getText());
       this.model.setNo_hp(view.getPasswordField().getText());
       this.model.setPoin(poin);
+      
       try {
         this.model.insertPelanggan();
         JOptionPane.showMessageDialog((Component)view, "data berhasil di simpan");

@@ -1,8 +1,14 @@
 package com.silver.model.table;
 
+import com.silver.data.Barang;
 import com.silver.data.Pelanggan;
+
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
+
 import javax.swing.table.AbstractTableModel;
 
 public class TableModelPelanggan extends AbstractTableModel {
@@ -10,6 +16,11 @@ public class TableModelPelanggan extends AbstractTableModel {
   
   private static final long serialVersionUID = 3321339460003575583L;
   
+  String pattern = "###,###.###";
+  
+  Locale locale = new Locale("en", "UK");
+  
+  DecimalFormat df = (DecimalFormat)NumberFormat.getNumberInstance(this.locale);
   public void setList(List<Pelanggan> list) {
     this.list = list;
   }
@@ -21,13 +32,14 @@ public class TableModelPelanggan extends AbstractTableModel {
   public String getColumnName(int column) {
     switch (column) {
       case 0:
-        return "Id";
+        return "Nam";
       case 1:
-        return "nama Lengkap";
+        return "No Hp";
       case 2:
-        return "No HP";
+        return "Total Belanja Uang";
       case 3:
         return "poin";
+      
     } 
     return null;
   }
@@ -39,13 +51,17 @@ public class TableModelPelanggan extends AbstractTableModel {
   public Object getValueAt(int rowIndex, int columnIndex) {
     switch (columnIndex) {
       case 0:
-        return ((Pelanggan)this.list.get(rowIndex)).getId_pelanggan();
+    	  return ((Pelanggan)this.list.get(rowIndex)).getNama_pelanggan();
+       
       case 1:
-        return ((Pelanggan)this.list.get(rowIndex)).getNama_pelanggan();
+    	  return ((Pelanggan)this.list.get(rowIndex)).getNo_hp();
       case 2:
-        return ((Pelanggan)this.list.get(rowIndex)).getNo_hp();
+    	 // return Double.valueOf(((Pelanggan)this.list.get(rowIndex)).getUang());
+    	   return this.df.format(((Pelanggan)this.list.get(rowIndex)).getUang());
       case 3:
         return Double.valueOf(((Pelanggan)this.list.get(rowIndex)).getPoin());
+     
+    	  
     } 
     return null;
   }

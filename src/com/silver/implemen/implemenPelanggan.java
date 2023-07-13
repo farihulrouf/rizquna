@@ -131,6 +131,7 @@ public class implemenPelanggan implements DaoPelanggan {
         pelanggan.setNama_pelanggan(result.getString("nama"));
         pelanggan.setNo_hp(result.getString("hp"));
         pelanggan.setPoin(result.getDouble("poin"));
+        pelanggan.setUang(result.getDouble("uang"));
         list.add(pelanggan);
       } 
       this.con.commit();

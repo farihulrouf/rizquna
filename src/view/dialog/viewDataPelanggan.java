@@ -28,6 +28,8 @@ import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.TableModel;
+import java.awt.Color;
+import java.awt.Font;
 
 public class viewDataPelanggan extends JDialog {
   private final JPanel contentPanel = new JPanel();
@@ -53,6 +55,7 @@ public class viewDataPelanggan extends JDialog {
   private JButton btnLihat;
   
   private ControllerPlanggan controller;
+  private JTextField textField_3;
   
   private void cariPelanggan() throws ErrorInfo, SQLException {
     this.tableModel.fireTableDataChanged();
@@ -85,15 +88,21 @@ public class viewDataPelanggan extends JDialog {
   }
   
   public viewDataPelanggan() {
-    setBounds(100, 100, 900, 600);
+    setBounds(100, 100, 1200, 600);
     this.model = new ModelPelanggan();
     this.tableModel = new TableModelPelanggan();
     this.controller = new ControllerPlanggan();
     this.controller.setModel(this.model);
     getContentPane().setLayout(new BorderLayout());
+    contentPanel.setBackground(new Color(64, 224, 208));
     this.contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
     getContentPane().add(this.contentPanel, "Center");
     this.contentPanel.setLayout((LayoutManager)null);
+    contentPanel.setLayout(null);
+    contentPanel.setLayout(null);
+    contentPanel.setLayout(null);
+    contentPanel.setLayout(null);
+    contentPanel.setLayout(null);
     JLabel lblUserName = new JLabel("NOMER");
     lblUserName.setBounds(43, 122, 115, 15);
     this.contentPanel.add(lblUserName);
@@ -101,6 +110,8 @@ public class viewDataPelanggan extends JDialog {
     lblNamaLengkap.setBounds(43, 180, 115, 15);
     this.contentPanel.add(lblNamaLengkap);
     this.textField = new JTextField();
+    textField.setBounds(194, 103, 190, 52);
+    textField.setFont(new Font("Lucida Grande", Font.PLAIN, 22));
     this.textField.addKeyListener(new KeyAdapter() {
           public void keyPressed(KeyEvent e) {
             int keyCode = e.getKeyCode();
@@ -111,10 +122,11 @@ public class viewDataPelanggan extends JDialog {
             } 
           }
         });
-    this.textField.setBounds(191, 120, 135, 40);
     this.contentPanel.add(this.textField);
     this.textField.setColumns(10);
     this.textField_1 = new JTextField();
+    textField_1.setBounds(194, 178, 190, 40);
+    textField_1.setFont(new Font("Lucida Grande", Font.PLAIN, 24));
     this.textField_1.addKeyListener(new KeyAdapter() {
           public void keyPressed(KeyEvent e) {
             int keyCode = e.getKeyCode();
@@ -128,7 +140,6 @@ public class viewDataPelanggan extends JDialog {
             } 
           }
         });
-    this.textField_1.setBounds(191, 178, 135, 40);
     this.contentPanel.add(this.textField_1);
     this.textField_1.setColumns(10);
     JLabel lblPassword = new JLabel("No HP");
@@ -138,6 +149,8 @@ public class viewDataPelanggan extends JDialog {
     this.contentPanel.add(lblPassword);
     this.contentPanel.add(lblPoin);
     this.passwordField = new JTextField();
+    passwordField.setBounds(194, 230, 190, 40);
+    passwordField.setFont(new Font("Lucida Grande", Font.PLAIN, 24));
     this.passwordField.addKeyListener(new KeyAdapter() {
           public void keyPressed(KeyEvent e) {
             int keyCode = e.getKeyCode();
@@ -156,8 +169,9 @@ public class viewDataPelanggan extends JDialog {
             viewDataPelanggan.this.insert();
           }
         });
-    this.passwordField.setBounds(189, 233, 137, 40);
     this.textPoin = new JTextField();
+    textPoin.setBounds(194, 282, 190, 40);
+    textPoin.setFont(new Font("Lucida Grande", Font.PLAIN, 24));
     this.textPoin.addKeyListener(new KeyAdapter() {
           public void keyPressed(KeyEvent e) {
             int keyCode = e.getKeyCode();
@@ -171,13 +185,14 @@ public class viewDataPelanggan extends JDialog {
             } 
           }
         });
-    this.textPoin.setBounds(189, 300, 137, 40);
     this.contentPanel.add(this.textPoin);
     this.contentPanel.add(this.passwordField);
     JScrollPane scrollPane = new JScrollPane();
-    scrollPane.setBounds(347, 79, 500, 400);
+    scrollPane.setBounds(439, 82, 713, 400);
     this.contentPanel.add(scrollPane);
     this.table = new JTable();
+    table.setRowHeight(38);
+    table.setFont(new Font("Lucida Grande", Font.PLAIN, 23));
     this.table.addMouseListener(new MouseAdapter() {
           public void mouseClicked(MouseEvent e) {
             viewDataPelanggan.this.clik();
@@ -185,6 +200,7 @@ public class viewDataPelanggan extends JDialog {
         });
     scrollPane.setViewportView(this.table);
     this.textField_2 = new JTextField();
+    textField_2.setBounds(439, 23, 399, 32);
     this.textField_2.addKeyListener(new KeyAdapter() {
           public void keyTyped(KeyEvent e) {
             viewDataPelanggan.this.table.setModel((TableModel)viewDataPelanggan.this.tableModel);
@@ -198,8 +214,9 @@ public class viewDataPelanggan extends JDialog {
           }
         });
     this.btnLihat = new JButton("Lihat");
-    this.btnLihat.setBounds(580, 24, 100, 32);
+    btnLihat.setBounds(850, 24, 100, 32);
     this.btnTop = new JButton("Top");
+    btnTop.setBounds(976, 24, 100, 32);
     this.btnTop.addActionListener(new ActionListener() {
           public void actionPerformed(ActionEvent e) {
             try {
@@ -209,36 +226,62 @@ public class viewDataPelanggan extends JDialog {
             } 
           }
         });
-    this.btnTop.setBounds(700, 24, 100, 32);
     this.contentPanel.add(this.btnLihat);
     this.contentPanel.add(this.btnTop);
-    this.textField_2.setBounds(367, 24, 208, 32);
     this.contentPanel.add(this.textField_2);
     this.textField_2.setColumns(10);
     JButton btnTambah = new JButton("Tambah");
+    btnTambah.setBounds(245, 500, 90, 25);
     btnTambah.addActionListener(new ActionListener() {
           public void actionPerformed(ActionEvent arg0) {
             viewDataPelanggan.this.insert();
           }
         });
-    btnTambah.setBounds(245, 500, 90, 25);
     this.contentPanel.add(btnTambah);
     JButton btnHapus = new JButton("Hapus");
+    btnHapus.setBounds(131, 500, 90, 25);
     btnHapus.addActionListener(new ActionListener() {
           public void actionPerformed(ActionEvent arg0) {
             viewDataPelanggan.this.deletePelanggan();
           }
         });
-    btnHapus.setBounds(131, 500, 90, 25);
+    
+    JButton button = new JButton("New button");
+    button.setBounds(0, 0, 0, 0);
+    contentPanel.add(button);
     this.contentPanel.add(btnHapus);
     JButton btnEdit = new JButton("edit");
+    btnEdit.setBounds(12, 500, 90, 25);
     btnEdit.addActionListener(new ActionListener() {
           public void actionPerformed(ActionEvent arg0) {
             viewDataPelanggan.this.updatePelanggan();
           }
         });
-    btnEdit.setBounds(12, 500, 90, 25);
     this.contentPanel.add(btnEdit);
+    
+    textField_3 = new JTextField();
+    textField_3.addActionListener(new ActionListener() {
+    	public void actionPerformed(ActionEvent e) {
+    		insert();
+    	}
+    });
+    textField_3.setFont(new Font("Lucida Grande", Font.PLAIN, 26));
+    textField_3.setBounds(194, 350, 190, 40);
+    contentPanel.add(textField_3);
+    textField_3.setColumns(10);
+    
+    JLabel lblNewLabel = new JLabel("Uang");
+    lblNewLabel.setBounds(43, 372, 61, 16);
+    contentPanel.add(lblNewLabel);
+    
+    JButton btnNewButton = new JButton("clear");
+    btnNewButton.addActionListener(new ActionListener() {
+    	public void actionPerformed(ActionEvent arg0) {
+    		resetPelanggan();
+    	}
+    });
+    btnNewButton.setBounds(359, 500, 117, 29);
+    contentPanel.add(btnNewButton);
     JPanel buttonPane = new JPanel();
     buttonPane.setLayout(new FlowLayout(2));
     getContentPane().add(buttonPane, "South");
@@ -297,6 +340,7 @@ public class viewDataPelanggan extends JDialog {
     this.textField_1.setText("");
     this.passwordField.setText("");
     this.textPoin.setText("");
+    this.textField.requestFocus();
   }
   
   private void updatePelanggan() {
@@ -305,6 +349,10 @@ public class viewDataPelanggan extends JDialog {
     this.textField_1.setText("");
     this.passwordField.setText("");
     this.textPoin.setText("");
+    this.textField_3.setText("");
+
+    this.textField.requestFocus();
+
   }
   
   private void deletePelanggan() {
@@ -313,6 +361,17 @@ public class viewDataPelanggan extends JDialog {
     this.textField_1.setText("");
     this.passwordField.setText("");
     this.textPoin.setText("");
+    this.textField_3.setText("");
+
+    this.textField.requestFocus();
+  }
+  
+  private void resetPelanggan() {
+	  this.textField.setText("");
+	    this.textField_1.setText("");
+	    this.passwordField.setText("");
+	    this.textPoin.setText("");
+	    this.textField_3.setText("");
   }
   
   private void clik() {
@@ -321,5 +380,7 @@ public class viewDataPelanggan extends JDialog {
     this.passwordField.setText(pelangan.getNo_hp());
     this.textField_1.setText(pelangan.getNama_pelanggan());
     this.textPoin.setText(String.valueOf(pelangan.getPoin()));
+    this.textField_3.setText(String.valueOf(pelangan.getUang()));
+    
   }
 }

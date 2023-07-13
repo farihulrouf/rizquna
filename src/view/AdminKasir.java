@@ -131,7 +131,7 @@ public class AdminKasir extends JFrame {
   private static Double dapatPoin = Double.valueOf(0.0D);
   
   private int mindiskon2;
-  
+  private JTextField textField_2;
   private ModelDetailJual model2;
   
   private String kalkulasi_jam;
@@ -411,7 +411,7 @@ public class AdminKasir extends JFrame {
   
   private JTextField barCode;
   
-  private JTextField textPelanggan;
+  private static JTextField textPelanggan;
   
   public static JTable table;
   
@@ -421,7 +421,7 @@ public class AdminKasir extends JFrame {
   
   private JButton btnWithdraw;
   
-  private JLabel lblNamaPelanggan;
+  private static JLabel lblNamaPelanggan;
   
   public Double getHarga_jual1() {
     return this.harga_jual1;
@@ -625,6 +625,7 @@ public class AdminKasir extends JFrame {
     getScreen();
     setContentPane(this.contentPane);
     this.contentPane.setLayout((LayoutManager)null);
+    contentPane.setLayout(null);
     this.textField_1 = new JTextField();
     textField_1.setBounds(0, 0, 0, 0);
 
@@ -643,6 +644,7 @@ public class AdminKasir extends JFrame {
             int keyCode = e.getKeyCode();
             switch (keyCode) {
               case 38:
+          
                 AdminKasir.this.findBarang();
                 AdminKasir.this.labelKembali.setText("0");
                 break;
@@ -651,8 +653,8 @@ public class AdminKasir extends JFrame {
                 //AdminKasir.this.textField.selectAll();
                 //AdminKasir.this.textField.setBackground(Color.GREEN);
                 AdminKasir.this.barCode.setBackground(Color.WHITE);
-                
-                lihatBayar();
+                //clearPelanggan();
+                 lihatBayar();
                 break;
               case 10:
                 harga = new Harga();
@@ -671,7 +673,7 @@ public class AdminKasir extends JFrame {
                         AdminKasir.this.getPersedian(), AdminKasir.this.getPoin_barang(), AdminKasir.this.getNama_barang(), 
                         AdminKasir.this.getHarga_jual(), 
                         AdminKasir.this.getHarga_diskon(), AdminKasir.this.getHarga_lain(), 
-                        AdminKasir.this.getHarga_beli(), AdminKasir.this.getBalance(), true, AdminKasir.this.getMindiskon1(), AdminKasir.this.getMindiskon2(), AdminKasir.this.barCode.getText());
+                        AdminKasir.this.getHarga_beli(), AdminKasir.this.getBalance(), true, AdminKasir.this.getMindiskon1(), AdminKasir.this.getMindiskon2(), AdminKasir.this.barCode.getText(),  Double.parseDouble(poinDum.getText()), labelTotal.getText());
                     AdminKasir.this.setHarga_juals(viewharga.getHarga_barang());
                     AdminKasir.this.setJuml(viewharga.getJumlah());
                     AdminKasir.this.setPoin_barang(viewharga.getPoin());
@@ -785,7 +787,7 @@ public class AdminKasir extends JFrame {
   //  panel3.setLayout((LayoutManager)null);
  
     this.lblNamaPelanggan = new JLabel("");
-    this.lblNamaPelanggan.setForeground(Color.WHITE);
+    this.lblNamaPelanggan.setForeground(new Color(64, 224, 208));
     this.lblNamaPelanggan.setFont(new Font("Dialog", Font.BOLD, 20));
     this.lblNamaPelanggan.setBounds(1159, 10, 200, 30);
   
@@ -802,29 +804,31 @@ public class AdminKasir extends JFrame {
     //panel_1.setLayout(null);
     lblTotal = new JLabel("Total");
     lblpoinsaat = new JLabel("Poin Saat Ini");
-    lblpoinsaat.setForeground(SystemColor.activeCaptionText);
+    lblpoinsaat.setForeground(new Color(64, 224, 208));
     lblpoinsaat.setFont(new Font("Dialog", 1, 10));
     lblpoinsaat.setBounds(1035, 71, 80, 25);
 
-    this.poinDum = new JLabel("0");
-    this.poinDum.setForeground(SystemColor.activeCaptionText);
-    this.poinDum.setFont(new Font("Dialog", 1, 15));
-    this.poinDum.setBounds(1198, 66, 50, 25);
-    this.labelTotal = new JLabel("0");
+    poinDum = new JLabel("0");
+    poinDum.setForeground(new Color(64, 224, 208));
+    poinDum.setFont(new Font("Dialog", 1, 15));
+    poinDum.setBounds(1198, 66, 50, 25);
+    AdminKasir.labelTotal = new JLabel("0");
 
-    lblTotal.setForeground(SystemColor.controlText);
-    lblTotal.setFont(new Font("Dialog", 1, 12));
-    lblTotal.setBounds(1016, 0, 48, 20);
+    this.lblTotal.setForeground(new Color(64, 224, 208));
+    this.lblTotal.setFont(new Font("Dialog", 1, 12));
+    this.lblTotal.setBounds(1016, 0, 48, 20);
     this.totalPoinPelanggan = new JLabel("0");
-    this.totalPoinPelanggan.setForeground(SystemColor.activeCaptionText);
+    this.totalPoinPelanggan.setForeground(new Color(64, 224, 208));
     
     this.totalPoinPelanggan.setFont(new Font("Dialog", 1, 15));
     this.totalPoinPelanggan.setBounds(1127, 66, 59, 25);
+    labelTotal.setForeground(new Color(64, 224, 208));
+
     labelTotal.setBounds(963, 35, 194, 34);
 
-    this.labelTotal.setFont(new Font("Dialog", Font.ITALIC, 40));
+    AdminKasir.labelTotal.setFont(new Font("Dialog", Font.ITALIC, 40));
     this.contentPane.add(labelTotal);
-    this.contentPane.add(lblTotal);
+    this.contentPane.add( this.lblTotal);
     this.contentPane.add(totalPoinPelanggan);
     this.contentPane.add(poinDum);
     this.contentPane.add(lblpoinsaat);
@@ -922,6 +926,12 @@ public class AdminKasir extends JFrame {
         });
     btnNewButton_1.setIcon(new ImageIcon(AdminKasir.class.getResource("/com/silver/peratan/image/buku.png")));
     this.contentPane.add(btnNewButton_1);
+    
+    /*textField_2 = new JTextField();
+    textField_2.setBounds(858, 31, 130, 26);
+    contentPane.add(textField_2);
+    */
+    //textField_2.setColumns(10);
     this.btnBarang.setVisible(false);//
     this.btnWithdraw.setVisible(false);
     this.btnNewButton_1.setVisible(false);
@@ -937,7 +947,7 @@ public class AdminKasir extends JFrame {
         getPersedian(), getPoin_barang(), getNama_barang(), 
         getHarga_jual(), 
         getHarga_diskon(), getHarga_lain(), 
-        getHarga_beli(), getBalance(), true, getMindiskon1(), getMindiskon2(), this.barCode.getText());
+        getHarga_beli(), getBalance(), true, getMindiskon1(), getMindiskon2(), this.barCode.getText(), Double.parseDouble(poinDum.getText()), labelTotal.getText());
     setHarga_juals(viewharga.getHarga_barang());
     setJuml(viewharga.getJumlah());
     setPoin_barang(viewharga.getPoin());
@@ -1019,23 +1029,44 @@ public class AdminKasir extends JFrame {
   }
   
   public static Double test_poin = Double.valueOf(0.0D);
+ 
   
   public static void hitungTotal(String poin, Double totalBayar) {
     String pattern = "###,###.###";
     DecimalFormat decimalFormat = new DecimalFormat(pattern);
     Double Subtotal = Double.valueOf(0.0D);
+    Double total_set = 0.0;
     Double SubtotalPoin = Double.valueOf(0.0D);
     for (int j = 0; j < table.getRowCount(); j++) {
       String totalString = tableModel.getValueAt(j, 5).toString().trim();
       String strNew22 = totalString.replaceFirst(",", "");
-      Subtotal = Double.valueOf(Double.parseDouble(strNew22) + Subtotal.doubleValue());
+      /*
+       * Double.parseDouble((
+            (String)view.getTable()
+            .getValueAt(i, 4)).replace(",", ""))
+       */
+      total_set = Double.parseDouble(( (String)tableModel.getValueAt(j, 5)).replace(",", ""));
+
+      //Subtotal = Double.valueOf(Double.parseDouble(strNew22) + Subtotal.doubleValue());
+      Subtotal = total_set + Subtotal;
       System.out.println(Subtotal);
       String totalPoin = tableModel.getValueAt(j, 1).toString().trim();
       SubtotalPoin = Double.valueOf(Double.parseDouble(totalPoin) + SubtotalPoin.doubleValue());
-      labelTotal.setText(decimalFormat.format(Subtotal));
+      AdminKasir.labelTotal.setText(decimalFormat.format(Subtotal));
       poinDum.setText(decimalFormat.format(SubtotalPoin));
+     // textField_2.setText(decimalFormat.format(Subtotal));
+/*
+ *  this.model.setHarga_jual(
+          Double.parseDouble((
+            (String)view.getTable()
+            .getValueAt(i, 4)).replace(",", "")));
+ 
+ */
     } 
+    
   }
+  
+ 
   
   private void ambil_Data2() {}
   
@@ -1170,14 +1201,14 @@ public class AdminKasir extends JFrame {
         this.btnReset.setVisible(true);
         this.btnPelanggan.setVisible(true);
         this.btnNewButton_1.setVisible(true);
-    	this.btnNewButton.setVisible(true);
+      this.btnNewButton.setVisible(true);
 
         //this.btnNewButton.setVisible(true);
         this.btnHistori.setVisible(true);
         this.btnNewButton.setVisible(true);
         
       } else {
-    	this.btnNewButton.setVisible(false);
+      this.btnNewButton.setVisible(false);
         this.btnPelanggan.setVisible(false);
         this.btnNewButton_1.setVisible(false);
         this.btnWithdraw.setVisible(false);
@@ -1209,18 +1240,32 @@ public class AdminKasir extends JFrame {
     } catch (Exception exception) {}
   }
   
-  private void UpdatePoinPelanggan() {
+  private void UpdatePoinPelanggan(Double bayar, Double total, Double poin_pelanggan, String id_pelanggan) {
     String idPelanggan = this.textPelanggan.getText();
     if (idPelanggan != "") {
       Connection konek = Koneksi.getKoneksi();
       double i = Double.valueOf(poinDum.getText()).doubleValue();
       double j = Double.valueOf(this.totalPoinPelanggan.getText()).doubleValue();
       double poin = i + j;
-      double totalUang = getTotal_bayar().doubleValue() + getUang().doubleValue();
-      System.out.print("total uang" + totalUang);
-      System.out.println("toatl uang" + getUang());
+      
+      //labelTotal
+      /*
+       * String str = this.textField_1.getText();
+    String strNew = str.replaceFirst(",", "");
+    Double harga = Double.valueOf(Double.parseDouble(strNew));
+       */
+     // Double.parseDouble(poinDum.getText()), labelTotal.getText()
+      Double uang_bayar = Double.parseDouble(labelTotal.getText().replace(",", ""));
+      //double totalUang = getTotal_bayar().doubleValue() + getUang().doubleValue();
+      Double poin_total = Double.parseDouble(poinDum.getText().replace(",", ""));
+      System.out.println("poin plenaggan"+labelTotal.getText());
+      System.out.println("poin plenaggan"+bayar+"ok"+total+"poin"+poin_pelanggan+"poin"+id_pelanggan);
+
+      Double po = 4.67;
+     // System.out.print("total uang" + totalUang);
+      //System.out.println("toatl uang" + getUang());
       setJumlahpoindiprint(poin);
-      String sql = "UPDATE pelanggan SET uang = uang + " + totalUang + "," + "poin='" + poin + "'WHERE id = '" + idPelanggan + "'";
+      String sql = "UPDATE pelanggan SET uang = uang + " + bayar + "," + "poin= poin +'" + poin_pelanggan + "'WHERE id = '" + id_pelanggan + "'";
       try {
         Statement state = konek.createStatement();
         state.executeUpdate(sql);
@@ -1356,7 +1401,7 @@ public class AdminKasir extends JFrame {
         if (this.textPelanggan.getText() == "")
           setPoint(Double.valueOf(0.0D)); 
         setUang(Double.valueOf(0.0D));
-        UpdatePoinPelanggan();
+        //UpdatePoinPelanggan();
         this.controllerJ.insertJuals(this);
         this.conttrollerD.setNo_transaksi(this.controllerJ.getNo_trans());
         this.conttrollerD.insertDetailJuals(this);
@@ -1485,7 +1530,7 @@ public class AdminKasir extends JFrame {
   public void clearPelanggan() {
     this.textPelanggan.setText("");
     this.lblNamaPelanggan.setText("");
-    labelTotal.setText("0");
+    this.labelTotal.setText("0");
     setSeluruh_poin(0.0D);
     setNama_pelanggan("");
     setPoint(Double.valueOf(0.0D));
@@ -1517,11 +1562,11 @@ public class AdminKasir extends JFrame {
     JOptionPane.showMessageDialog(this, "Terima kasih " + getUser_name() + " " + "Selamat istirahat" + "toko dan Program akan di tutup dan ganti sift");
     dispose();
   }
-  public  void insertPenjualan(Double bayar, Double total_bayar, Double kembali, Double Poin) {
-	  //System.out.println("di insert penjualan");
+  public  void insertPenjualan(Double bayar, Double total_bayar, Double kembali, Double Poin, String idPelangganx) {
+    //System.out.println("di insert penjualan");
 
 
-	   setTunai(total_bayar);
+     setTunai(total_bayar);
      // y = Double.valueOf(total_bayars.doubleValue() - getTotal_bayar().doubleValue());
       setKembali(kembali);
       setPoinTotal(Poin);
@@ -1530,6 +1575,8 @@ public class AdminKasir extends JFrame {
       this.controllerJ.insertJuals(this);
       this.conttrollerD.setNo_transaksi(this.controllerJ.getNo_trans());
       this.conttrollerD.insertDetailJuals(this);
+      System.out.println("nilai"+labelTotal.getText());
+      UpdatePoinPelanggan(bayar, total_bayar, Poin, idPelangganx);
       //CetakPrint view = new CetakPrint();
       //decimalFormatx
     //  String.valueOf(decimalFormatx.format(bayar));
@@ -1540,7 +1587,10 @@ public class AdminKasir extends JFrame {
       this.barCode.requestFocus();
       resetTable();
       clearPelanggan();
+      lblNamaPelanggan.setText("");
+      textPelanggan.setText("");
       resetTransaksi();
+      //textField_2.setText("0");
       /*
       this.lblTotal.setText("0");
       this.totalPoinPelanggan.setText("0");
@@ -1551,36 +1601,36 @@ public class AdminKasir extends JFrame {
       
   }
   private void lihatBayar() {
-	  viewBayar bayar = new viewBayar( labelTotal.getText(), poinDum.getText());
-	  
+    viewBayar bayar = new viewBayar( labelTotal.getText(), poinDum.getText(), lblNamaPelanggan.getText(), textPelanggan.getText());
+    
   }
 
 public Double getPoinTotal() {
-	return poinTotal;
+  return poinTotal;
 }
 
 public void setPoinTotal(Double poinTotal) {
-	this.poinTotal = poinTotal;
+  this.poinTotal = poinTotal;
 }
 
 private void cetakDotMatrix(String bayar, String total, String kembali) {
-	  int x =0;
+    int x =0;
       x = AdminKasir.this.getNo_jual() - 1; //CetakCoba
       DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd");
       LocalDate localDate = LocalDate.now();
       System.out.println(dtf.format(localDate)); //
         Fakturx faktur = new Fakturx(getUser_name()+"#"+x,"*", 
-        		total, kembali, AdminKasir.this.jam_skr, bayar,dtf.format(localDate));
+            total, kembali, AdminKasir.this.jam_skr, bayar,dtf.format(localDate));
         //getUser_name()
         String nama_barang = (String) AdminKasir.table.getValueAt(0, 2);
         for (int i = 0; i < AdminKasir.table.getRowCount(); i++) {
-        	
-        	
-	        faktur.tambahItemFakturx(new ItemFakturx((String) AdminKasir.table.getValueAt(i, 2),
-	        		(String)AdminKasir.table.getValueAt(i, 3), 
-	        		(String)AdminKasir.table.getValueAt(i, 4),  
-	        		(String)AdminKasir.table.getValueAt(i, 5)));
-	        
+          
+          
+          faktur.tambahItemFakturx(new ItemFakturx((String) AdminKasir.table.getValueAt(i, 2),
+              (String)AdminKasir.table.getValueAt(i, 3), 
+              (String)AdminKasir.table.getValueAt(i, 4),  
+              (String)AdminKasir.table.getValueAt(i, 5)));
+          
           } 
          
        
@@ -1598,70 +1648,70 @@ private void cetakDotMatrix(String bayar, String total, String kembali) {
 }
 class CetakCoba extends JFrame {
 
-	  private JPanel contentPane;
+    private JPanel contentPane;
 
-	  /**
-	   * Launch the application.
-	   */
-	 /* public void main(String[] args) {
-	    EventQueue.invokeLater(new Runnable() {
-	      public void run() {
-	        try {
-	          CetakCoba frame = new CetakCoba();
-	          frame.setVisible(true);
-	        } catch (Exception e) {
-	          e.printStackTrace();
-	        }
-	      }
-	    });
-	  }
-	  */
+    /**
+     * Launch the application.
+     */
+   /* public void main(String[] args) {
+      EventQueue.invokeLater(new Runnable() {
+        public void run() {
+          try {
+            CetakCoba frame = new CetakCoba();
+            frame.setVisible(true);
+          } catch (Exception e) {
+            e.printStackTrace();
+          }
+        }
+      });
+    }
+    */
 
-	  /**
-	   * Create the frame.
-	   */
-	  public CetakCoba(String bayar, String total, String kembali) {
-	    super("Latihan");
-	     // this.no_faktur = UserSession.getUserLogin();
-	      int x =0;
-	      x = AdminKasir.this.getNo_jual() - 1; //CetakCoba
-	      DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd");
-	      LocalDate localDate = LocalDate.now();
-	      System.out.println(dtf.format(localDate)); //
-	        Fakturx faktur = new Fakturx(getUser_name()+"#"+x,"*", 
-	        		total, kembali, AdminKasir.this.jam_skr, bayar,dtf.format(localDate));
-	        //getUser_name()
-	        String nama_barang = (String) AdminKasir.table.getValueAt(0, 2);
-	        for (int i = 0; i < AdminKasir.table.getRowCount(); i++) {
-	        	
-	        	
-		        faktur.tambahItemFakturx(new ItemFakturx((String) AdminKasir.table.getValueAt(i, 2),
-		        		(String)AdminKasir.table.getValueAt(i, 3), 
-		        		(String)AdminKasir.table.getValueAt(i, 4),  
-		        		(String)AdminKasir.table.getValueAt(i, 5)));
-		        
-	          } 
-	         
-	       
-	        
-	        Template template  = null;
-	        try {
-	          //   jsonTemplate = new JsonTemplate(Main.class.getResourceAsStream("templatedua.json"));
+    /**
+     * Create the frame.
+     */
+    public CetakCoba(String bayar, String total, String kembali) {
+      super("Latihan");
+       // this.no_faktur = UserSession.getUserLogin();
+        int x =0;
+        x = AdminKasir.this.getNo_jual() - 1; //CetakCoba
+        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd");
+        LocalDate localDate = LocalDate.now();
+        System.out.println(dtf.format(localDate)); //
+          Fakturx faktur = new Fakturx(getUser_name()+"#"+x,"*", 
+              total, kembali, AdminKasir.this.jam_skr, bayar,dtf.format(localDate));
+          //getUser_name()
+          String nama_barang = (String) AdminKasir.table.getValueAt(0, 2);
+          for (int i = 0; i < AdminKasir.table.getRowCount(); i++) {
+            
+            
+            faktur.tambahItemFakturx(new ItemFakturx((String) AdminKasir.table.getValueAt(i, 2),
+                (String)AdminKasir.table.getValueAt(i, 3), 
+                (String)AdminKasir.table.getValueAt(i, 4),  
+                (String)AdminKasir.table.getValueAt(i, 5)));
+            
+            } 
+           
+         
+          
+          Template template  = null;
+          try {
+            //   jsonTemplate = new JsonTemplate(Main.class.getResourceAsStream("templatedua.json"));
 
-	            template = new JsonTemplate(CetakCoba.class.getResourceAsStream("faktur.json"));
-	        } catch (Exception ex) {
-	            ex.printStackTrace();
-	        }
-	        PrintPreviewPane preview = new PrintPreviewPane(template, null, faktur);
-	        setLayout(new BorderLayout());
-	        add(preview, BorderLayout.CENTER);
-	 
-	        pack();
-	        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-	        setVisible(true);
-	  }
+              template = new JsonTemplate(CetakCoba.class.getResourceAsStream("faktur.json"));
+          } catch (Exception ex) {
+              ex.printStackTrace();
+          }
+          PrintPreviewPane preview = new PrintPreviewPane(template, null, faktur);
+          setLayout(new BorderLayout());
+          add(preview, BorderLayout.CENTER);
+   
+          pack();
+          setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+          setVisible(true);
+    }
 
-	}
+  }
 
 class CetakPrint extends JFrame {
     private static final long serialVersionUID = 1L;
@@ -1701,8 +1751,8 @@ class CetakPrint extends JFrame {
       } 
       Fakturtiga fakturdua = new Fakturtiga(String.valueOf(String.valueOf(String.valueOf(String.valueOf(this.no_faktur)))) + "-" + x, tanggal, AdminKasir.this.jam_skr, 
           //dfx.format(Math.round(AdminKasir.this.getTotal_bayar().doubleValue())), dfx.format(AdminKasir.this.getTunai()), 
-    		  dfx.format(Math.round(AdminKasir.this.getUang().doubleValue())), dfx.format(AdminKasir.this.getTunai()), 
-    		  dfx.format(AdminKasir.this.getKembali()), jumlahPoin, AdminKasir.this.lblNamaPelanggan.getText());
+          dfx.format(Math.round(AdminKasir.this.getUang().doubleValue())), dfx.format(AdminKasir.this.getTunai()), 
+          dfx.format(AdminKasir.this.getKembali()), jumlahPoin, AdminKasir.this.lblNamaPelanggan.getText());
       for (int i = 0; i < AdminKasir.table.getRowCount(); i++) {
         int jum = 0;
         jum = Integer.parseInt(AdminKasir.table.getValueAt(i, 3).toString());
@@ -1718,13 +1768,13 @@ class CetakPrint extends JFrame {
       Template template = null;
       /*
       try {
-    	  template = new JsonTemplate(CetakPrint.class.getResourceAsStream("templateempat.json"));
+        template = new JsonTemplate(CetakPrint.class.getResourceAsStream("templateempat.json"));
       } catch (IOException e) {
         e.printStackTrace();
       } 
       */
       try {
-    	  template = new JsonTemplate(CetakPrint.class.getResourceAsStream("templateempat.json"));
+        template = new JsonTemplate(CetakPrint.class.getResourceAsStream("templateempat.json"));
       } catch (Exception ex) {
         ex.printStackTrace();
       } 
@@ -1740,9 +1790,8 @@ class CetakPrint extends JFrame {
     }
   }
 
- private static void resetTransaksi() {
-	 labelTotal.setText("0");
+ public static void resetTransaksi() {
+   labelTotal.setText("0");
+   poinDum.setText("0");
  }
-
-
 }
