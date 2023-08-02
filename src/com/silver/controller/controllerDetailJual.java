@@ -26,19 +26,19 @@ public class controllerDetailJual {
   }
   
   public void insertDetailJuals(AdminKasir view) {
-    int no_jual = getNo_transaksi();
-    int id_jual = view.getNo_jual();
+    //int no_jual = getNo_transaksi();
+    //int id_jual = view.getNo_jual();
+	  System.out.println("cetak this one"+view.nomer_transaksi);
     String id_jual_nama = "yuli";
-    for (int i = 0; i < view.getTable().getRowCount(); i++) {
-      this.model.setId_jual(no_jual);
-      this.model.setKode_barang((String)view.getTable().getValueAt(i, 0));
+    for (int i = 0; i < view.table.getRowCount(); i++) {
+      this.model.setId_jual(view.nomer_transaksi);
+      this.model.setKode_barang((String)view.tableModel.getValueAt(i, 0));
       this.model.setJumlah(Integer.parseInt(
-            view.getTable().getValueAt(i, 3)
+            view.tableModel.getValueAt(i, 3)
             .toString().trim()));
       this.model.setHarga_jual(
           Double.parseDouble((
-            (String)view.getTable()
-            .getValueAt(i, 4)).replace(",", "")));
+            (String)view.tableModel.getValueAt(i, 4)).replace(",", "")));
       /*
       this.model.setPoin(
               Double.parseDouble((

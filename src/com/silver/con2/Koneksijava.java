@@ -22,7 +22,7 @@ public class Koneksijava {
 
         // auto close connection
         try (Connection conn = DriverManager.getConnection(
-                "jdbc:mysql://localhost:3306/rizky", "root", "")) {
+                "jdbc:mysql://192.168.100.20:3306/rizky", "silver", "peruvian")) {
 
             if (conn != null) {
                 System.out.println("Connected to the database!");

@@ -37,8 +37,8 @@ public class Cetak extends JFrame {
 
         Fakturx faktur = new Fakturx("FA-1234-556677-XX-BB-CC","farihul","12:23","50000","50000","49999", "12-2023");
         
-        for(int i=0;i<=25;i++) {
-        	faktur.tambahItemFakturx(new ItemFakturx("Plantronics Backbeat Go 2 With Charging Case",
+        for(int i=0;i<=10;i++) {
+        	faktur.tambahItemFakturx(new ItemFakturx("Plantronics Backbeat",
                     "1", "600,000",  "600,000"));
         }
       
@@ -50,9 +50,9 @@ public class Cetak extends JFrame {
         } catch (Exception ex) {
             ex.printStackTrace();
         }
-       // PrintPreviewPane preview = new PrintPreviewPane(template, null, faktur);
-        //setLayout(new BorderLayout());
-        //add(preview, BorderLayout.CENTER);
+       PrintPreviewPane preview = new PrintPreviewPane(template, null, faktur);
+        setLayout(new BorderLayout());
+        add(preview, BorderLayout.CENTER);
  
         pack();
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

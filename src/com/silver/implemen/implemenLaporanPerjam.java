@@ -88,7 +88,8 @@ public class implemenLaporanPerjam implements DaoHasilPerjam {
   }
   
   public List<JamLaporan> pilihTanggal(String dari, String ke) throws ErrorInfo {
-    String querysatu = "SELECT id_kasir,total,jam, tanggal FROM `jual` WHERE tanggal=CURRENT_DATE";
+	  //SELECT id_kasir,total,jam, tanggal FROM `jual` WHERE tanggal=CURRENT_DATE-1 && jam <= "12:00:00"
+    String querysatu = "SELECT id_kasir,total,jam, tanggal FROM `jual` WHERE tanggal="+"'"+dari+"'" +"&& jam < '12:00:00' ";
     Statement statement = null;
     List<JamLaporan> list = new ArrayList<>();
     try {
@@ -121,7 +122,7 @@ public class implemenLaporanPerjam implements DaoHasilPerjam {
   }
   
   public List<JamLaporan> pilihTanggal2(String dari, String ke) throws ErrorInfo {
-    String querysatu = "SELECT id_kasir,total,jam, tanggal FROM `jual` WHERE tanggal=CURRENT_DATE";
+	String querysatu = "SELECT id_kasir,total,jam, tanggal FROM `jual` WHERE tanggal="+"'"+dari+"'" +"&& jam >= '12:00:00' ";
     Statement statement = null;
     List<JamLaporan> list = new ArrayList<>();
     try {

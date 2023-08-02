@@ -16,7 +16,7 @@ public class MappingDbBarang {
       MysqlDataSource dataSource = new MysqlDataSource();
 
       //dataSource.setUrl("jdbc:mysql://192.168.1.10:3306/rizqy");
-      dataSource.setUrl("jdbc:mysql://localhost:3306/rizky");
+      dataSource.setUrl("jdbc:mysql://localhost:3306/toko");
 
       //dataSource.setUrl("jdbc:mysql://localhost:3306/rizqy");
       dataSource.setUser("root");

@@ -118,6 +118,7 @@ public class implemenTutup implements DaoTutupToko {
   }
   
   public List<tutup_toko> selectDari(String tanggal1, String tanggal2) throws ErrorInfo {
+	System.out.println("cona di ekseksi");
     Statement statement = null;
     String id_kasir = "id_kasir";
     String selecte = "select tanggal, id_kasir, sum(total) as total from jual where jam <= \"12:00:00\" AND tanggal = '" + 

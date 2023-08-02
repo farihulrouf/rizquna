@@ -149,6 +149,7 @@ public class Withdraw extends JDialog {
     this.textTotal.setBounds(346, 400, 350, 37);
     this.contentPanel.add(this.textTotal);
     JButton btnNewButton = new JButton("Lihat");
+    /*
     btnNewButton.addActionListener(new ActionListener() {
           public void actionPerformed(ActionEvent arg0) {
             try {
@@ -161,6 +162,7 @@ public class Withdraw extends JDialog {
             } 
           }
         });
+        */
     btnNewButton.setBounds(37, 12, 117, 25);
     this.contentPanel.add(btnNewButton);
     JScrollPane scrollPane = new JScrollPane();
@@ -207,8 +209,8 @@ public class Withdraw extends JDialog {
     JButton cancelButton = new JButton("Cancel");
     cancelButton.setActionCommand("Cancel");
     buttonPane.add(cancelButton);
-    autoNumber4(jam);
-    autoNumber3(jam);
+  //  autoNumber4(jam);
+   // autoNumber3(jam);
   }
   
   private void autoNumber3(String jam) {

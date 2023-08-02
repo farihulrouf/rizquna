@@ -15,10 +15,10 @@ public class AdminDatabase {
     if (connection == null) {
       MysqlDataSource dataSource = new MysqlDataSource();
 
-      dataSource.setUrl("jdbc:mysql://localhost:3306/rizky");
+     // dataSource.setUrl("jdbc:mysql://localhost:3306/rizky");
      // dataSource.setUrl("jdbc:mysql://192.168.1.40:3306/rizky");
 
-      //dataSource.setUrl("jdbc:mysql://192.168.1.40:3306/rizky");
+      dataSource.setUrl("jdbc:mysql://localhost:3306/toko");
       dataSource.setUser("root");
       dataSource.setPassword("");
       connection = dataSource.getConnection();

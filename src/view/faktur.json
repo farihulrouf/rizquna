@@ -1,40 +1,31 @@
 {
-     "pageFormat": {
-         "pageLength": 50,
-         "pageWidth": 35,
-         "usePageLengthFromPrinter": false
-     },
-     "template": {
-         "header": [  "           TOKO Rahmat   ",
-            "      jl.Kh Sahlan No 57 ", 
-            "          Manyar Gresik    ",
-            "   085-655-433-100/081335588368 ",
-             " ${nomorFaktur:15}${tanggal:10} ${jam:10}         ",
-            " .............................."   ],
-         "detail": [
-             " Nomor Faktur: ${nomorFaktur:20}",
-             {
-                "table": "listItemFaktur",
-                "border": false,
-                "columns": [
-                    { "caption": "Barang", "source": "namaBarang", "width": 15, "wrap": false },
-                    { "caption": "Qty", "source": "qty::right", "width": 5},
-                    { "caption": "Harga", "source": "harga::right", "width": 10 },
-                    { "caption": "Total", "source": "total::right", "width": 10 }
-                ]
-             },
-             "...............................",
+    "pageFormat": {
+        "pageWidth": 65,                                                   
+        "pageLength": 30,                                                  
+        "usePageLengthFromPrinter": false                                  
+    },
+    "template": {
+        "header": [
+            "           Toko Rahmat   ",
+            "         Jln.ky Sahlan N0 22   ", 
+            "           Manyar Gresik                      ",
+            " ${nomorFaktur:20} ${tanggal:10}               ",
+            " .............................."   ],"detail": [
+            { "table": "listItemFaktur","border": false,"columns": [
+                    { "caption": "", "source": "namaBarang", "width": 32, "wrap": false },
+                    { "caption": "Qty", "source": "qty::right", "width": 4 },
+                    { "caption": "Harga", "source": "harga::right", "width": 12 },
+                    { "caption": "Total", "source": "total::right", "width": 12 }
+                ]},
+           "...............................",
            "Total       : ${totalx:10}",
            "Tunai       : ${tunai:10}",
            "Kembali     : ${kembali:10}",
-            "nama        : ${ nama:10}",
            "...............................",
            "        Terima kasih     ",
-           " Barang yang Sudah di beli ",
-           " Tidak Bisa Di kembalikan",
-           "                               ",
-           "                               ",
-           "***************************************"
-         ]
-     }
- }
+           "                           ",
+           "                           ",
+           "                           "
+        ]
+    }
+}

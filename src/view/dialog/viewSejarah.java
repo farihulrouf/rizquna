@@ -28,6 +28,10 @@ import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.TableModel;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 
 public class viewSejarah extends JDialog {
   private final JPanel contentPanel = new JPanel();
@@ -43,10 +47,11 @@ public class viewSejarah extends JDialog {
   private TableModelJam2 tableModel2;
   
   private JTable table_1;
+  String pattern  = "yyyy-MM-dd";
+  DateFormat formatter = new SimpleDateFormat(pattern);
+
   
   private JDateChooser dateChooser;
-  
-  private JDateChooser dateChooser_1;
   
   SimpleDateFormat dataFormatTanggal = new SimpleDateFormat("yyy-MM-dd");
   
@@ -104,13 +109,15 @@ public class viewSejarah extends JDialog {
     JButton btnLihat = new JButton("Prosess");
     btnLihat.addActionListener(new ActionListener() {
           public void actionPerformed(ActionEvent arg0) {
+        	  
+      		Date date = dateChooser.getDate();
+      		System.out.println(formatter.format(dateChooser.getDate()));
+      		
             viewSejarah.this.table.setModel((TableModel)viewSejarah.this.tableModel);
             viewSejarah.this.table_1.setModel((TableModel)viewSejarah.this.tableModel2);
             try {
-              viewSejarah.this.lihat_hasil(String.valueOf(viewSejarah.this.dataFormatTanggal.format(viewSejarah.this.dateChooser.getDate())), 
-                  viewSejarah.this.dataFormatTanggal.format(viewSejarah.this.dateChooser_1.getDate()));
-              viewSejarah.this.lihat_hasil2(String.valueOf(viewSejarah.this.dataFormatTanggal.format(viewSejarah.this.dateChooser.getDate())), 
-                  viewSejarah.this.dataFormatTanggal.format(viewSejarah.this.dateChooser_1.getDate()));
+              viewSejarah.this.lihat_hasil(formatter.format(dateChooser.getDate()), formatter.format(dateChooser.getDate()));
+              viewSejarah.this.lihat_hasil2(formatter.format(dateChooser.getDate()), formatter.format(dateChooser.getDate()));
               viewSejarah.this.hitung_total();
               viewSejarah.this.hitung_total2();
               viewSejarah.this.hitungAll();
@@ -142,11 +149,9 @@ public class viewSejarah extends JDialog {
     this.textField_2.setBounds(324, 331, 165, 31);
     this.contentPanel.add(this.textField_2);
     this.dateChooser = new JDateChooser(new Date());
+
     this.dateChooser.setBounds(242, 2, 142, 25);
     this.contentPanel.add((Component)this.dateChooser);
-    this.dateChooser_1 = new JDateChooser(new Date());
-    this.dateChooser_1.setBounds(400, 2, 142, 25);
-    this.contentPanel.add((Component)this.dateChooser_1);
     JButton btnCetakKomputer = new JButton("Cetak Komputer 1");
     btnCetakKomputer.setBounds(23, 400, 193, 25);
     this.contentPanel.add(btnCetakKomputer);

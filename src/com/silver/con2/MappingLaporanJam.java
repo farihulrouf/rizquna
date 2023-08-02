@@ -16,9 +16,9 @@ public class MappingLaporanJam {
       MysqlDataSource dataSource = new MysqlDataSource();
 
       //dataSource.setUrl("jdbc:mysql://192.168.1.10:3306/rizqy");
-      dataSource.setUrl("jdbc:mysql://localhost:3306/rizqy");
-      dataSource.setUser("root");
-      dataSource.setPassword("");
+      dataSource.setUrl("jdbc:mysql://192.168.100.20:3306/toko");
+      dataSource.setUser("silver");
+      dataSource.setPassword("peruvian");
       connection = dataSource.getConnection();
     } 
     return connection;
